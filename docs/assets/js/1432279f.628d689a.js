@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkstreetmix_docs=globalThis.webpackChunkstreetmix_docs||[]).push([[6415],{8514(s){s.exports=JSON.parse('{"metadata":{"permalink":"/Cross-section-app/docs/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":0,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

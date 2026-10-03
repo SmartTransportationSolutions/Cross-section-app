@@ -1,0 +1,5 @@
+{
+  "$comment": "STS Street Plus membership for the GitHub Pages deployment. List GitHub logins (case-insensitive). Change this file through a reviewed pull request. 'admin' implies Plus.",
+  "plus": [],
+  "admin": []
+}

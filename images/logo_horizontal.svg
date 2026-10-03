@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 175" width="880" height="175">
+  <title>STS Street</title>
+  <g transform="translate(0 7.5) scale(2.5)">
+    <rect x="2" y="2" width="60" height="60" rx="14" fill="#143a66"/>
+    <rect x="10" y="40" width="10" height="8" rx="1.5" fill="#f2a900"/>
+    <rect x="22" y="43" width="20" height="5" rx="1.5" fill="#e9eef5"/>
+    <rect x="44" y="40" width="10" height="8" rx="1.5" fill="#f2a900"/>
+    <rect x="31" y="44.5" width="2" height="2" fill="#143a66"/>
+    <rect x="12" y="20" width="7" height="18" rx="1" fill="#2e8bb8"/>
+    <rect x="14" y="23" width="3" height="3" fill="#143a66"/>
+    <rect x="14" y="29" width="3" height="3" fill="#143a66"/>
+    <circle cx="48" cy="28" r="6" fill="#4cc38a"/>
+    <rect x="47" y="33" width="2" height="7" fill="#e9eef5"/>
+  </g>
+  <text x="190" y="118" font-family="Manrope Variable, Manrope, Rubik, Arial, Helvetica, sans-serif" font-weight="700" font-size="104" fill="#143a66" letter-spacing="-2">STS <tspan fill="#2e8bb8">Street</tspan></text>
+</svg>
