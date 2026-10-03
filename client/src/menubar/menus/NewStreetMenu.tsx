@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { openGallery } from '~/src/store/actions/gallery.js'
 import { URL_NEW_STREET, STREET_TEMPLATES } from '~/src/app/constants.js'
+import { withBase } from '~/src/static/env.js'
 import { BetaTag } from '~/src/ui/BetaTag.js'
 import { Icon } from '~/src/ui/Icon.js'
 import Menu, { type MenuProps } from './Menu.js'
@@ -12,7 +13,7 @@ import { SignInPromo } from './ShareMenu/SignInPromo.js'
 
 function openTemplate(template: string, tour: boolean = false): void {
   const url =
-    `${URL_NEW_STREET}?type=${template}` + (tour ? `&tour=${true}` : '')
+    withBase(`${URL_NEW_STREET}?type=${template}`) + (tour ? `&tour=${true}` : '')
   window.open(url, '_blank')
 }
 

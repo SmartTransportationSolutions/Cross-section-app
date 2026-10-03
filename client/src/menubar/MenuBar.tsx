@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
+import { brand } from '@sts-street/branding'
 import logo from 'url:../../images/logo_horizontal.svg'
 import logoCoastmix from 'url:~/src/plugins/coastmix/images/logo_horizontal_coastmix.svg'
 import bostonLogo from 'url:~/src/plugins/coastmix/images/boston-logo.svg'
@@ -122,13 +123,12 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
         <li className="menu-bar-title">
           <img
             src={logoSrc}
-            // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            alt="Streetmix"
+            alt={brand.productName}
             className="menu-bar-logo"
             draggable={false}
           />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          <h1>{coastmixMode ? 'Coastmix by Streetmix' : 'Streetmix'}</h1>
+          <h1>{coastmixMode ? 'Coastmix' : brand.productName}</h1>
           {coastmixMode && (
             <a
               href="https://www.boston.gov/coastmix/"

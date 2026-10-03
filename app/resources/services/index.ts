@@ -1,6 +1,5 @@
 export * as changelog from './changelog.ts'
 export * as cspReport from './csp_report.ts'
 export * as geoip from './geoip.ts'
-export * as images from './images.ts'
-export * as integrations from './integrations/index.ts'
-export * as payments from './payments.ts'
+export * as newsletter from './newsletter.ts'
+export * as source from './source.ts'

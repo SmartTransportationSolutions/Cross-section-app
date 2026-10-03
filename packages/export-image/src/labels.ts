@@ -68,7 +68,7 @@ export async function drawLabels(
     globalThis.window === undefined ? LABEL_FONT_SERVER : LABEL_FONT_CLIENT
 
   ctx.lineWidth = 0.25 * scale
-  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${LABEL_FONT_SIZE * scale}px ${font}`
+  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${LABEL_FONT_SIZE * scale}px ${font}, 'Noto Sans Georgian', sans-serif`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
   ctx.strokeStyle = 'black'

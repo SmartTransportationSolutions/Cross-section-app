@@ -16,7 +16,8 @@ vi.mock('../../app/config.js', async (importOriginal) => {
   const actual: object = await importOriginal()
   return {
     ...actual,
-    CARTO_API_KEY: 'test-api-key',
+    MAP_TILES_URL: 'https://tiles.example.com/{z}/{x}/{y}.png',
+    MAP_TILES_ATTRIBUTION: 'Test attribution',
   }
 })
 

@@ -12,7 +12,7 @@ import {
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 import type { Request, Response } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+import type { Request as AuthedRequest } from 'express'
 import type { StreetData } from '@streetmix/types'
 
 // Briefly define the shape of legacy data so we can type-safely remove these
@@ -20,6 +20,12 @@ import type { StreetData } from '@streetmix/types'
 type LegacyStreetData = StreetData & {
   undoStack?: unknown
   undoPosition?: unknown
+}
+
+// Errors are thrown as `new Error(ERRORS.X)`; normalise to the code string.
+function errorCode(err: unknown): string {
+  if (err instanceof Error) return err.message
+  return typeof err === 'string' ? err : ''
 }
 
 const DEFAULT_PAGE = 1
@@ -78,7 +84,7 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   function updateUserLastStreetId(userId: string) {
-    return User.findOne({ where: { auth0Id: userId } }).then((user) => {
+    return User.findOne({ where: { authSubject: userId } }).then((user) => {
       if (!user) {
         throw new Error(ERRORS.USER_NOT_FOUND)
       }
@@ -176,7 +182,8 @@ export async function post(req: AuthedRequest, res: Response) {
     res.status(201).json(s)
   }
 
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -204,7 +211,7 @@ export async function post(req: AuthedRequest, res: Response) {
     let user: User | null
     try {
       user = await User.findOne({
-        where: { auth0Id: req.auth.sub },
+        where: { authSubject: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
@@ -243,7 +250,7 @@ export async function del(req: AuthedRequest, res: Response) {
 
     try {
       user = await User.findOne({
-        where: { auth0Id: req.auth.sub },
+        where: { authSubject: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
@@ -267,7 +274,8 @@ export async function del(req: AuthedRequest, res: Response) {
     return street.save({ returning: true })
   }
 
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -285,6 +293,7 @@ export async function del(req: AuthedRequest, res: Response) {
         })
         return
       default:
+        logger.error(err)
         res.status(500).end()
     }
   }
@@ -425,10 +434,8 @@ export async function find(req: Request, res: Response) {
     })
   } // END function - findStreets
 
-  // TODO: There is a bug here where errors thrown by `new Error` will have
-  // its value in `error.message`, not error! We should figure out how to
-  // make this be consistent
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -539,7 +546,8 @@ export async function put(req: AuthedRequest, res: Response) {
     return
   }
 
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -653,7 +661,7 @@ export async function put(req: AuthedRequest, res: Response) {
     }
 
     const user = await User.findOne({
-      where: { auth0Id: req.auth.sub },
+      where: { authSubject: req.auth.sub },
     })
 
     const isOwner = user && user.id === street.creatorId

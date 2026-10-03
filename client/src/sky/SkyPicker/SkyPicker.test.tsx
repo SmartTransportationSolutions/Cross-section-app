@@ -70,13 +70,13 @@ describe('SkyPicker', () => {
     expect(uiSlice.toggleToolbox).toHaveBeenCalled()
   })
 
-  it('shows Streetmix+ prompt', () => {
+  it('shows STS Street Plus prompt', () => {
     render(<SkyPicker />, {
       initialState: {
         ...initialState,
       },
     })
-    expect(screen.queryByText('Get Streetmix+')).not.toBeInTheDocument()
+    expect(screen.queryByText('Get STS Street Plus')).not.toBeInTheDocument()
   })
 
   it('does not select a skybox for unsubscribed users', async () => {

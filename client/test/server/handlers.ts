@@ -1,4 +1,3 @@
-import { URLSearchParams } from 'node:url'
 import { readFile } from 'node:fs/promises'
 import * as path from 'node:path'
 import { http, HttpResponse, delay } from 'msw'
@@ -59,11 +58,11 @@ export const handlers = [
 
   // EXTERNAL REQUESTS
   http.post(
-    'https://buttondown.email/api/emails/embed-subscribe/streetmix',
+    '/services/newsletter',
     async ({ request }) => {
       // Read submitted email address and conditionally respond
-      const text = await request.text()
-      const params = new URLSearchParams(text)
+      const body = (await request.json()) as { email?: string }
+      const params = new Map([['email', body.email ?? '']])
 
       // Mock response with a 500 error
       if (params.get('email') === 'error_500@foo.com') {

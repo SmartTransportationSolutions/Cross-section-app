@@ -1,0 +1,72 @@
+{
+  "site": "http://localhost:8080/Cross-section-app",
+  "ranAt": "2026-10-03T17:15:44.983Z",
+  "evidence": [
+    {
+      "id": "P1",
+      "detail": {
+        "url": "http://localhost:8080/Cross-section-app/-/1",
+        "name": "Guest Street ქუჩა"
+      }
+    },
+    {
+      "id": "P2",
+      "detail": {
+        "url": "http://localhost:8080/Cross-section-app/sts-owner/1/rustaveli-avenue",
+        "gist": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
+        "apiHosts": [
+          "user",
+          "gists"
+        ]
+      }
+    },
+    {
+      "id": "P2-signout",
+      "detail": {
+        "removed": true
+      }
+    },
+    {
+      "id": "P3",
+      "detail": {
+        "patches": 2,
+        "description": "STS Street: Edit 10"
+      }
+    },
+    {
+      "id": "P4",
+      "detail": {
+        "shareUrl": "http://localhost:8080/Cross-section-app/sts-owner/1/owner-original",
+        "remixUrl": "http://localhost:8080/Cross-section-app/viewer-two/2/viewer-remix",
+        "forbiddenStatus": 403
+      }
+    },
+    {
+      "id": "P5",
+      "detail": {
+        "gallery": 3,
+        "remainingAfterDelete": 2,
+        "examples": 5
+      }
+    },
+    {
+      "id": "P6",
+      "detail": {
+        "subscriber": true,
+        "export": [
+          3329,
+          1206
+        ]
+      }
+    },
+    {
+      "id": "P7",
+      "detail": {
+        "hosts": [
+          "localhost:8080",
+          "api.github.com"
+        ]
+      }
+    }
+  ]
+}

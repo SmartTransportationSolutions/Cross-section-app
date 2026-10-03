@@ -1,3 +1,4 @@
+import { withBase } from '~/src/static/env.js'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import './TeamMember.css'
 
@@ -13,7 +14,7 @@ export function TeamMember(props: TeamMemberProps) {
   const style: React.CSSProperties = {}
 
   if (mugshotFile) {
-    style.backgroundImage = `url('/images/team/${mugshotFile}')`
+    style.backgroundImage = `url('${withBase(`/images/team/${mugshotFile}`)}')`
   }
 
   const displayName =

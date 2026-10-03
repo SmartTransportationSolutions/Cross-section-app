@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeExternalLinks from 'rehype-external-links'
+import { withBase } from '~/src/static/env.js'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
@@ -50,7 +51,7 @@ export const WhatsNewDialog = () => {
             <h1>
               <FormattedMessage
                 id="dialogs.whatsnew.heading"
-                defaultMessage="What’s new in Streetmix?&lrm;"
+                defaultMessage="What’s new in STS Street?&lrm;"
               />
             </h1>
           </header>
@@ -82,7 +83,11 @@ export const WhatsNewDialog = () => {
                   ]}
                   unwrapDisallowed
                   urlTransform={(url) => {
-                    return url.replace('/img/', '/images/')
+                    return withBase(
+                      url
+                        .replace(/^pathname:\/\//, '')
+                        .replace('/img/', '/images/')
+                    )
                   }}
                   rehypePlugins={[
                     [

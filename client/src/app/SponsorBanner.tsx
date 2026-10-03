@@ -1,5 +1,6 @@
 import { FormattedMessage } from 'react-intl'
 
+import { brand } from '@sts-street/branding'
 import { useSelector } from '../store/hooks.js'
 import { ExternalLink } from '../ui/ExternalLink.js'
 import { SPONSOR_BANNER } from './config.js'
@@ -59,7 +60,7 @@ export function SponsorBanner() {
       <span>.</span>&nbsp;&nbsp;&nbsp;
       <span className="sponsor-banner-misc">
         <a
-          href="https://about.streetmix.net/sponsorship/"
+          href={brand.companyUrl}
           target="_blank"
           rel="noopener noreferrer"
         >

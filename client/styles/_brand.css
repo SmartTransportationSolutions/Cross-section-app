@@ -1,0 +1,44 @@
+/**
+ *  STS Street brand theme
+ *  -------------------------------------------------------
+ *  Overrides the upstream color scales with the STS palette. The upstream
+ *  variable names are kept (components reference them everywhere); only the
+ *  values change. See docs/brand.md for the palette rationale.
+ *
+ *  - "emerald" scale  -> STS blue (primary actions, brand)
+ *  - "turquoise" scale -> STS teal (links, interactive elements, forms)
+ *  - "copper" scale   -> unchanged (warnings, locked states)
+ */
+
+:root {
+  /* STS blue: primary actions and brand marks */
+  --color-emerald-100: #e4eef7;
+  --color-emerald-200: #d3e3f1;
+  --color-emerald-300: #b7d3ea;
+  --color-emerald-400: #7fb3d9;
+  --color-emerald-500: #2e78a8;
+  --color-emerald-600: #255f86;
+  --color-emerald-700: #1b4766;
+  --color-emerald-800: #143a66;
+  --color-emerald-900: #0f2c4d;
+
+  /* STS teal: links, interactive text, form elements */
+  --color-turquoise-100: #e2f2f5;
+  --color-turquoise-200: #cfe9ee;
+  --color-turquoise-300: #b3dde5;
+  --color-turquoise-400: #7cc3d1;
+  --color-turquoise-500: #3ea4b8;
+  --color-turquoise-600: #2f8798;
+  --color-turquoise-700: #256b79;
+  --color-turquoise-800: #1b4f5a;
+  --color-turquoise-900: #12353c;
+
+  /* STS accent: membership badge, highlights */
+  --sts-accent: #f2a900;
+  --sts-accent-dark: #b07800;
+  --sts-navy: #143a66;
+
+  /* Neutral surfaces tuned slightly cooler than upstream */
+  --off-white: rgb(248 249 251);
+  --bottom-background: rgb(214 218 224);
+}

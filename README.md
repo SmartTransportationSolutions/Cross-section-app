@@ -1,83 +1,89 @@
 <p align="center">
-  <a href="http://streetmix.net/">
-    <img width="450" alt="Streetmix" src="https://user-images.githubusercontent.com/2553268/62242301-dc18c800-b3a8-11e9-9960-6f6cbac50234.png">
-  </a>
+  <img width="420" alt="STS Street" src="client/images/logo_horizontal.svg">
 </p>
 
 <p align="center">
-  <b>Streetmix is a collaborative process for communities and city planners to improve public spaces.</b> 
-  <br>Design, remix, and share your neighborhood street at <a href="https://streetmix.net/">streetmix.net</a>.
+  <b>STS Street</b> is the street cross-section design tool of
+  <a href="https://www.sts.com.ge/">Smart Transportation Solutions</a> (Tbilisi, Georgia).<br>
+  Design, remix, and share street sections with a drag-and-drop editor, precise widths,
+  galleries, image export and 29 languages.
 </p>
 
-<p align="center">
-  :couple: :palm_tree: :oncoming_automobile: :oncoming_bus: :palm_tree: :dancer:
-</p>
+STS Street is a modified version of [Streetmix](https://github.com/streetmix/streetmix)
+(imported at commit `f17578eec760d3c7b41216823ec32c7e8d04e8bc`, 2026-09-24) and is
+free software under the **GNU Affero General Public License v3.0 or later**.
+STS Street is not affiliated with or endorsed by the Streetmix project.
 
-<p align="center">
-  <br><b><a href="https://strt.mx/discord">Join our community on Discord!</a></b>
-</p>
+## What is different from upstream
 
-<p align="center">
-  <b>We welcome contributions!</b>
-  <br>Please see our <a href="https://docs.streetmix.net/contributing/intro">contributor guidelines</a>.
-</p>
+| Area | STS Street |
+| --- | --- |
+| Identity | Built-in identity service: email + password, email sign-in links, password reset, optional OpenID Connect providers (replaces Auth0) |
+| Membership | "STS Street Plus" tier granted by STS administrators (API + CLI); server-side entitlement checks |
+| Images | Server-rendered street images for exports and link previews (replaces Cloudinary); Georgian script support |
+| Privacy | No upstream telemetry or third-party services by default; first-party newsletter list; configurable map/geocoder |
+| Branding | STS logo, palette and copy; legal pages, source offer and user guide served by the app |
+| Operations | Docker/Compose deployment, GitHub Actions CI, admin CLI, demo seed |
 
-<p align="center">
-  <a href="https://github.com/streetmix/streetmix/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/streetmix/streetmix/ci.yml?branch=main&style=for-the-badge"></a>
-  <a href="https://codecov.io/gh/streetmix/streetmix"><img alt="Code coverage" src="https://img.shields.io/codecov/c/gh/streetmix/streetmix.svg?label=test%20coverage&style=for-the-badge"></a>
-</p>
+Details: [docs/architecture.md](docs/architecture.md), [docs/feature-parity.md](docs/feature-parity.md),
+[docs/reference-baseline.md](docs/reference-baseline.md), [docs/brand.md](docs/brand.md),
+[docs/operations.md](docs/operations.md), [docs/acceptance-report.md](docs/acceptance-report.md).
 
-<hr>
+## Editions
 
-<p align="center">
-  <img src="https://github.com/streetmix/streetmix/raw/main/docs/static/screenshot.png" alt="screenshot">
-</p>
+* **GitHub Pages edition** (production): runs entirely in the browser and
+  saves streets as GitHub Gists in each person's own GitHub account. Built by
+  `npm run build:pages`, deployed by `.github/workflows/pages.yml` to
+  <https://smarttransportationsolutions.github.io/Cross-section-app/>
+  (once Pages is enabled for the `gh-pages` branch). Details and limitations:
+  [docs/architecture.md §7](docs/architecture.md).
+* **Server edition** (self-hosting): Node.js + PostgreSQL with the built-in
+  STS identity service, described below.
 
-## About
+## Quick start (server edition)
 
-#### What are street sections?
+Requirements: Node.js 22 or 24, npm 11, PostgreSQL 14+ with PostGIS.
 
-A "section" is shortened way of saying "cross-section view", a type of 2D non-perspectival drawing commonly used in engineering and architecture to show what something looks like when you take a slice of it and look at it head-on. Similarly, a street section is a cross section view of a street, showing the widths and placement of vehicle lanes, bike lanes, sidewalks, trees, street furniture or accessories (like benches or street lamps), as well as engineering information like how the road is sloped to facilitate drainage, or the locations of underground utilities. Although sections can be simplified line drawings, urban designers and landscape architects have created very colorful illustrative street sections, removing most of the engineering particulars to communicate how a street could be designed to feel safe, walkable or habitable.
+```bash
+cp .env.example .env            # defaults match a local PostgreSQL user "streetmix"/"streetmix"
+createdb -O streetmix sts_street_dev
+npm ci
+npx sequelize-cli db:migrate
+npm run db:seed:demo            # optional demo accounts (see docs/operations.md)
+npm start                       # http://localhost:8000
+```
 
-![example-sections](docs/static/thumb_sections.png "Left to Right: (1) Existing conditions section of Market Street, from the Better Market Street Plan, San Francisco (2) Proposed one-way cycletrack design of Second Street, from the Great Second Street Plan, San Francisco (3)Example of an illustrative section, courtesy of Lou Huang")
+Or with Docker: `docker compose up --build` (see docs/operations.md for the
+production checklist: secrets, signing key, SMTP, reverse proxy).
 
-#### Why does Streetmix exist?
+Sign-in emails in development are written to `data/mail-outbox/` as JSON files.
 
-When city planners seek input from community meetings from the public on streetscape improvements, one common engagement activity is to create paper cut-outs depicting different street components (like bike lanes, sidewalks, trees, and so on) and allow attendees to reassemble them into their desired streetscape. Planners and city officials can then take this feedback to determine a course of action for future plans. By creating an web-based version of this activity, planners can reach a wider audience than they could at meetings alone, and allow community members to share and remix each other's creations.
+## Scripts
 
-The goal is to promote two-way communication between planners and the public, as well. Streetmix intends to communicate not just feedback to planners but also information and consequences of actions to the users that are creating streets. Kind of like SimCity did with its in-game advisors!
+| Command | Purpose |
+| --- | --- |
+| `npm start` | Development server with client rebuild on change |
+| `npm run build:app` | Production build of packages and client |
+| `npm test` | Lint and unit/integration tests |
+| `npm run test:e2e` | Browser acceptance journeys (Playwright) against a running server |
+| `npm run sts:admin -- …` | User, role and membership administration |
+| `npm run source:archive` | Build the corresponding-source archive served at `/source` |
 
-Streetmix can be used as a tool to promote and engage citizens around streetscape and placemaking issues, such as [Complete Streets][completestreets] or the Project for Public Spaces' [Rightsizing Streets Guide][rightsizing].
+## Source code offer
 
-[completestreets]: https://smartgrowthamerica.org/program/national-complete-streets-coalition/
-[rightsizing]: http://www.pps.org/reference/rightsizing/
+The application serves its own complete corresponding source at `/source`
+(HTML), `/services/source` (JSON) and `/source/sts-street-source.tar.gz`
+(archive built at deploy time), as required by AGPL-3.0 §13.
 
-#### Why the name "Streetmix"?
+## Copyright and licenses
 
-"Streets" + "remix" :-)
-
-#### How did this project start?
-
-Streetmix started as a [Code for America][cfa] hackathon project in January 2013, inspired by community meetings like the one described above.
-
-[cfa]: https://codeforamerica.org/
-
-#### How do I install / set up Streetmix myself?
-
-Streetmix is a [Node.js](https://nodejs.org/) based project. Set up your own by [following these instructions](https://docs.streetmix.net/contributing/code/local-setup)!
-
-## Sponsors
-
-<p align="center">
-  <a href="https://opencollective.com/streetmix"><img src="https://opencollective.com/streetmix/sponsors.svg" alt="Become a sponsor"></a>
-</p>
-
-## Copyright
-
-Copyright (c) 2013-2018 Code for America and contributors.  
-Copyright (c) 2019-2026 Streetmix LLC.  
-See [LICENSE][] for details.
-
-[license]: https://github.com/streetmix/streetmix/blob/main/LICENSE
-
-Streetmix is maintained by [Bad Idea Factory](https://biffud.com/) with the support of many contributors.
+- Code: Copyright (c) 2013-2018 Code for America and contributors.
+  Copyright (c) 2019-2026 Streetmix LLC. Copyright (c) 2026 Smart
+  Transportation Solutions (STS Street modifications). Licensed under
+  AGPL-3.0-or-later; see [LICENSE](LICENSE).
+- Street illustrations and variant icons (`packages/illustrations`,
+  `packages/variant-icons`): Creative Commons Attribution-ShareAlike 4.0
+  International, by the Streetmix illustrators (see
+  `packages/illustrations/README.md`).
+- Fonts: Rubik, Manrope, Overpass, Geist Sans, Noto Sans Georgian (SIL OFL 1.1).
+  UI icons: Tabler Icons (MIT), Font Awesome Free (CC BY 4.0), OpenMoji (CC BY-SA 4.0).

@@ -52,7 +52,7 @@ export function drawNameplate(
 
   ctx.font = `${STREET_NAME_FONT_WEIGHT} ${
     STREET_NAME_FONT_SIZE * scale
-  }px ${fontFamily}`
+  }px ${fontFamily}, 'Noto Sans Georgian', sans-serif`
 
   // Handles long names
   // Measurements need to be devided by `scale` because they are rendered

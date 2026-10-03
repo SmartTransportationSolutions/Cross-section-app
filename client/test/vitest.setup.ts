@@ -14,9 +14,28 @@ beforeAll(() => {
 afterEach(() => {
   server.resetHandlers()
 })
-afterAll(() => {
+afterAll(async () => {
   server.close()
+  // Redux Toolkit's autoBatch enhancer schedules a requestAnimationFrame
+  // callback with a 100 ms fallback timer. If that timer fires after the
+  // happy-dom window is torn down, `cancelAnimationFrame` is gone and Vitest
+  // reports an unhandled error. Let pending callbacks run before teardown.
+  await new Promise((resolve) => setTimeout(resolve, 150))
 })
+
+// Redux Toolkit's autoBatch enhancer captures window.requestAnimationFrame
+// when the store is created and its callback calls the global
+// cancelAnimationFrame. happy-dom runs rAF callbacks via setImmediate, so a
+// callback can fire after the test file's window has been torn down, when
+// cancelAnimationFrame no longer exists; Vitest then fails the run with an
+// unhandled error. Skip callbacks that fire after teardown (there is nothing
+// left to notify at that point).
+const originalRequestAnimationFrame = window.requestAnimationFrame.bind(window)
+window.requestAnimationFrame = (callback: FrameRequestCallback) =>
+  originalRequestAnimationFrame((time: number) => {
+    if (typeof globalThis.cancelAnimationFrame !== 'function') return
+    callback(time)
+  })
 
 // Add mock stubs for global methods
 global.print = vi.fn()

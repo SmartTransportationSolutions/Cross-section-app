@@ -1,10 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 
+import { brand } from '@sts-street/branding'
 import logo from 'url:~/images/logo_horizontal.svg'
-import numoLogo from 'url:~/images/sponsors/numo.svg'
-import biflogo from 'url:~/images/sponsors/bif.svg'
-import cfalogo from 'url:~/images/sponsors/codeforamerica.png'
-import mozlogo from 'url:~/images/sponsors/mozilla.svg'
 import { useSelector } from '~/src/store/hooks.js'
 import { AboutCoastmix } from '~/src/plugins/coastmix/AboutCoastmix.js'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
@@ -31,14 +28,14 @@ export function AboutDialog() {
             <header>
               <img
                 src={logo}
-                alt="Streetmix (logo)"
+                alt={`${brand.productName} (logo)`}
                 className="about-dialog-logo"
                 draggable={false}
               />
               <h1>
                 <FormattedMessage
                   id="dialogs.about.heading"
-                  defaultMessage="About Streetmix."
+                  defaultMessage="About STS Street."
                 />
               </h1>
             </header>
@@ -50,71 +47,65 @@ export function AboutDialog() {
                     defaultMessage="Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community."
                   />
                 </p>
+                <p>
+                  <FormattedMessage
+                    id="dialogs.about.operator"
+                    defaultMessage="{productName} is operated by {companyLink}, a transportation engineering and planning consultancy based in {location}."
+                    values={{
+                      productName: brand.productName,
+                      companyLink: (
+                        <ExternalLink href={brand.companyUrl}>
+                          {brand.companyName}
+                        </ExternalLink>
+                      ),
+                      location: brand.companyLocation,
+                    }}
+                  />
+                </p>
                 <SocialLinks />
                 <h3>
                   <FormattedMessage
-                    id="dialogs.about.stewards"
-                    defaultMessage="Stewards"
+                    id="dialogs.about.based-on"
+                    defaultMessage="Based on Streetmix"
                   />
                 </h3>
-                <ul className="about-dialog-sponsors">
-                  <li>
-                    <ExternalLink href="https://biffud.com/">
-                      <img
-                        src={biflogo}
-                        alt="Bad Idea Factory"
-                        draggable={false}
-                      />
-                    </ExternalLink>
-                  </li>
-                  <li>
-                    <ExternalLink href="https://codeforamerica.org/">
-                      <img
-                        src={cfalogo}
-                        alt="Code for America"
-                        draggable={false}
-                      />
-                    </ExternalLink>
-                  </li>
-                </ul>
-                <h3>
+                <p className="about-dialog-attribution">
                   <FormattedMessage
-                    id="dialogs.about.partners"
-                    defaultMessage="Partners"
+                    id="dialogs.about.based-on-description"
+                    defaultMessage="{productName} is a modified version of {upstreamLink}, free software released under the GNU Affero General Public License v3.0 or later. Street illustrations are licensed under {ccLink}. {productName} is not affiliated with or endorsed by the Streetmix project."
+                    values={{
+                      productName: brand.productName,
+                      upstreamLink: (
+                        <ExternalLink href={brand.upstream.repositoryUrl}>
+                          Streetmix
+                        </ExternalLink>
+                      ),
+                      ccLink: (
+                        <ExternalLink href="https://creativecommons.org/licenses/by-sa/4.0/">
+                          CC BY-SA 4.0
+                        </ExternalLink>
+                      ),
+                    }}
                   />
-                </h3>
-                <ul className="about-dialog-sponsors">
-                  <li>
-                    <ExternalLink href="https://numo.global/">
-                      <img
-                        src={numoLogo}
-                        alt="New Urban Mobility Alliance"
-                        draggable={false}
-                      />
-                    </ExternalLink>
-                  </li>
-                </ul>
-                <h3>
-                  <FormattedMessage
-                    id="dialogs.about.sponsors"
-                    defaultMessage="Sponsors"
-                  />
-                </h3>
-                <ul className="about-dialog-sponsors">
-                  <li>
-                    <ExternalLink href="https://www.mozilla.org/en-US/moss/">
-                      <img
-                        src={mozlogo}
-                        alt="Mozilla Open Source Support"
-                        draggable={false}
-                      />
-                    </ExternalLink>
-                  </li>
-                </ul>
+                </p>
+                <p className="about-dialog-attribution">
+                  <small>{brand.upstream.copyright}</small>
+                </p>
                 {!offline && (
                   <p>
                     <a
-                      href="https://streetmix.net/terms-of-service/"
+                      href={brand.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FormattedMessage
+                        id="dialogs.about.source-link"
+                        defaultMessage="Source code"
+                      />
+                    </a>
+                    <br />
+                    <a
+                      href={brand.termsOfServiceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -125,7 +116,7 @@ export function AboutDialog() {
                     </a>
                     <br />
                     <a
-                      href="https://streetmix.net/privacy-policy/"
+                      href={brand.privacyPolicyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

@@ -29,7 +29,7 @@ Notes on segments, which are the elements that comprise a street section. [See I
   - [ITE Designing Walkable Urban Thoroughfares](https://www.ite.org/pub/?id=E1CFF43C-2354-D714-51D9-D82B39D4DBAD) (2010)
   - [Walkable City](https://gist.github.com/louh/921ca2e36cf2a7e5df49/raw/c720c5170bd6534a07d4b7b73ac588b3dc56d4fa/Walkable+City+-+Multilane+roads%2C+road+diets) by Jeff Speck (2012) - Step 5: "Protect the Pedestrian"
 
-Lane widths typically fall between 2.7m (9ft) and 3.6m (12ft). For urban contexts where Streetmix is most useful, the 3.0m (10ft) lane width is most ideal. Some guides allow for 3.3m (11ft) lanes, but we will follow Jeff Speck's lead (and other progressive planners) in setting 10ft widths as typical.
+Lane widths typically fall between 2.7m (9ft) and 3.6m (12ft). For urban contexts where STS Street is most useful, the 3.0m (10ft) lane width is most ideal. Some guides allow for 3.3m (11ft) lanes, but we will follow Jeff Speck's lead (and other progressive planners) in setting 10ft widths as typical.
 
 There may be outlying scenarios where wider lanes are needed, but these should never be considered the default: a 12-ft lane may be desirable to provide passing clearances for large commercial vehicles on two-lane highways, and widths less than 10-ft can be more desirable for urban and residential areas where pedestrian crossings exist and lower traffic speeds are needed.
 
@@ -98,7 +98,7 @@ Like perpendicular, but angled parking takes up less width. The angle of the par
 
 ## Bike facilities
 
-Generally, for Streetmix, bike lane and bike facilities will adopt the [NACTO Urban Bikeway Design Guide](http://nacto.org/cities-for-cycling/design-guide/), which provides in-depth discussion on the different types of bike paths that are available, based on guidelines set out in the **AASHTO Guide for the Development of Bicycle Facilities (1999)**. Note that our print copy is the April 2011, but we should be using the second edition of the NACTO guide released in 2012.
+Generally, for STS Street, bike lane and bike facilities will adopt the [NACTO Urban Bikeway Design Guide](http://nacto.org/cities-for-cycling/design-guide/), which provides in-depth discussion on the different types of bike paths that are available, based on guidelines set out in the **AASHTO Guide for the Development of Bicycle Facilities (1999)**. Note that our print copy is the April 2011, but we should be using the second edition of the NACTO guide released in 2012.
 
 ### Typical bike lane
 
@@ -145,7 +145,7 @@ In [a California study](https://usa.streetsblog.org/2013/06/13/in-california-cit
 
 There is no "preferred" cycletrack width that works for every scenario. Ideal cycletrack widths should take into account volume of bicycle traffic, classification of the motorway, and adjacent segments (like parking or sidewalks), not to mention constraints, such as available right-of-way, that make any dedicated cycle path better than none at all. Furthermore, a cycle path should be buffered from adjacent uses, which can be anything from a painted surface to a planting strip. Whether those are included in the width of the cycletrack itself or should be drawn as a separate segment depends on what needs to be communicated.
 
-For the "default" use case in Streetmix for _two-way (bidirectional) cycletracks_, our convention (developed in collaboration with The Institute for Transportation & Development Policy) is to use a minimum width of 3m (10 ft). This accounts for the 2.5m (approximately 8 ft) minimum width specified in source guidelines with a minimum 0.5m "verge" buffer. For instance, CROW's _Design Manual for Bicycle Traffic_ notes that bidirectional paths "up to 2.50 m wide a path will have a verge on both sides which can be ridden on, giving cyclists room to swerve" (page 237) and that "verges alongside cycle paths must be ... an obstacle-free space of at least 0.50 m" (page 185).
+For the "default" use case in STS Street for _two-way (bidirectional) cycletracks_, our convention (developed in collaboration with The Institute for Transportation & Development Policy) is to use a minimum width of 3m (10 ft). This accounts for the 2.5m (approximately 8 ft) minimum width specified in source guidelines with a minimum 0.5m "verge" buffer. For instance, CROW's _Design Manual for Bicycle Traffic_ notes that bidirectional paths "up to 2.50 m wide a path will have a verge on both sides which can be ridden on, giving cyclists room to swerve" (page 237) and that "verges alongside cycle paths must be ... an obstacle-free space of at least 0.50 m" (page 185).
 
 #### Painted buffer (not currently automatic)
 
@@ -155,7 +155,7 @@ For the "default" use case in Streetmix for _two-way (bidirectional) cycletracks
 
 ### Other types of bike lanes
 
-For discussion around other types of bike lane placements, such as left-hand side bike lanes, or contra-flow bike lanes (both of which are permissible in Streetmix) see the NACTO Urban Bikeway Design Guide.
+For discussion around other types of bike lane placements, such as left-hand side bike lanes, or contra-flow bike lanes (both of which are permissible in STS Street) see the NACTO Urban Bikeway Design Guide.
 
 ### Bike parking
 

@@ -1,5 +1,6 @@
 import './app/globals.ts'
 import crypto from 'node:crypto'
+import fs from 'node:fs'
 import path from 'node:path'
 import { styleText } from 'node:util'
 import compression from 'compression'
@@ -14,15 +15,20 @@ import helmet, { type HelmetOptions } from 'helmet'
 import hbs from 'hbs'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
-import passport from 'passport'
 
+import { brand } from '@sts-street/branding'
 import * as controllers from './app/controllers/index.ts'
 import * as requestHandlers from './app/lib/request_handlers/index.ts'
-import { initCloudinary } from './app/lib/cloudinary.ts'
 import { serveErrorPage } from './app/lib/errorPage.ts'
 import { logger } from './app/lib/logger.ts'
 import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'
+import { sequelize } from './app/db/db.ts'
+import { getPublicJwks, getSigningKeys } from './app/auth/keys.ts'
+import {
+  getSourceInfo,
+  SOURCE_ARCHIVE_DIR,
+} from './app/resources/services/source.ts'
 import apiRoutes from './app/api_routes.ts'
 import serviceRoutes from './app/service_routes.ts'
 import errorRoutes from './app/error_routes.ts'
@@ -30,7 +36,17 @@ import { auth } from './app/authentication.ts'
 
 import type { User } from './app/db/models/user.ts'
 
-initCloudinary()
+const isProduction = process.env.NODE_ENV === 'production'
+
+// Fail fast on missing production secrets instead of falling back to
+// development defaults.
+if (isProduction && !process.env.COOKIE_SESSION_SECRET) {
+  throw new Error('COOKIE_SESSION_SECRET must be set in production.')
+}
+
+// Load (or generate, outside production) the identity service signing keys
+// before accepting requests.
+await getSigningKeys()
 
 // Build SVG sprites before starting Express server
 await Promise.all([
@@ -41,9 +57,16 @@ await Promise.all([
 const app = express()
 export default app
 
+// Behind a reverse proxy (Docker, load balancer), trust the first proxy so
+// that `req.ip`, `secure` cookies and rate limiting see the real client.
+if (process.env.TRUST_PROXY) {
+  app.set('trust proxy', process.env.TRUST_PROXY === 'true' ? 1 : process.env.TRUST_PROXY)
+}
+
 // Get the timestamp of this server's start time to use as a cachebusting filename.
 const cacheTimestamp = Date.now()
 app.locals.cacheTimestamp = cacheTimestamp
+app.locals.brand = brand
 
 process.on('uncaughtException', function (error) {
   logger.error(
@@ -59,7 +82,8 @@ process.on('uncaughtException', function (error) {
 process.on('SIGINT', function () {
   if (process.env.NODE_ENV === 'development') {
     logger.info(
-      '[express] ' + styleText(['yellow', 'bold'], 'Stopping Streetmix!')
+      '[express] ' +
+        styleText(['yellow', 'bold'], `Stopping ${brand.productName}!`)
     )
   }
   process.exit()
@@ -69,19 +93,18 @@ process.on('SIGINT', function () {
 app.locals.env = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
   PLAUSIBLE_ID: process.env.PLAUSIBLE_ID,
-  WEB_MONETIZATION_PAYMENT_POINTER:
-    process.env.WEB_MONETIZATION_PAYMENT_POINTER,
+  PLAUSIBLE_HOST: process.env.PLAUSIBLE_HOST || 'plausible.io',
 }
 
 // Not all headers from `helmet` are on by default. These turns on specific
 // off-by-default headers for better security as recommended by https://securityheaders.io/
 const helmetConfig = {
-  frameguard: false, // Allow Streetmix to be iframed in 3rd party sites
+  frameguard: false, // Allow the editor to be iframed in 3rd party sites
   contentSecurityPolicy: false, // These are set explicitly later
   crossOriginEmbedderPolicy: false, // Load external assets
   hsts: {
     maxAge: 5184000, // 60 days
-    includeSubDomains: false, // we don't have a wildcard ssl cert
+    includeSubDomains: false,
   },
   referrerPolicy: {
     policy: 'strict-origin-when-cross-origin' as const,
@@ -101,83 +124,51 @@ type ContentSecurityPolicyOptions = Exclude<
   boolean | undefined
 >
 
+// Hosts of optional third-party services that STS operates or has chosen.
+// Each one is only added to the policy when it is configured.
+function hostOf(url: string | undefined): string | undefined {
+  if (!url) return undefined
+  try {
+    return new URL(url.replace(/\{[sxyz]\}/g, 'a')).host.replace(/^a\./, '*.')
+  } catch {
+    return undefined
+  }
+}
+const mapTilesHost = hostOf(process.env.MAP_TILES_URL) ?? 'tile.openstreetmap.org'
+const sentryHost = hostOf(process.env.SENTRY_DSN)
+const plausibleHost = process.env.PLAUSIBLE_ID ? app.locals.env.PLAUSIBLE_HOST : ''
+const peliasHost = process.env.PELIAS_HOST_NAME ?? ''
+
 // This object cannot have undefined values, so `process.env` values which
 // can be undefined must be nullish-coalesced to an empty string, which will
 // be ignored by Helmet.
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: [
-      "'self'",
-      "'unsafe-inline'",
-      'checkout.stripe.com',
-      'static.userback.io',
-    ],
-    scriptSrc: [
-      "'self'",
-      process.env.AUTH0_DOMAIN ?? '',
-      '*.basemaps.cartocdn.com',
-      process.env.PELIAS_HOST_NAME ?? '',
-      'checkout.stripe.com',
-      'plausible.io',
-      `'nonce-${nonces.plausible}'`,
-      'static.cloudflareinsights.com',
-      'static.userback.io',
-    ],
+    styleSrc: ["'self'", "'unsafe-inline'"],
+    scriptSrc: ["'self'", plausibleHost, `'nonce-${nonces.plausible}'`],
     workerSrc: ["'self'"],
     frameAncestors: ["'self'", 'https:'],
-    frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
+    frameSrc: ["'self'"],
     imgSrc: [
       "'self'",
-      '*.streetmix.app',
       // Save-as-image
       'blob:',
       'data:',
-      // Maps
-      '*.basemaps.cartocdn.com',
-      // Profile images
-      'abs.twimg.com',
-      'pbs.twimg.com',
-      'platform-lookaside.fbsbx.com',
-      's.gravatar.com',
-      '*.googleusercontent.com',
-      'res.cloudinary.com',
-      '*.wp.com',
-      'cdn.auth0.com',
-      // Other
-      '*.stripe.com',
+      // Map tiles
+      mapTilesHost,
+      // Profile images from federated identity providers
+      'https:',
     ],
-    objectSrc: [
-      "'self'",
-      '*.streetmix.app',
-      // Profile images
-      'abs.twimg.com',
-      'pbs.twimg.com',
-      'platform-lookaside.fbsbx.com',
-      's.gravatar.com',
-      '*.googleusercontent.com',
-      'res.cloudinary.com',
-      '*.wp.com',
-      'cdn.auth0.com', // Auth0 default profile images
-    ],
-    fontSrc: [
-      "'self'",
-      'static.userback.io',
-      'cdn.jsdelivr.net', // Allows fontsource hosted fonts
-    ],
-    connectSrc: [
-      "'self'",
-      process.env.PELIAS_HOST_NAME ?? '',
-      'sentry.io',
-      process.env.AUTH0_DOMAIN ?? '',
-      'checkout.stripe.com',
-      'plausible.io',
-      'buttondown.com',
-      'buttondown.email',
-      'cloudflareinsights.com',
-      'api.userback.io',
-    ],
+    objectSrc: ["'none'"],
+    fontSrc: ["'self'"],
+    connectSrc: ["'self'", peliasHost, sentryHost ?? '', plausibleHost],
     reportUri: '/services/csp-report/',
+    // Helmet adds upgrade-insecure-requests by default. Only send it when the
+    // app is served over HTTPS: on a plain-HTTP origin (local, CI, an
+    // internal deployment) Chromium would rewrite the app's own API requests
+    // to https:// and every request would fail.
+    upgradeInsecureRequests: appURL.protocol === 'https:' ? [] : null,
   },
   // Report (but do not block) CSP violations in development mode.
   // This allows developers to work on new or experimental features without
@@ -202,27 +193,19 @@ app.use(compression())
 app.use(cookieParser())
 app.use(
   cookieSession({
-    secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
-    sameSite: 'strict',
+    name: 'sts_session',
+    secret: process.env.COOKIE_SESSION_SECRET || 'development-only-session-secret',
+    sameSite: 'lax',
+    secure: isProduction,
+    httpOnly: true,
+    maxAge: 15 * 60 * 1000, // only used for short-lived sign-in state
   })
 )
 
 app.use(requestHandlers.requestLog)
 app.use(requestHandlers.requestIdEcho)
 
-app.use(passport.initialize())
-app.use(passport.session())
-
-const metatagImage =
-  process.env.STREETMIX_INSTANCE !== 'coastmix'
-    ? 'https://streetmix.net/images/thumbnail.png'
-    : 'https://coastmix.org/images/thumbnail-coastmix.png'
-const metatagTitle =
-  process.env.STREETMIX_INSTANCE !== 'coastmix' ? 'Streetmix' : 'Coastmix'
-const metatagDescription =
-  process.env.STREETMIX_INSTANCE !== 'coastmix'
-    ? 'A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.'
-    : 'Coastmix is a project by Streetmix and the City of Boston to design, visualize and share resilient coasts. Create your ideal waterfront, build coastal flood protection, and learn how climate change impacts your community.'
+const metatagImage = `${appURL.origin}${brand.socialImagePath}`
 
 // Set variables for use in view templates
 app.use((req, res, next) => {
@@ -232,12 +215,12 @@ app.use((req, res, next) => {
   // Set default metatag information for social sharing cards
   res.locals.STREETMIX_IMAGE = {
     image: metatagImage,
-    width: 1008,
-    height: 522,
+    width: brand.socialImageWidth,
+    height: brand.socialImageHeight,
   }
 
-  res.locals.STREETMIX_TITLE = metatagTitle
-  res.locals.STREETMIX_DESCRIPTION = metatagDescription
+  res.locals.STREETMIX_TITLE = brand.productName
+  res.locals.STREETMIX_DESCRIPTION = brand.description
   res.locals.STREETMIX_URL = appURL.href
 
   next()
@@ -259,6 +242,7 @@ app.use((req, res, next) => {
 // Set Handlebars as the template engine
 app.set('view engine', 'hbs')
 app.set('views', path.join(import.meta.dirname, '/app/views'))
+hbs.registerPartials(path.join(import.meta.dirname, '/app/views/partials'))
 
 // A Handlebars block helper for string replacement. For TypeScript, we must
 // also pass a synthetic `this` as the first argument. The synthetic `this` is
@@ -272,10 +256,25 @@ hbs.registerHelper(
   }
 )
 
-// Redirect old help URL to the marketing landing page
-app.get('/help/about', (req, res) =>
-  res.redirect('https://about.streetmix.net/')
-)
+// Health check for container orchestration and uptime monitoring.
+app.get('/healthz', async (_req, res) => {
+  try {
+    await sequelize.authenticate()
+    res.status(200).json({ status: 'ok', database: 'ok', commit: getSourceInfo().commit })
+  } catch (err) {
+    logger.error(err)
+    res.status(503).json({ status: 'error', database: 'unavailable' })
+  }
+})
+
+// OpenID Connect-style key discovery for the STS identity service.
+app.get('/.well-known/jwks.json', async (_req, res) => {
+  res.set('Cache-Control', 'public, max-age=3600')
+  res.json(await getPublicJwks())
+})
+
+// Redirect old help URL to the operator's website
+app.get('/help/about', (req, res) => res.redirect(brand.companyUrl))
 
 // Redirects /help and all its other sub paths to 404
 app.get('/help', (req, res, next) => {
@@ -285,21 +284,41 @@ app.get('/help/{*splat}', (req, res, next) => {
   next({ status: 404 })
 })
 
-app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 app.get('/survey', auth(false), controllers.survey.get)
+
+// Legal pages are served by this application (see app/views/legal/).
 app.get('/privacy-policy', (req, res) =>
-  res.redirect('https://about.streetmix.net/privacy-policy/')
+  res.render('legal/privacy-policy', { pageTitle: 'Privacy policy' })
 )
 app.get('/terms-of-service', (req, res) =>
-  res.redirect('https://about.streetmix.net/terms-of-use/')
+  res.render('legal/terms-of-service', { pageTitle: 'Terms of service' })
 )
+
+// Corresponding source offer (AGPL-3.0 §13)
+app.get('/source', (req, res) =>
+  res.render('source', { pageTitle: 'Source code', source: getSourceInfo() })
+)
+app.use('/source', express.static(SOURCE_ARCHIVE_DIR, { index: false }))
+
+// User guide (Docusaurus build), when built with `npm run build:docs`.
+const docsBuildDir = path.join(import.meta.dirname, 'docs', 'build')
+if (fs.existsSync(docsBuildDir)) {
+  app.use('/docs', express.static(docsBuildDir, { extensions: ['html'] }))
+} else {
+  app.get(['/docs', '/docs/{*splat}'], (req, res) =>
+    res.render('docs-unavailable', { pageTitle: 'User guide' })
+  )
+}
+
+// Password reset landing page is handled by the client bundle
+app.get('/reset-password', (req, res) => res.render('main'))
 
 // Attach API docs in non-production environments
 if (process.env.NODE_ENV !== 'production') {
   const options = {
     definition: {
       info: {
-        title: 'Streetmix',
+        title: brand.productName,
         version: process.env.npm_package_version,
       },
     },
@@ -356,7 +375,7 @@ app.use((req, res) => {
   res.render('main')
 })
 
-interface StreetmixErrorObject {
+interface AppErrorObject {
   status: 401 | 404 | 410 | 500 | 503
   user?: User | null
 }
@@ -364,7 +383,7 @@ interface StreetmixErrorObject {
 // Catch-all error handling
 app.use(
   (
-    err: StreetmixErrorObject,
+    err: AppErrorObject,
     req: Request,
     res: Response,
     _next: NextFunction

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { hideDescription } from '~/src/store/slices/infoBubble.js'
 import { formatMessage } from '~/src/locales/locale.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanels'
+import { withBase } from '../static/env.js'
 import './DescriptionPanel.css'
 
 export function DescriptionPanel() {
@@ -71,7 +72,7 @@ export function DescriptionPanel() {
           {description.image && (
             <>
               <img
-                src={`/images/descriptions/${description.image}`}
+                src={withBase(`/images/descriptions/${description.image}`)}
                 alt={altText ?? caption ?? ''}
                 draggable={false}
               />

@@ -40,5 +40,5 @@
     }
   ],
   "files": ["index.ts", "app.ts", "eslint.config.ts", "vitest.config.ts"],
-  "include": ["app/**/*.ts"]
+  "include": ["app/**/*.ts", "bin/**/*.ts"]
 }

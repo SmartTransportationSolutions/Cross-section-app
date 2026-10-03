@@ -232,13 +232,15 @@ For local development, you can obtain your own keys from each third-party servic
 
 #### Required environment variables
 
-The only required environment variables are the keys used for the [Auth0](https://auth0.com/) authentication service. Streetmix will run without this, but a lot of functionality is only available to signed-in users, and you will need these keys to sign in.
+STS Street has a built-in identity service (email + password, email sign-in links, optional OpenID Connect providers), so **no third-party keys are required for local development**: sign-in works out of the box, and sign-in emails are written to `./data/mail-outbox/` as JSON files that you can open to follow the link.
 
-| Variable name         | Description                                  | Required |
-| --------------------- | -------------------------------------------- | -------- |
-| `AUTH0_DOMAIN`        | Authentication service (Auth0) domain        | Yes      |
-| `AUTH0_CLIENT_ID`     | Authentication service (Auth0) client ID     | Yes      |
-| `AUTH0_CLIENT_SECRET` | Authentication service (Auth0) client secret | Yes      |
+In production the following are required (see `docs/operations.md`):
+
+| Variable name               | Description                                              | Required in production |
+| --------------------------- | -------------------------------------------------------- | ---------------------- |
+| `COOKIE_SESSION_SECRET`     | Secret for the short-lived session cookie                | Yes                    |
+| `AUTH_JWT_PRIVATE_KEY_FILE` | RSA key that signs sign-in tokens (`npm run auth:generate-key`) | Yes             |
+| `SMTP_URL` or `SMTP_HOST`…  | Outbound email for sign-in links and password resets     | Yes, for email flows   |
 
 #### Server configuration environment variables
 
@@ -303,8 +305,9 @@ These optional keys may be set to adjust functionality.
 A sample `.env` file looks like this:
 
 ```bash title=".env"
-AUTH0_CLIENT_ID=1234567890
-AUTH0_CLIENT_SECRET=abcdefghij
+PGUSER=streetmix
+PGPASSWORD=streetmix
+PGDATABASE=sts_street_dev
 PELIAS_API_KEY=a2c4e6g8i
 PELIAS_HOST_NAME=api.geocode.earth
 ```
@@ -375,7 +378,7 @@ OFFLINE_MODE=true npm start
 
 :::tip
 
-When you are running Streetmix offline, you do not need to provide environment variables for external third-party services such as Auth0.
+When you are running STS Street offline, you do not need to provide environment variables for external third-party services such as a geocoder.
 
 :::
 

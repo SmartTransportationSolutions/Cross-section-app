@@ -70,7 +70,7 @@ exports[`GeotagDialog > renders 1`] = `
                     <img
                       alt=""
                       class="leaflet-tile"
-                      src="https://c.basemaps.cartocdn.com/rastertiles/voyager/18/131071/131071.png?key=test-api-key"
+                      src="https://tiles.example.com/18/131071/131071.png"
                       style="width: 256px; height: 256px; left: -251px; top: -221px;"
                     />
                   </div>
@@ -221,22 +221,7 @@ exports[`GeotagDialog > renders 1`] = `
                   >
                     |
                   </span>
-                   © 
-                  <a
-                    href="https://www.openstreetmap.org/copyright"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    OpenStreetMap
-                  </a>
-                  , © 
-                  <a
-                    href="https://carto.com/attribution"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    CARTO
-                  </a>
+                   Test attribution
                 </div>
               </div>
             </div>

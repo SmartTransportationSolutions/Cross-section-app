@@ -17,10 +17,10 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 Ensure your pull request meets all the requirements for merging. Place an `x` in each box to indicate that your pull request meets that requirement.
 -->
 
-- [ ] I have [reviewed the code contributions guidelines](https://docs.streetmix.net/contributing/code/overview)
-- [ ] My code follows the [style guidelines of this project](https://docs.streetmix.net/contributing/code/styleguide/)
+- [ ] I have [reviewed the code contributions guidelines](docs/docs/contributing/code/overview.md)
+- [ ] My code follows the [style guidelines of this project](docs/docs/contributing/code/styleguide.md)
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code in hard-to-understand areas
-- [ ] My changes generate [no new warnings](https://docs.streetmix.net/contributing/code/reference/tests/)
+- [ ] My changes generate [no new warnings](docs/docs/contributing/code/reference/tests.md)
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes

@@ -138,7 +138,7 @@ export function BlockingShield() {
           <p>
             <FormattedMessage
               id="msg.no-connection"
-              defaultMessage="Streetmix is having trouble connecting to the Internet."
+              defaultMessage="STS Street is having trouble connecting to the Internet."
             />
           </p>
           <Button primary onClick={handleClickTryAgain}>
@@ -156,7 +156,7 @@ export function BlockingShield() {
           <p>
             <FormattedMessage
               id="msg.slow-connection-1"
-              defaultMessage="Streetmix wasn't able to connect to the Internet in awhile now."
+              defaultMessage="STS Street wasn't able to connect to the Internet in awhile now."
             />
           </p>
           <p>

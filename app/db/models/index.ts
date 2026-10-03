@@ -1,3 +1,6 @@
+import { AuthCredential } from './authcredential.ts'
+import { AuthToken } from './authtoken.ts'
+import { NewsletterSubscription } from './newslettersubscription.ts'
 import { Sequence } from './sequence.ts'
 import { Street } from './street.ts'
 import { User } from './user.ts'
@@ -25,4 +28,23 @@ Vote.belongsTo(Street, {
   targetKey: 'id',
 })
 
-export { Sequence, Street, User, UserConnections, Vote }
+AuthCredential.belongsTo(User, {
+  foreignKey: 'userId',
+  targetKey: 'id',
+})
+
+AuthToken.belongsTo(User, {
+  foreignKey: 'userId',
+  targetKey: 'id',
+})
+
+export {
+  AuthCredential,
+  AuthToken,
+  NewsletterSubscription,
+  Sequence,
+  Street,
+  User,
+  UserConnections,
+  Vote,
+}

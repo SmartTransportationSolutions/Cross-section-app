@@ -1,0 +1,63 @@
+name: Deploy GitHub Pages
+
+# Builds the static edition of STS Street (bin/build-pages.mjs) and publishes
+# it to the `gh-pages` branch, which GitHub Pages serves at
+# https://<owner>.github.io/<repo>/.
+#
+# One-time setup (repository admin): Settings → Pages → "Deploy from a
+# branch" → branch `gh-pages`, folder `/ (root)`.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  HUSKY: "0"
+  CYPRESS_INSTALL_BINARY: "0"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - name: Build the static edition
+        run: |
+          owner="$(echo "${GITHUB_REPOSITORY_OWNER}" | tr '[:upper:]' '[:lower:]')"
+          repo="${GITHUB_REPOSITORY#*/}"
+          export APP_BASE_PATH="/${repo}"
+          export SITE_URL="https://${owner}.github.io/${repo}"
+          npm run build:pages
+      - name: Publish to the gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin gh-pages > /dev/null; then
+            git fetch origin gh-pages
+            git worktree add ../site gh-pages
+          else
+            git worktree add --orphan -b gh-pages ../site
+          fi
+          # Replace the published files with the new build (history is kept)
+          find ../site -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a dist-pages/. ../site/
+          cd ../site
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish"
+          else
+            git commit -m "Deploy ${GITHUB_SHA}"
+            git push origin gh-pages
+          fi

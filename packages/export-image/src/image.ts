@@ -56,6 +56,18 @@ Canvas.GlobalFonts.registerFromPath(
   'Overpass'
 )
 
+// Georgian script coverage for street names and labels (STS Street is
+// operated in Georgia). Registered as a fallback family on every font stack.
+for (const weight of ['400', '600', '700']) {
+  Canvas.GlobalFonts.registerFromPath(
+    path.join(
+      import.meta.dirname,
+      `../../../node_modules/@fontsource/noto-sans-georgian/files/noto-sans-georgian-georgian-${weight}-normal.woff2`
+    ),
+    'Noto Sans Georgian'
+  )
+}
+
 const IMAGE_MIN_HEIGHT = 400
 const IMAGE_MIN_HEIGHT_WITH_STREET_NAME = IMAGE_MIN_HEIGHT + 150
 const IMAGE_BOTTOM_PADDING = 60

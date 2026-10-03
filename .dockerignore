@@ -1,0 +1,17 @@
+node_modules
+*/node_modules
+packages/*/node_modules
+build
+.parcel-cache
+.env
+data
+coverage
+cypress/videos
+cypress/screenshots
+test/e2e/output
+docs/build
+docs/node_modules
+.git
+!build-support
+dist-pages
+.parcel-cache-pages

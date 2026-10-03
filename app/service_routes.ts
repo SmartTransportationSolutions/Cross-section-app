@@ -2,18 +2,17 @@ import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import * as controllers from './controllers/index.ts'
+import authRoutes from './auth/routes.ts'
 import * as services from './resources/services/index.ts'
-import { auth } from './authentication.ts'
 
-// Base path of router is `/services` (see app.js)
+// Base path of router is `/services` (see app.ts)
 const router = Router()
 
 /**
  * @swagger
  *
  * /services/changelog:
- *   post:
+ *   get:
  *     description: Gets changelog in Markdown
  *     produces:
  *       - text/plain
@@ -22,30 +21,6 @@ const router = Router()
  *         description: Success
  */
 router.get('/changelog', services.changelog.get)
-
-/**
- * @swagger
- *
- * /services/pay:
- *   post:
- *     description: Creates a payment for a streetmix subscription
- *     tags:
- *       - payment
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: street
- *         description: Street object
- *         in: body
- *         required: true
- *         type: string
- *         schema:
- *           $ref: '#/definitions/NewSubscription'
- *     responses:
- *       200:
- *         description: Success
- */
-router.post('/pay', services.payments.post)
 
 /**
  * @swagger
@@ -66,85 +41,42 @@ router.post('/pay', services.payments.post)
  */
 router.get('/geoip', services.geoip.get)
 
-router.options('/images', cors())
+/**
+ * @swagger
+ * /services/newsletter:
+ *   post:
+ *     description: Subscribes an email address to the STS Street newsletter
+ *     responses:
+ *       200:
+ *         description: Subscribed
+ */
+router.post('/newsletter', services.newsletter.post)
 
 /**
  * @swagger
- * /services/images:
+ * /services/source:
  *   get:
- *     description: Returns a token to get images for the user
- *     parameters:
- *       - in: query
- *         name: userId
- *         schema:
- *           type: string
- *     tags:
- *       - images
- *     produces:
- *       - application/json
+ *     description: Describes the running version and where to obtain its source code (AGPL corresponding source offer)
  *     responses:
  *       200:
- *         description: Cloudinary API key and metadata
- *         schema:
- *           type: object
- *           properties:
- *             signature:
- *               type: string
- *             timestamp:
- *               type: string
- *             api_key:
- *               type: string
+ *         description: Source information
  */
-router.get('/images', cors(), auth(), services.images.get)
+router.get('/source', cors(), services.source.get)
 
 /******************************************************************************
- *  AUTHENTICATION SERVICES
+ *  AUTHENTICATION SERVICES (STS identity service, see app/auth)
  *****************************************************************************/
 
-// All authentication routes are currently named /auth0 so that /auth can be
-// reserved for Better Auth
-router.post(
-  '/auth0/refresh-login-token',
-  cors(),
-  controllers.refreshLoginToken.post
-)
+router.use('/auth', authRoutes)
 
-// Auth0
-router.get('/auth0/sign-in-callback', controllers.auth0SignInCallback.get)
-
-// Callback route after signing in
-// This is handled by front-end
+// Legacy upstream paths, kept so that stale bookmarks and older clients
+// continue to work.
 router.get('/auth0/just-signed-in/', (req, res) => res.render('main'))
-
-/******************************************************************************
- *  THIRD PARTY APP INTEGRATIONS
- *****************************************************************************/
-
-router.get('/integrations/patreon', auth(), services.integrations.patreon.get)
-router.get(
-  '/integrations/patreon/callback',
-  services.integrations.patreon.callback,
-  services.integrations.patreon.connectUser
-)
-router.post(
-  '/integrations/patreon/webhook',
-  services.integrations.patreon.webhook
-)
-
-// Redirect the user to the OAuth 2.0 provider for authentication.
-router.get('/integrations/coil', auth(), services.integrations.coil.get)
-
-// The OAuth 2.0 provider has redirected the user back to the application.
-// Finish the authentication process by attempting to obtain an access
-// token.
-// If authorization was granted, the user's account data will be updated
-// and a BTP token will be issued
-
-router.get(
-  '/integrations/coil/callback',
-  services.integrations.coil.callback,
-  services.integrations.coil.connectUser
-)
+router.get('/auth0/just-signed-in', (req, res) => res.render('main'))
+router.post('/auth0/refresh-login-token', cors(), (req, res, next) => {
+  req.url = '/auth/refresh-login-token'
+  router.handle(req, res, next)
+})
 
 /******************************************************************************
  *  ERROR HANDLING

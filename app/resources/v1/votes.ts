@@ -5,7 +5,7 @@ import { Street, User, Vote } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+import type { Request as AuthedRequest } from 'express'
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
@@ -18,7 +18,7 @@ export function generateRandomBallotFetch({ redirect = false }) {
 
     if (authUser.sub) {
       try {
-        user = await User.findOne({ where: { auth0Id: authUser.sub } })
+        user = await User.findOne({ where: { authSubject: authUser.sub } })
       } catch (error) {
         logger.error(error)
         res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -207,7 +207,7 @@ export async function put(req: AuthedRequest, res: Response) {
   let user: User | null
 
   try {
-    user = await User.findOne({ where: { auth0Id: authUser.sub } })
+    user = await User.findOne({ where: { authSubject: authUser.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -258,7 +258,7 @@ export async function post(req: AuthedRequest, res: Response) {
   let user: User | null
 
   try {
-    user = await User.findOne({ where: { auth0Id: authUser.sub } })
+    user = await User.findOne({ where: { authSubject: authUser.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -271,7 +271,7 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   // Is requesting user logged in?
-  if (!authUser.sub || authUser.sub !== user.auth0Id) {
+  if (!authUser.sub || authUser.sub !== user.authSubject) {
     res.status(401).end()
     return
   }

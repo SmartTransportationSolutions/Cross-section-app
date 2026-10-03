@@ -93,4 +93,15 @@ describe('get api/v1/translate', function () {
 
     return
   })
+
+  it('rejects locale codes and resources that could escape the locales directory', async () => {
+    readFileMock.mockClear()
+    const traversal = await request(app).get(
+      '/api/v1/translate/..%2F..%2F..%2Fpackage/main'
+    )
+    expect(traversal.statusCode).toEqual(400)
+    const resource = await request(app).get('/api/v1/translate/en/..%2Fsecret')
+    expect(resource.statusCode).toEqual(400)
+    expect(readFileMock).not.toHaveBeenCalled()
+  })
 })

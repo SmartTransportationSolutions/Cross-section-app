@@ -8,23 +8,39 @@ exports[`ContactMenu > renders 1`] = `
   >
     <a
       class="menu-item"
-      href="https://strt.mx/discord"
+      href="mailto:info@sts.com.ge"
       rel="noopener noreferrer"
       role="menuitem"
       target="_blank"
     >
       <svg
         class="menu-item-icon"
-        data-icon="discord"
+        data-icon="mail"
       />
-      Join Discord chat
+      Email STS
       <svg
         data-icon="external-link"
       />
     </a>
     <a
       class="menu-item"
-      href="https://github.com/streetmix/streetmix/"
+      href="https://sts.com.ge/contact-us/"
+      rel="noopener noreferrer"
+      role="menuitem"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon"
+        data-icon="external-link"
+      />
+      Contact form on STS website
+      <svg
+        data-icon="external-link"
+      />
+    </a>
+    <a
+      class="menu-item"
+      href="/source"
       rel="noopener noreferrer"
       role="menuitem"
       target="_blank"
@@ -33,7 +49,7 @@ exports[`ContactMenu > renders 1`] = `
         class="menu-item-icon"
         data-icon="github"
       />
-      View source code on GitHub
+      View source code
       <svg
         data-icon="external-link"
       />

@@ -43,7 +43,7 @@ export function EditableLabel({
     <Tooltip
       label={intl.formatMessage({
         id: 'plus.locked.sub-edit',
-        defaultMessage: 'Upgrade to Streetmix+ to edit',
+        defaultMessage: 'Upgrade to STS Street Plus to edit',
       })}
     >
       <h3

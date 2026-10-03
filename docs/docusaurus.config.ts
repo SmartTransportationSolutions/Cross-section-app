@@ -3,11 +3,18 @@ import type { Options, ThemeConfig } from '@docusaurus/preset-classic'
 import { themes } from 'prism-react-renderer/'
 import remarkSmartypants from 'remark-smartypants'
 
+// Where the STS Street editor is served. The guide is published under
+// <editor>/docs/, so by default the editor is the site root.
+const editorUrl =
+  process.env.DOCS_EDITOR_URL ??
+  `${(process.env.DOCS_URL ?? 'http://localhost:8000').replace(/\/+$/, '')}/`
+
 const config: Config = {
-  title: 'Streetmix Documentation',
-  tagline: 'A guidebook for the makers and the users of Streetmix.',
-  url: 'https://docs.streetmix.net',
-  baseUrl: '/',
+  title: 'STS Street Documentation',
+  tagline: 'A guidebook for the users and the makers of STS Street.',
+  url: process.env.DOCS_URL ?? 'http://localhost:8000',
+  baseUrl: process.env.DOCS_BASE_URL ?? '/docs/',
+  trailingSlash: false,
   onBrokenLinks: 'throw',
   markdown: {
     hooks: {
@@ -15,8 +22,8 @@ const config: Config = {
     }
   },
   favicon: 'img/favicon.ico',
-  organizationName: 'streetmix', // Usually your GitHub org/user name.
-  projectName: 'streetmix', // Usually your repo name.
+  organizationName: 'SmartTransportationSolutions',
+  projectName: 'Cross-section-app',
   i18n: {
     defaultLocale: 'en',
     locales: ['en']
@@ -24,10 +31,11 @@ const config: Config = {
   themeConfig: {
     image: 'thumbnail.png',
     navbar: {
-      title: 'Streetmix Guidebook',
+      title: 'STS Street Guidebook',
       logo: {
-        alt: 'Streetmix Guidebook Logo',
-        src: 'img/bookshelf-small.svg'
+        alt: 'STS Street',
+        src: 'img/logo_icon.svg',
+        href: editorUrl
       },
       items: [
         {
@@ -49,18 +57,8 @@ const config: Config = {
           position: 'left'
         },
         {
-          type: 'localeDropdown',
-          position: 'right',
-          dropdownItemsAfter: [
-            {
-              href: '/contributing/translations/overview',
-              label: 'Help us translate'
-            }
-          ]
-        },
-        {
-          href: 'https://github.com/streetmix/streetmix',
-          label: 'GitHub',
+          href: editorUrl,
+          label: 'Open the editor',
           position: 'right'
         }
       ]
@@ -82,19 +80,15 @@ const config: Config = {
           ]
         },
         {
-          title: 'Community',
+          title: 'Smart Transportation Solutions',
           items: [
             {
-              label: 'Discord',
-              href: 'https://strt.mx/discord'
+              label: 'Company website',
+              href: 'https://www.sts.com.ge/'
             },
             {
-              label: 'Bluesky',
-              href: 'https://bsky.app/profile/streetmix.app'
-            },
-            {
-              label: 'Mastodon',
-              href: 'https://urbanists.social/@streetmix'
+              label: 'Contact',
+              href: 'mailto:info@sts.com.ge'
             }
           ]
         },
@@ -102,13 +96,17 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/streetmix/streetmix/'
+              label: 'Source code (AGPL-3.0)',
+              href: 'https://github.com/SmartTransportationSolutions/Cross-section-app'
+            },
+            {
+              label: 'Based on Streetmix',
+              href: 'https://github.com/streetmix/streetmix'
             }
           ]
         }
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Streetmix. Built with Docusaurus.`
+      copyright: `STS Street is operated by Smart Transportation Solutions. Based on Streetmix (© 2013–2018 Code for America and contributors, © 2019–${new Date().getFullYear()} Streetmix LLC), AGPL-3.0-or-later. Built with Docusaurus.`
     },
     prism: {
       theme: themes.github,
@@ -122,13 +120,13 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/streetmix/streetmix/edit/main/docs/',
+          editUrl: 'https://github.com/SmartTransportationSolutions/Cross-section-app/edit/main/docs/',
           remarkPlugins: [remarkSmartypants]
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            'https://github.com/streetmix/streetmix/edit/main/docs/blog/',
+            'https://github.com/SmartTransportationSolutions/Cross-section-app/edit/main/docs/blog/',
           remarkPlugins: [remarkSmartypants]
         },
         theme: {

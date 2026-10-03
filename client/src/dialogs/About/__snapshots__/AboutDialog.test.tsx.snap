@@ -31,13 +31,13 @@ exports[`AboutDialog > renders snapshot 1`] = `
           >
             <header>
               <img
-                alt="Streetmix (logo)"
+                alt="STS Street (logo)"
                 class="about-dialog-logo"
                 draggable="false"
                 src="test-file-stub"
               />
               <h1>
-                About Streetmix.
+                About STS Street.
               </h1>
             </header>
             <div
@@ -49,15 +49,50 @@ exports[`AboutDialog > renders snapshot 1`] = `
                 <p>
                   Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.
                 </p>
+                <p>
+                  STS Street is operated by 
+                  <a
+                    href="https://www.sts.com.ge/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Smart Transportation Solutions
+                  </a>
+                  , a transportation engineering and planning consultancy based in Tbilisi, Georgia.
+                </p>
                 <ul
                   class="social-links"
                 >
                   <li>
                     <a
-                      href="https://github.com/streetmix/"
+                      href="https://www.sts.com.ge/"
                       rel="noopener noreferrer"
                       target="_blank"
-                      title="GitHub"
+                      title="Smart Transportation Solutions"
+                    >
+                      <svg
+                        class="social-website"
+                        data-icon="external-link"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="mailto:info@sts.com.ge"
+                      title="info@sts.com.ge"
+                    >
+                      <svg
+                        class="social-mail"
+                        data-icon="mail"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/SmartTransportationSolutions/Cross-section-app"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      title="Source code"
                     >
                       <svg
                         class="social-github"
@@ -65,122 +100,49 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       />
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="https://strt.mx/discord"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      title="Discord"
-                    >
-                      <svg
-                        class="social-discord"
-                        data-icon="discord"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://bsky.app/profile/streetmix.app"
-                      rel="me noopener noreferrer"
-                      target="_blank"
-                      title="Bluesky"
-                    >
-                      <svg
-                        class="social-bluesky"
-                        data-icon="bluesky"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://urbanists.social/@streetmix"
-                      rel="me noopener noreferrer"
-                      target="_blank"
-                      title="Mastodon"
-                    >
-                      <svg
-                        class="social-mastodon"
-                        data-icon="mastodon"
-                      />
-                    </a>
-                  </li>
                 </ul>
                 <h3>
-                  Stewards
+                  Based on Streetmix
                 </h3>
-                <ul
-                  class="about-dialog-sponsors"
+                <p
+                  class="about-dialog-attribution"
                 >
-                  <li>
-                    <a
-                      href="https://biffud.com/"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <img
-                        alt="Bad Idea Factory"
-                        draggable="false"
-                        src="test-file-stub"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://codeforamerica.org/"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <img
-                        alt="Code for America"
-                        draggable="false"
-                        src="test-file-stub"
-                      />
-                    </a>
-                  </li>
-                </ul>
-                <h3>
-                  Partners
-                </h3>
-                <ul
-                  class="about-dialog-sponsors"
+                  STS Street is a modified version of 
+                  <a
+                    href="https://github.com/streetmix/streetmix"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Streetmix
+                  </a>
+                  , free software released under the GNU Affero General Public License v3.0 or later. Street illustrations are licensed under 
+                  <a
+                    href="https://creativecommons.org/licenses/by-sa/4.0/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    CC BY-SA 4.0
+                  </a>
+                  . STS Street is not affiliated with or endorsed by the Streetmix project.
+                </p>
+                <p
+                  class="about-dialog-attribution"
                 >
-                  <li>
-                    <a
-                      href="https://numo.global/"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <img
-                        alt="New Urban Mobility Alliance"
-                        draggable="false"
-                        src="test-file-stub"
-                      />
-                    </a>
-                  </li>
-                </ul>
-                <h3>
-                  Sponsors
-                </h3>
-                <ul
-                  class="about-dialog-sponsors"
-                >
-                  <li>
-                    <a
-                      href="https://www.mozilla.org/en-US/moss/"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <img
-                        alt="Mozilla Open Source Support"
-                        draggable="false"
-                        src="test-file-stub"
-                      />
-                    </a>
-                  </li>
-                </ul>
+                  <small>
+                    Copyright (c) 2013-2018 Code for America and contributors. Copyright (c) 2019-2026 Streetmix LLC.
+                  </small>
+                </p>
                 <p>
                   <a
-                    href="https://streetmix.net/terms-of-service/"
+                    href="/source"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Source code
+                  </a>
+                  <br />
+                  <a
+                    href="/terms-of-service"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
@@ -188,7 +150,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   </a>
                   <br />
                   <a
-                    href="https://streetmix.net/privacy-policy/"
+                    href="/privacy-policy"
                     rel="noopener noreferrer"
                     target="_blank"
                   >

@@ -58,12 +58,23 @@ function sendSuccessResponse(
   res.status(200).json(translation)
 }
 
+const LOCALE_PATTERN = /^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$/
+const RESOURCES = new Set(['main', 'segment-info'])
+
 export async function get(req: Request, res: Response) {
   const locale = req.params.locale_code
   const resource = req.params.resource_name
 
   if (!locale || !resource) {
     res.status(400).json({ status: 400, msg: 'Please provide locale code.' })
+    return
+  }
+
+  // Both values become part of a file path below: accept only BCP 47-style
+  // locale codes and the two known resources (prevents path traversal such
+  // as /api/v1/translate/..%2F..%2Fpackage/main).
+  if (!LOCALE_PATTERN.test(locale) || !RESOURCES.has(resource)) {
+    res.status(400).json({ status: 400, msg: 'Invalid locale or resource.' })
     return
   }
 

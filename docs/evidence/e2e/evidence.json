@@ -1,0 +1,137 @@
+{
+  "baseUrl": "http://localhost:8000",
+  "ranAt": "2026-10-03T17:07:06.726Z",
+  "evidence": [
+    {
+      "id": "J1",
+      "detail": {
+        "anonId": "62bdd275-01a3-429f-a5a4-a919404da723",
+        "name": "Guest Street ქუჩა"
+      }
+    },
+    {
+      "id": "J1",
+      "detail": {
+        "promotedId": "3fd0eb2d-d593-44b0-b8e7-ea0a0ad8dfb0",
+        "owner": "j1-1791047110017-466140"
+      }
+    },
+    {
+      "id": "J2-boundary",
+      "detail": {
+        "floors": 4
+      }
+    },
+    {
+      "id": "J2",
+      "detail": {
+        "driveIndex": 5,
+        "target": 7,
+        "afterEdits": 8.2,
+        "steps": 12,
+        "initialWidths": [
+          1.8,
+          0.6,
+          2.7,
+          0.6,
+          3.6,
+          2.7,
+          0.9,
+          3,
+          2.1,
+          1.2,
+          1.8,
+          0.6,
+          0.6,
+          1.8
+        ]
+      }
+    },
+    {
+      "id": "J3",
+      "detail": {
+        "userId": "j3-1791047161557-347572",
+        "streetId": "55aac5bb-7788-4f21-aa94-399cadd7ac7f",
+        "names": [
+          null,
+          "რუსთაველის გამზირი",
+          null
+        ]
+      }
+    },
+    {
+      "id": "J4",
+      "detail": {
+        "originalId": "0efe0874-5115-4a30-a67f-50a6cecfe8a1",
+        "remixId": "2fea68c6-c104-49ac-9358-78b56d9e0554",
+        "otherId": "j4other-1791047177766-49",
+        "remixRows": 1
+      }
+    },
+    {
+      "id": "J5",
+      "detail": {
+        "userId": "j5-1791047185091-913237",
+        "created": 105,
+        "serverTotal": 106,
+        "pages": 2
+      }
+    },
+    {
+      "id": "J6",
+      "detail": {
+        "streetId": "239b4b89-78c2-4707-aa3d-593f3cceb7f8",
+        "anon": [
+          2857,
+          1350
+        ],
+        "member3x": [
+          4285,
+          2025
+        ],
+        "client": [
+          2857,
+          1557
+        ]
+      }
+    },
+    {
+      "id": "J7",
+      "detail": {
+        "aId": "j7a-1791047202695-680869",
+        "bId": "j7b-1791047202840-740910",
+        "streetId": "27fba043-1d94-44ed-ba4d-aaad9eda9a3b"
+      }
+    },
+    {
+      "id": "J8",
+      "detail": {
+        "streetId": "9db2b261-6e15-413b-b340-5061c18333d6",
+        "toastVisible": 2
+      }
+    },
+    {
+      "id": "J9",
+      "detail": {
+        "skybox": "dusk",
+        "threeD": "https://3dstreet.app/#http://localhost:8000/demo-member/13",
+        "meter": "https://streetmeter.net/#http://localhost:8000/demo-member/13"
+      }
+    },
+    {
+      "id": "J10",
+      "detail": {
+        "title": "Unnamed St – STS Street",
+        "hosts": [
+          "localhost:8000"
+        ],
+        "sourceCommit": "343fabb2858b3edc4ed207fdf194cbb59c273ae7",
+        "archive": {
+          "available": true,
+          "url": "/source/sts-street-source.tar.gz",
+          "bytes": 20686751
+        }
+      }
+    }
+  ]
+}

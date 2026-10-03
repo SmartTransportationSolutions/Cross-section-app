@@ -14,7 +14,7 @@ exports[`HelpMenu > renders 1`] = `
         class="menu-item-icon"
         data-icon="info"
       />
-      About Streetmix…
+      About STS Street…
     </button>
     <button
       class="menu-item"
@@ -28,7 +28,7 @@ exports[`HelpMenu > renders 1`] = `
     </button>
     <a
       class="menu-item"
-      href="https://docs.streetmix.net/user-guide/intro"
+      href="/docs/user-guide/intro"
       rel="noopener noreferrer"
       role="menuitem"
       target="_blank"
@@ -38,27 +38,6 @@ exports[`HelpMenu > renders 1`] = `
         data-icon="trail-sign"
       />
       Guidebook
-      <svg
-        data-icon="external-link"
-      />
-    </a>
-    <div
-      aria-orientation="horizontal"
-      class="menu-separator"
-      role="separator"
-    />
-    <a
-      class="menu-item"
-      href="https://cottonbureau.com/people/streetmix"
-      rel="noopener noreferrer"
-      role="menuitem"
-      target="_blank"
-    >
-      <svg
-        class="menu-item-icon"
-        data-icon="cart"
-      />
-      Store
       <svg
         data-icon="external-link"
       />

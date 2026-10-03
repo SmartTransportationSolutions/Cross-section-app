@@ -28,7 +28,6 @@ import { WelcomePanel } from './WelcomePanel'
 import { NotificationBar } from './NotificationBar'
 import { Loading } from './Loading.js'
 import { SponsorBanner } from './SponsorBanner.js'
-import { initUserback } from './userback/client.js'
 
 export function App() {
   const [isLoading, setLoading] = useState(true)
@@ -37,9 +36,13 @@ export function App() {
     (state) => state.app.contentDirection as Direction
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
+  // A street that never loaded (e.g. "not found" shown by the client on the
+  // static edition, where no server renders 404 pages) has no boundaries;
+  // don't try to draw it behind the error screen.
+  const streetReady = useSelector((state) =>
+    Boolean(state.street.boundary?.left?.variant)
+  )
   const colorMode = useSelector((state) => state.settings.colorMode)
-  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
-  const isSubscriber = useSelector((state) => state.user.isSubscriber)
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
@@ -48,15 +51,10 @@ export function App() {
 
       // Turn off loading after initial loading is done
       setLoading(false)
-
-      // initialize only Userback in Coastmix mode or if user is a subscriber
-      if (coastmixMode || isSubscriber) {
-        await initUserback()
-      }
     }
 
     init()
-  }, [coastmixMode, isSubscriber])
+  }, [])
 
   // Set color mode on top level DOM element
   useEffect(() => {
@@ -95,7 +93,7 @@ export function App() {
                     <PaletteContainer />
                     <SkyPicker />
                     <SegmentDragLayer />
-                    <StreetView />
+                    {streetReady && <StreetView />}
                     <ToastContainer />
                     <SentimentSurveyContainer />
                     <CoastmixUI />

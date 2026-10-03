@@ -9,6 +9,7 @@ import {
   makeStreetFixture,
   makeUserFixture,
 } from '../../../test/model-fixtures.ts'
+import { User } from '../../../db/models/index.ts'
 import * as streets from '../streets.ts'
 
 const makeStreet = () => {
@@ -42,7 +43,7 @@ vi.mock('../../../db/models/index.ts', () => ({
   },
   User: {
     findOne: vi.fn(async () => ({
-      ...makeUserFixture({ id: 'user1', auth0Id: 'foo|123' }),
+      ...makeUserFixture({ id: 'user1', authSubject: 'foo|123' }),
       lastStreetId: 1,
       increment: vi.fn(async function (this: Record<string, unknown>) {
         return this
@@ -123,6 +124,18 @@ describe('DELETE api/v1/streets/:street_id', function () {
         expect(response.statusCode).toEqual(204)
         return
       })
+  })
+
+  it('should respond with 403 Forbidden when a different user deletes the street', async () => {
+    // The street fixture is owned by `user1`; make the caller `user2`.
+    vi.mocked(User.findOne).mockResolvedValueOnce({
+      ...makeUserFixture({ id: 'user2', authSubject: 'bar|456' }),
+    } as never)
+
+    const response = await request(app).delete(`/api/v1/streets/${street.id}`)
+
+    expect(response.statusCode).toEqual(403)
+    expect(response.body.msg).toEqual('Signed-in user cannot delete this street.')
   })
 })
 

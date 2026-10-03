@@ -1,5 +1,5 @@
+import { brand } from '@sts-street/branding'
 import { initSystemCapabilities } from '../preinit/system_capabilities'
-import { initCoil } from '../integrations/coil'
 import { initLocale } from '../locales/locale'
 import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
@@ -60,8 +60,6 @@ export async function initialize() {
   if (store.getState().errors.abortEverything) {
     return
   }
-
-  initCoil()
 
   // Asynchronously loading…
 
@@ -198,23 +196,11 @@ function onEverythingLoaded() {
 
 function showConsoleMessage() {
   console.log(
-    `%c
-  ____  _    %cWelcome to%c   _             _      _
- / ___|| |_ _ __ ___  ___| |_ _ __ ___ (_)_  _| |
- \\___ \\| __| '__/ _ \\/ _ \\ __| '_ \` _ \\| \\ \\/ / |
-  ___) | |_| | |  __/  __/ |_| | | | | | |>  <|_|
- |____/ \\__|_|  \\___|\\___|\\__|_| |_| |_|_/_/\\_(_)
-%c..:                                            :..
-..:    Contribute to our open-source code!     :..
-..:   https://github.com/streetmix/streetmix   :..
-%c..:                                            :..
-..:          Please sponsor our work!          :..
-..:    https://opencollective.com/streetmix    :..`,
-    'font-family: monospace; color: green',
-    'font-family: monospace; color: gray',
-    'font-family: monospace; color: green',
-    'font-family: monospace; color: blue',
-    'font-family: monospace; color: red'
+    `%cSTS Street%c — street cross-section design by Smart Transportation Solutions.
+This application is free software (AGPL-3.0-or-later), based on Streetmix.
+Source code: ${new URL(brand.sourceUrl, window.location.origin).href}`,
+    'font-weight: bold; color: #143a66',
+    'color: gray'
   )
 }
 

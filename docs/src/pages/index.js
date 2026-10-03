@@ -29,7 +29,7 @@ function HomepageHeader() {
 
 export default function Home() {
   return (
-    <Layout description="A guidebook for the makers and the users of Streetmix.">
+    <Layout description="A guidebook for the users and the makers of STS Street.">
       <Head />
       <HomepageHeader />
     </Layout>

@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { openGallery } from '~/src/store/actions/gallery.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { Icon } from '~/src/ui/Icon.js'
+import { withBase } from '~/src/static/env.js'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import Menu, { type MenuProps } from './Menu.js'
 import { MenuItem } from './MenuItem.js'
@@ -23,7 +24,7 @@ export function IdentityMenu(props: MenuProps) {
   const dispatch = useDispatch()
   const handleClickMyStreets = useCallback(
     (_event: React.MouseEvent) => {
-      const myStreetsLink = user?.id !== undefined ? `/${user.id}` : ''
+      const myStreetsLink = user?.id !== undefined ? withBase(`/${user.id}`) : ''
       window.history.pushState({}, '', myStreetsLink)
       dispatch(openGallery({ userId: user.id }))
     },
@@ -65,7 +66,7 @@ export function IdentityMenu(props: MenuProps) {
                       alt=""
                       // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                     />
-                    Streetmix+&lrm;
+                    STS Street Plus&lrm;
                   </li>
                 )}
                 {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}

@@ -1,4 +1,3 @@
-import { vi } from 'vitest'
 import request from 'supertest'
 
 import {
@@ -6,14 +5,6 @@ import {
   setupMockServer,
 } from '../../../test/setup-mock-server.ts'
 import * as session from '../user_session.ts'
-
-vi.mock('../../../lib/auth0.ts', () => {
-  return {
-    Authentication: () => ({
-      logout: vi.fn(),
-    }),
-  }
-})
 
 const { mockUserMiddleware } = createMockAuthMiddleware()
 

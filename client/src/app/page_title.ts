@@ -4,7 +4,7 @@ import { STREETMIX_INSTANCE } from './config.js'
 
 import type { StreetState } from '@streetmix/types'
 
-const APP_TITLE = STREETMIX_INSTANCE !== 'coastmix' ? 'Streetmix' : 'Coastmix'
+const APP_TITLE = STREETMIX_INSTANCE !== 'coastmix' ? 'STS Street' : 'Coastmix'
 
 /**
  * Updates page title.

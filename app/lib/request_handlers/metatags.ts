@@ -1,7 +1,5 @@
-import axios from 'axios'
-
+import { brand } from '@sts-street/branding'
 import { Street, User } from '../../db/models/index.ts'
-import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
 import type { NextFunction, Request, Response } from 'express'
@@ -53,38 +51,17 @@ export default async function (
 
   const handleFindStreet = async function (street: Street) {
     const streetName = street.name || 'Unnamed Street'
-    const title = `${streetName} - Streetmix`
+    const title = `${streetName} - ${brand.productName}`
 
     res.locals.STREETMIX_TITLE = title
     res.locals.STREETMIX_URL += `${userId}/${namespacedId}/`
 
-    // If street is a DEFAULT_STREET or EMPTY_STREET, the public id for the
-    // street thumbnail is the street type, not the street id.
-    const streetData = street.data && street.data.street
-    let streetId
-    if (streetData && streetData.editCount === 0) {
-      streetId = streetData.segments.length ? 'DEFAULT_STREET' : 'EMPTY_STREET'
-    } else {
-      streetId = street.id
-    }
-
-    const endpoint = `${appURL.origin}/api/v1/streets/${streetId}/image/`
-
-    try {
-      const response = await axios.get(endpoint)
-      const results = response.data
-      if (results && results.secure_url) {
-        res.locals.STREETMIX_IMAGE = {
-          image: results.secure_url,
-          width: results.width,
-          height: results.height,
-        }
-      }
-    } catch (error) {
-      // 404 is expected — most streets don't have thumbnails yet
-      if (error.response?.status !== 404) {
-        logger.error(error)
-      }
+    // Social preview image is rendered on demand by the server-side export
+    // (see app/resources/v1/street_images.ts). Scale 1 keeps it small.
+    res.locals.STREETMIX_IMAGE = {
+      image: `${appURL.origin}/api/v1/streets/${street.id}/image?scale=1&labels=false`,
+      width: undefined,
+      height: undefined,
     }
 
     next()

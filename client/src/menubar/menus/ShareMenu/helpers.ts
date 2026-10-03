@@ -30,14 +30,14 @@ export function getSharingMessage(
         message = intl.formatMessage<{ readonly streetName: MessageValue }>(
           {
             id: 'menu.share.messages.my-street',
-            defaultMessage: 'Check out my street, {streetName}, on Streetmix!',
+            defaultMessage: 'Check out my street, {streetName}, on STS Street!',
           },
           { streetName: street.name }
         )
       } else {
         message = intl.formatMessage({
           id: 'menu.share.messages.my-street-unnamed',
-          defaultMessage: 'Check out my street on Streetmix!',
+          defaultMessage: 'Check out my street on STS Street!',
         })
       }
     } else {
@@ -49,7 +49,7 @@ export function getSharingMessage(
           {
             id: 'menu.share.messages.someone-elses-street',
             defaultMessage:
-              'Check out {streetName} by {streetCreator} on Streetmix!',
+              'Check out {streetName} by {streetCreator} on STS Street!',
           },
           { streetName: street.name, streetCreator: `@${street.creatorId}` }
         )
@@ -58,7 +58,7 @@ export function getSharingMessage(
           {
             id: 'menu.share.messages.someone-elses-street-unnamed',
             defaultMessage:
-              'Check out this street by {streetCreator} on Streetmix!',
+              'Check out this street by {streetCreator} on STS Street!',
           },
           { streetCreator: `@${street.creatorId}` }
         )
@@ -69,14 +69,14 @@ export function getSharingMessage(
       message = intl.formatMessage<{ readonly streetName: MessageValue }>(
         {
           id: 'menu.share.messages.anonymous-creator-street',
-          defaultMessage: 'Check out {streetName} on Streetmix!',
+          defaultMessage: 'Check out {streetName} on STS Street!',
         },
         { streetName: street.name }
       )
     } else {
       message = intl.formatMessage({
         id: 'menu.share.messages.anonymous-creator-street-unnamed',
-        defaultMessage: 'Check out this street on Streetmix!',
+        defaultMessage: 'Check out this street on STS Street!',
       })
     }
   }

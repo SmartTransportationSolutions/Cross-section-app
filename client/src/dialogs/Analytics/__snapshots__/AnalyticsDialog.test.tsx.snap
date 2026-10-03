@@ -192,7 +192,7 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
                 Export as CSV
               </button>
               <footer>
-                This Streetmix-created image may be reused anywhere, for any purpose, under the 
+                This STS Street-created image may be reused anywhere, for any purpose, under the 
                 <a
                   href="https://creativecommons.org/licenses/by-sa/4.0/"
                   rel="noopener noreferrer"

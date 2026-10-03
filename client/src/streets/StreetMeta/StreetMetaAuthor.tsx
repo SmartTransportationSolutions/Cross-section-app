@@ -1,4 +1,5 @@
 import { FormattedMessage } from 'react-intl'
+import { withBase } from '~/src/static/env.js'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { openGallery } from '~/src/store/actions/gallery.js'
@@ -25,7 +26,7 @@ export function StreetMetaAuthor() {
     user = (
       <>
         <Avatar userId={creatorId} />
-        <a href={'/' + creatorId} onClick={handleClickAuthor}>
+        <a href={withBase('/' + creatorId)} onClick={handleClickAuthor}>
           {creatorProfile?.displayName ?? creatorId}
         </a>
       </>

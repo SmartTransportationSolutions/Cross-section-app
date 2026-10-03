@@ -1,0 +1,29 @@
+{{> page_head}}
+      <h1>Source code</h1>
+      <p>{{brand.productName}} is free software. This page is the offer of complete corresponding source code required by section 13 of the <a href="https://www.gnu.org/licenses/agpl-3.0.html">GNU Affero General Public License v3.0</a>.</p>
+
+      <h2>This deployment</h2>
+      <dl>
+        <dt>Product</dt><dd>{{brand.productName}} (GitHub Pages edition){{#if version}} v{{version}}{{/if}}</dd>
+        <dt>Operator</dt><dd>{{brand.companyName}}</dd>
+        <dt>Commit</dt><dd><code>{{commit}}</code></dd>
+        <dt>License</dt><dd>AGPL-3.0-or-later (code); CC-BY-SA-4.0 (illustrations); SIL OFL 1.1 (fonts)</dd>
+        <dt>Repository</dt><dd><a href="{{brand.sourceRepositoryUrl}}">{{brand.sourceRepositoryUrl}}</a> (<a href="{{brand.sourceRepositoryUrl}}/tree/{{commit}}">this commit</a>)</dd>
+      </dl>
+
+      <h2>Download the source</h2>
+      {{#if archive}}
+      <p><a href="{{archive}}">Download source archive (.tar.gz)</a><br>
+        <small>The archive is published with this site and contains the complete source tree for commit <code>{{commit}}</code>, including the build script for this edition (<code>bin/build-pages.mjs</code>) and installation instructions (README.md, docs/operations.md).</small></p>
+      {{else}}
+      <p class="sts-notice">The source for this build is available from the repository above at commit <code>{{commit}}</code>.</p>
+      {{/if}}
+
+      <h2>Notices</h2>
+      <ul>
+        <li>{{brand.upstream.copyright}}</li>
+        <li>Modifications copyright (c) 2026 {{brand.companyName}}.</li>
+        <li>Street illustrations and variant icons are licensed under CC-BY-SA-4.0.</li>
+      </ul>
+      <p>Upstream project: <a href="{{brand.upstream.url}}">{{brand.upstream.name}}</a> (<a href="{{brand.upstream.repositoryUrl}}">repository</a>), imported at commit <code>{{brand.upstream.commit}}</code>. {{brand.productName}} is not affiliated with or endorsed by the Streetmix project.</p>
+{{> page_foot}}
