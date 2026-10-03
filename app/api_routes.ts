@@ -1,9 +1,7 @@
 import { Router } from 'express'
-import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import * as v1 from './resources/v1/index.ts'
-import { BTPTokenCheck } from './resources/services/integrations/coil.ts'
 import { auth } from './authentication.ts'
 
 // Base path of router is `/api` (see app.js)
@@ -236,7 +234,6 @@ router.options(/.*/, cors())
  *         schema:
  *           $ref: '#/definitions/User'
  */
-router.post('/v1/users', cors(), auth(), v1.users.post)
 
 /**
  * @swagger
@@ -351,16 +348,23 @@ router.get('/v1/users', cors(), auth(false), v1.users.get)
  *           $ref: '#/definitions/User'
  *
  */
-router.get(
-  '/v1/users/:user_id',
-  cors(),
-  auth(false),
-  BTPTokenCheck,
-  v1.users.get
-)
+router.get('/v1/users/:user_id', cors(), auth(false), v1.users.get)
 router.put('/v1/users/:user_id', cors(), auth(), v1.users.put)
 router.patch('/v1/users/:user_id', cors(), auth(), v1.users.patch)
 router.delete('/v1/users/:user_id', cors(), auth(), v1.users.del)
+
+/**
+ * @swagger
+ * /api/v1/users/{user_id}/roles:
+ *   put:
+ *     description: Replaces a user's roles (administrators only)
+ *     tags:
+ *       - users
+ *     responses:
+ *       200:
+ *         description: Updated user
+ */
+router.put('/v1/users/:user_id/roles', cors(), auth(), v1.users.putRoles)
 
 /**
  * @swagger
@@ -701,25 +705,8 @@ router.put('/v1/streets/:street_id', auth(false), v1.streets.put)
 /**
  * @swagger
  * /api/v1/streets/{street_id}/image:
- *   delete:
- *     description: Deletes street thumbnail from cloudinary
- *     tags:
- *       - images
- *     parameters:
- *       - in: path
- *         name: street_id
- *         schema:
- *           type: string
- *           format: uuid
- *         required: true
- *         description: ID of the street
- *     produces:
- *       - application/json
- *     responses:
- *       204:
- *         description: Success
  *   get:
- *     description: Returns street thumbnail from cloudinary, mainly used to set metatag information for social sharing cards
+ *     description: Renders a PNG image of the street (server-side export). Query parameters control labels, street name, transparent sky, watermark, silhouette, scale and locale. Watermark removal and scales above 2x require a Plus membership.
  *     tags:
  *       - images
  *     parameters:
@@ -731,50 +718,14 @@ router.put('/v1/streets/:street_id', auth(false), v1.streets.put)
  *        required: true
  *        description: ID of the street
  *     produces:
- *       - application/json
+ *       - image/png
  *     responses:
  *       200:
  *         description: street image
- *         schema:
- *           $ref: '#/definitions/StreetImageData'
- *       204:
- *         description: Empty response. The owner of this street has deleted the thumbnail.
- *   post:
- *     description: Creates a street thumbnail
- *     tags:
- *       - images
- *     parameters:
- *       - in: path
- *         name: street_id
- *         schema:
- *           type: string
- *           format: uuid
- *         required: true
- *         description: ID of the street to update
- *       - in: body
- *         name: street image
- *         description: Street image object
- *         required: true
- *         type: string
- *         schema:
- *           $ref: '#/definitions/NewStreetImage'
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: street image
- *         schema:
- *           $ref: '#/definitions/StreetImageData'
- *
+ *       404:
+ *         description: Street not found
  */
-router.post(
-  '/v1/streets/:street_id/image',
-  bodyParser.text({ limit: '3mb' }),
-  auth(),
-  v1.streetImages.post
-)
-router.delete('/v1/streets/:street_id/image', auth(), v1.streetImages.del)
-router.get('/v1/streets/:street_id/image', v1.streetImages.get)
+router.get('/v1/streets/:street_id/image', auth(false), v1.streetImages.get)
 
 /**
  * @swagger

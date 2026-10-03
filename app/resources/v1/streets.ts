@@ -12,7 +12,7 @@ import {
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 import type { Request, Response } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+import type { Request as AuthedRequest } from 'express'
 import type { StreetData } from '@streetmix/types'
 
 // Briefly define the shape of legacy data so we can type-safely remove these
@@ -78,7 +78,7 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   function updateUserLastStreetId(userId: string) {
-    return User.findOne({ where: { auth0Id: userId } }).then((user) => {
+    return User.findOne({ where: { authSubject: userId } }).then((user) => {
       if (!user) {
         throw new Error(ERRORS.USER_NOT_FOUND)
       }
@@ -204,7 +204,7 @@ export async function post(req: AuthedRequest, res: Response) {
     let user: User | null
     try {
       user = await User.findOne({
-        where: { auth0Id: req.auth.sub },
+        where: { authSubject: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
@@ -243,7 +243,7 @@ export async function del(req: AuthedRequest, res: Response) {
 
     try {
       user = await User.findOne({
-        where: { auth0Id: req.auth.sub },
+        where: { authSubject: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
@@ -653,7 +653,7 @@ export async function put(req: AuthedRequest, res: Response) {
     }
 
     const user = await User.findOne({
-      where: { auth0Id: req.auth.sub },
+      where: { authSubject: req.auth.sub },
     })
 
     const isOwner = user && user.id === street.creatorId

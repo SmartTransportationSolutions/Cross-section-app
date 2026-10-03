@@ -1,3 +1,5 @@
+import { brand } from '@sts-street/branding'
+
 import type { Request, Response } from 'express'
 import type { User } from '../db/models/index.ts'
 
@@ -51,7 +53,7 @@ export function serveErrorPage(
         title: 'Unauthorized (Error 401)',
         heading: 'Something went wrong during sign-in.',
         message: 'We could not complete the sign-in process. Please try again.',
-        returnButton: 'Return to Streetmix',
+        returnButton: `Return to ${brand.productName}`,
         needHelp: 'Need help?',
       }
       break
@@ -63,7 +65,7 @@ export function serveErrorPage(
         title: 'Not found (Error 404)',
         heading: 'There’s nothing here!',
         message: 'We couldn’t find this page anywhere we looked.',
-        returnButton: 'Return to Streetmix',
+        returnButton: `Return to ${brand.productName}`,
 
         // If a User is passed here, we attempted to look up a street for
         // an existing user. We can add a link to redirect a viewer to the
@@ -83,7 +85,7 @@ export function serveErrorPage(
         title: 'Gone (Error 410)',
         heading: 'This street has been deleted.',
         message: 'We can’t display something that no longer exists!',
-        returnButton: 'Return to Streetmix',
+        returnButton: `Return to ${brand.productName}`,
 
         // If a User is passed here, we attempted to look up a street for
         // an existing user. We can add a link to redirect a viewer to the
@@ -107,7 +109,7 @@ export function serveErrorPage(
         message:
           'One of the external services we depend on has failed, or is currently unavailable.',
         temporary: 'Hopefully it’s temporary. Please try again later.',
-        returnButton: 'Return to Streetmix',
+        returnButton: `Return to ${brand.productName}`,
         needHelp: 'Need help?',
       }
       break

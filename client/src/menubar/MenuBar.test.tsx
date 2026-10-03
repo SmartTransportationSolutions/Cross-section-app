@@ -56,7 +56,7 @@ describe('MenuBar', () => {
   it.skip('renders upgrade funnel and handles click', async () => {
     const { asFragment } = render(<MenuBar onMenuDropdownClick={vi.fn()} />)
     expect(asFragment()).toMatchSnapshot()
-    await userEvent.click(screen.getByText('Get Streetmix+', { exact: false }))
+    await userEvent.click(screen.getByText('Get STS Street Plus', { exact: false }))
 
     expect(showDialog).toHaveBeenCalledTimes(1)
     expect(showDialog).toHaveBeenCalledWith('UPGRADE')

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { DEFAULT_LOCALE } from '@streetmix/i18n'
+import { brand } from '@sts-street/branding'
 
 import { getAppTranslations, getSegmentTranslations } from '../../util/api.js'
 
@@ -45,6 +46,35 @@ function flattenObject(obj: TranslationRecord): LocaleMessages {
   return toReturn
 }
 
+/**
+ * Applies the product name to translated strings. Translations are
+ * maintained upstream with the upstream product name; substituting at load
+ * time keeps all 29 locales in sync with the STS brand without forking the
+ * translation files. Placeholders such as `{streetmixWordmark}` are not
+ * touched because they are part of the message syntax.
+ */
+export function applyProductName(message: string): string {
+  if (typeof message !== 'string') return message
+  return message
+    .replace(/Streetmix\+/g, brand.plusName)
+    .replace(/(?<![{\w@/.-])Streetmix(?![\w+}])/g, brand.productName)
+}
+
+function applyProductNameDeep(obj: TranslationRecord): TranslationRecord {
+  const out: TranslationRecord = {}
+  for (const key of Object.keys(obj)) {
+    const value = obj[key]
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      out[key] = applyProductNameDeep(value as TranslationRecord)
+    } else if (typeof value === 'string') {
+      out[key] = applyProductName(value)
+    } else {
+      out[key] = value
+    }
+  }
+  return out
+}
+
 export const changeLocale = createAsyncThunk(
   'locale/changeLocale',
   async (locale: string) => {
@@ -54,7 +84,7 @@ export const changeLocale = createAsyncThunk(
     return {
       locale,
       translation: {
-        messages: messages.data,
+        messages: applyProductNameDeep(messages.data),
         segmentInfo: segmentInfo.data,
       },
     }

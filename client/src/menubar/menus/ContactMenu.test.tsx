@@ -17,11 +17,25 @@ describe('ContactMenu', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
+  it('links to STS contact destinations', () => {
+    render(<ContactMenu isActive />)
+
+    expect(screen.getByText('Email STS').closest('a')).toHaveAttribute(
+      'href',
+      'mailto:info@sts.com.ge'
+    )
+    expect(
+      screen.getByText('Contact form on STS website').closest('a')
+    ).toHaveAttribute('href', 'https://sts.com.ge/contact-us/')
+    expect(screen.getByText('View source code').closest('a')).toHaveAttribute(
+      'href',
+      '/source'
+    )
+  })
+
   it('handles clicked menu items', async () => {
     render(<ContactMenu isActive />)
 
-    await userEvent.click(screen.getByText('Discord', { exact: false }))
-    await userEvent.click(screen.getByText('GitHub', { exact: false }))
     await userEvent.click(screen.getByText('newsletter', { exact: false }))
 
     expect(showDialog).toHaveBeenCalledTimes(1)

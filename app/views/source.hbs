@@ -1,0 +1,30 @@
+{{> page_head}}
+      <h1>Source code</h1>
+      <p>{{brand.productName}} is free software. This page is the offer of complete corresponding source code required by section 13 of the <a href="{{source.licenseUrl}}">GNU Affero General Public License v3.0</a>.</p>
+
+      <h2>This deployment</h2>
+      <dl>
+        <dt>Product</dt><dd>{{source.product}} {{#if source.version}}v{{source.version}}{{/if}}</dd>
+        <dt>Operator</dt><dd>{{source.operator}}</dd>
+        <dt>Commit</dt><dd><code>{{source.commit}}</code></dd>
+        <dt>License</dt><dd>{{source.license}}</dd>
+        <dt>Repository</dt><dd><a href="{{source.repository}}">{{source.repository}}</a></dd>
+      </dl>
+
+      <h2>Download the source</h2>
+      {{#if source.archive.available}}
+      <p><a class="btn btn-primary" href="{{source.archive.url}}">Download source archive (.tar.gz)</a><br>
+        <small>The archive contains the complete source tree for commit <code>{{source.commit}}</code>, including build scripts and installation instructions (README.md, docs/operations.md). Secrets and user data are not included.</small></p>
+      {{else}}
+      <p class="sts-notice">The source archive for this exact build has not been generated on this server. The source is available from the repository above at commit <code>{{source.commit}}</code>. Operators: run <code>npm run source:archive</code> during deployment to publish the archive here.</p>
+      {{/if}}
+
+      <h2>Notices</h2>
+      <ul>
+        {{#each source.notices}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      <p>Upstream project: <a href="{{source.upstream.url}}">{{source.upstream.name}}</a> (<a href="{{source.upstream.repositoryUrl}}">repository</a>), imported at commit <code>{{source.upstream.commit}}</code>. {{brand.productName}} is not affiliated with or endorsed by the Streetmix project.</p>
+      <p>Machine-readable version of this page: <a href="/services/source">/services/source</a>.</p>
+{{> page_foot}}

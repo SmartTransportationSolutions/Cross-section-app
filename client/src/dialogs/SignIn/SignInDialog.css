@@ -115,3 +115,32 @@
 .sign-in-email-button {
   justify-content: center;
 }
+
+.sign-in-form .sign-in-email-label + .sign-in-email-label,
+.sign-in-form .sign-in-input + .sign-in-email-label,
+.sign-in-form .sign-in-email-password-note + .sign-in-email-label {
+  margin-top: 0.9em;
+}
+
+.sign-in-form .sign-in-button {
+  margin-top: 1em;
+}
+
+.sign-in-magic-link-button {
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.sign-in-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  margin-top: 1em;
+  font-size: 0.95em;
+}
+
+.sign-in-success-message {
+  color: var(--color-emerald-700);
+  font-weight: 550;
+  margin-top: 0.5em;
+}

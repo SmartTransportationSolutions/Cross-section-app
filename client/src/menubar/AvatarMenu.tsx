@@ -22,7 +22,7 @@ export function AvatarMenu({
   const subscriberLabel = isSubscriber
     ? formatMessage({
         id: 'users.roles.subscriber',
-        defaultMessage: 'Streetmix+ member',
+        defaultMessage: 'STS Street Plus member',
       })
     : ''
 

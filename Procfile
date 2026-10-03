@@ -1,2 +1,2 @@
-web: npm run serve
+web: npm run start:prod
 release: ./bin/release_tasks.sh

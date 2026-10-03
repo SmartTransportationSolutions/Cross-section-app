@@ -1,7 +1,7 @@
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+import type { Request as AuthedRequest } from 'express'
 
 export async function del(req: AuthedRequest, res: Response) {
   // In order to sign out, make sure the user's session cookies

@@ -6,26 +6,6 @@ import { Button } from '~/src/ui/Button.js'
 import { Dialog } from '../Dialog.js'
 import './NewsletterDialog.css'
 
-/**
- * Converts an object returned from react-hook-form's `handleSubmit()`
- * into a string fitting a 'application/x-www-form-urlencoded' MIME-type.
- *
- * This function is generic and can be ported to a common utility module
- * if we ever need it in more than one place.
- *
- * @param data provided by react-hook-form's `handleSubmit()`
- * @returns string expected by the newsletter POST endpoint
- */
-function jsObjectToFormBody(data: Record<string, string>): string {
-  const formBody = []
-  for (const property in data) {
-    const encodedKey = encodeURIComponent(property)
-    const encodedValue = encodeURIComponent(data[property as keyof typeof data])
-    formBody.push(encodedKey + '=' + encodedValue)
-  }
-  return formBody.join('&')
-}
-
 type NewsletterFormValues = {
   email: string
   tag: 'via app'
@@ -49,19 +29,16 @@ export function NewsletterDialog() {
 
   const onSubmit = async (data: Record<string, string>): Promise<void> => {
     setSubmitState('PENDING')
-    const formBody = jsObjectToFormBody(data)
 
     try {
-      const res = await window.fetch(
-        'https://buttondown.email/api/emails/embed-subscribe/streetmix',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: formBody,
-        }
-      )
+      const res = await window.fetch('/services/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ email: data.email, tag: data.tag }),
+      })
 
       if (res.status === 200) {
         setSubmitState('OK')

@@ -3,7 +3,27 @@ sidebar_label: Changelog
 sidebar_position: 5
 ---
 
-# What's new in Streetmix?
+# What’s new in STS Street?
+
+## October 3, 2026
+
+### 🎉 STS Street launch
+
+**STS Street** is Smart Transportation Solutions' street cross-section design tool, based on the open-source Streetmix editor (upstream version of September 24, 2026). Everything you could do in Streetmix works here: drag-and-drop street elements, precise widths in metric or US units, undo/redo, galleries, sharing, remixing, image export and printing, 29 languages, and the full illustration catalog.
+
+### ✨ New in STS Street
+
+- **New sign-in options.** Create an account with your email and a password, request a one-time sign-in link by email, or use a federated sign-in provider where your organization has configured one. Password reset is built in.
+- **STS Street Plus** replaces Streetmix+ as the membership tier; it is activated by STS on request. See [STS Street Plus](/docs/user-guide/sts-street-plus).
+- **Georgian street names and labels** render correctly in the editor and in exported images.
+- **Shared links now carry a live preview image** of the street in chat apps and social networks.
+- **Account deletion** from Settings removes your account and hides your streets.
+- **Privacy:** the newsletter list, sign-in, error reporting and analytics no longer involve the upstream project's service providers. See the [privacy policy](/privacy-policy).
+
+### ℹ️ Upstream history
+
+The entries below are the upstream Streetmix release notes up to the version STS Street is based on. They describe behavior that is present in STS Street (with the product name changed).
+
 
 ## September 16, 2026
 

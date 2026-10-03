@@ -51,7 +51,7 @@ export function SkyPicker() {
           <StreetmixPlusPrompt>
             <FormattedMessage
               id="plus.prompt.text"
-              defaultMessage="This feature is only available to Streetmix+ users.&lrm;"
+              defaultMessage="This feature is only available to STS Street Plus users.&lrm;"
             />
           </StreetmixPlusPrompt>
         </div>

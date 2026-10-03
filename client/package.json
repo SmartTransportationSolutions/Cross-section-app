@@ -11,9 +11,7 @@
   "type": "module",
   "scripts": {
     "build": "parcel build src/main.tsx --dist-dir ../build --public-url /assets",
-    "postbuild": "npm run sentry:sourcemaps",
-    "dev": "parcel watch src/main.tsx --dist-dir ../build --public-url /assets",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ../build && sentry-cli sourcemaps upload --org streetmix --project streetmix ../build"
+    "dev": "parcel watch src/main.tsx --dist-dir ../build --public-url /assets"
   },
   "dependencies": {
     "@floating-ui/react": "0.27.20",
@@ -30,11 +28,7 @@
     "@radix-ui/react-switch": "1.3.7",
     "@reduxjs/toolkit": "2.12.0",
     "@sentry/browser": "10.75.1",
-    "@sentry/cli": "3.8.0",
     "@tabler/icons-react": "3.47.0",
-    "@userback/widget": "0.3.13",
-    "auth0": "6.4.0",
-    "auth0-js": "10.2.1",
     "autoprefixer": "10.6.1",
     "copy-to-clipboard": "4.0.2",
     "date-fns": "4.4.0",
@@ -71,7 +65,8 @@
     "rehype-external-links": "3.0.0",
     "seedrandom": "3.0.5",
     "shifty": "3.0.6",
-    "slugify": "1.6.9"
+    "slugify": "1.6.9",
+    "@sts-street/branding": "*"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "1.1.1",
@@ -80,7 +75,6 @@
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.7",
-    "@types/auth0-js": "9.21.6",
     "@types/file-saver": "2.0.7",
     "@types/js-cookie": "3.0.6",
     "@types/leaflet": "1.9.22",

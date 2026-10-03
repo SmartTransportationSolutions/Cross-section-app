@@ -484,7 +484,7 @@ export async function drawStreetThumbnail(
     transparentSky, // If `true`, image is a silhouette
     labels, // If `true`, include labels (names and widths)
     streetName, // If `true`, include street nameplate
-    watermark = true, // If `true`, include Streetmix watermark
+    watermark = true, // If `true`, include STS Street watermark
     locale = 'en',
   }: ThumbnailOptions
 ): Promise<void> {

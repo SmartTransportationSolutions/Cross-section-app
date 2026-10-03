@@ -15,7 +15,7 @@ const WATERMARK_LIGHT_COLOR = '#cccccc'
 const WORDMARK_MARGIN = 4
 
 /**
- * Draws a "made with Streetmix" watermark on the lower right of the image.
+ * Draws a "made with STS Street" watermark on the lower right of the image.
  *
  * @todo Make it work with rtl
  * @modifies {Canvas.SKRSContext2D}
@@ -54,7 +54,7 @@ export async function drawWatermark(
   ctx.textBaseline = 'alphabetic'
   ctx.font = `normal ${WATERMARK_FONT_WEIGHT} ${
     WATERMARK_FONT_SIZE * scale
-  }px ${WATERMARK_FONT},sans-serif`
+  }px ${WATERMARK_FONT},'Noto Sans Georgian',sans-serif`
   // This is NOT standard, but is currently implemented this way in @napi-rs/canvas
   ctx.fontVariationSettings = `'wght' ${WATERMARK_FONT_WEIGHT}`
   ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR

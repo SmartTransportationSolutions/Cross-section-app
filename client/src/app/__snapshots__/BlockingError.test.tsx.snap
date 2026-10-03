@@ -32,7 +32,7 @@ exports[`BlockingError > renders AUTH_EXPIRED 1`] = `
         class="btn btn-primary"
         type="button"
       >
-        Return to Streetmix
+        Return to STS Street
       </button>
     </div>
   </div>
@@ -57,7 +57,7 @@ exports[`BlockingError > renders FORCE_RELOAD_SIGN_IN 1`] = `
           You signed in in another window.
         </h1>
         <p>
-          Please reload this page to return to Streetmix.
+          Please reload this page to return to STS Street.
         </p>
       </div>
       <button
@@ -89,7 +89,7 @@ exports[`BlockingError > renders FORCE_RELOAD_SIGN_OUT 1`] = `
           You signed out in another window.
         </h1>
         <p>
-          Please reload this page to return to Streetmix.
+          Please reload this page to return to STS Street.
         </p>
       </div>
       <button
@@ -149,7 +149,7 @@ exports[`BlockingError > renders GENERIC_ERROR 1`] = `
         <p>
           We’re sorry – something went wrong. Please try again later. If you still need help, please 
           <a
-            href="https://docs.streetmix.net/community"
+            href="mailto:info@sts.com.ge"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -162,7 +162,7 @@ exports[`BlockingError > renders GENERIC_ERROR 1`] = `
         class="btn btn-primary"
         type="button"
       >
-        Return to Streetmix
+        Return to STS Street
       </button>
     </div>
   </div>
@@ -187,7 +187,7 @@ exports[`BlockingError > renders NEW_STREET_SERVER_FAILURE 1`] = `
           Having trouble…
         </h1>
         <p>
-          We’re having trouble loading Streetmix.
+          We’re having trouble loading STS Street.
         </p>
       </div>
       <button
@@ -200,7 +200,7 @@ exports[`BlockingError > renders NEW_STREET_SERVER_FAILURE 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
+          href="/docs/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -257,7 +257,7 @@ exports[`BlockingError > renders NOT_FOUND 1`] = `
         class="btn btn-primary"
         type="button"
       >
-        Return to Streetmix
+        Return to STS Street
       </button>
     </div>
   </div>
@@ -282,7 +282,7 @@ exports[`BlockingError > renders SIGN_IN_401 1`] = `
           Having trouble…
         </h1>
         <p>
-          We’re having trouble loading Streetmix.
+          We’re having trouble loading STS Street.
           <br />
           (Error RM1.)
         </p>
@@ -297,7 +297,7 @@ exports[`BlockingError > renders SIGN_IN_401 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
+          href="/docs/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -327,7 +327,7 @@ exports[`BlockingError > renders SIGN_IN_SERVER_FAILURE 1`] = `
           Having trouble…
         </h1>
         <p>
-          We’re having trouble loading Streetmix.
+          We’re having trouble loading STS Street.
           <br />
           (Error 15A.)
         </p>
@@ -342,7 +342,7 @@ exports[`BlockingError > renders SIGN_IN_SERVER_FAILURE 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
+          href="/docs/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -376,7 +376,7 @@ exports[`BlockingError > renders SIGN_OUT 1`] = `
         class="btn btn-primary"
         type="button"
       >
-        Return to Streetmix
+        Return to STS Street
       </button>
     </div>
   </div>
@@ -401,7 +401,7 @@ exports[`BlockingError > renders STREET_DATA_FAILURE 1`] = `
           Having trouble…
         </h1>
         <p>
-          We’re having trouble loading Streetmix.
+          We’re having trouble loading STS Street.
           <br />
           (Error 9B.)
         </p>
@@ -416,7 +416,7 @@ exports[`BlockingError > renders STREET_DATA_FAILURE 1`] = `
         class="error-help-link"
       >
         <a
-          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
+          href="/docs/user-guide/support/troubleshooting"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -453,7 +453,7 @@ exports[`BlockingError > renders STREET_DELETED_ELSEWHERE 1`] = `
         class="btn btn-primary"
         type="button"
       >
-        Return to Streetmix
+        Return to STS Street
       </button>
     </div>
   </div>
@@ -475,7 +475,7 @@ exports[`BlockingError > renders UNSUPPORTED_BROWSER 1`] = `
         class="error-text"
       >
         <h1>
-          Streetmix doesn’t work on your browser.
+          STS Street doesn’t work on your browser.
         </h1>
         <p>
           Sorry about that. You might want to try 
@@ -507,7 +507,7 @@ exports[`BlockingError > renders UNSUPPORTED_BROWSER 1`] = `
         <p>
           Are you on Internet Explorer? 
           <a
-            href="https://docs.streetmix.net/user-guide/support/faq#internet-explorer"
+            href="/docs/user-guide/support/faq"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -517,7 +517,7 @@ exports[`BlockingError > renders UNSUPPORTED_BROWSER 1`] = `
         <p>
           If you think your browser should be supported, please 
           <a
-            href="https://docs.streetmix.net/community"
+            href="mailto:info@sts.com.ge"
             rel="noopener noreferrer"
             target="_blank"
           >

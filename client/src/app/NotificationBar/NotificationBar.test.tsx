@@ -7,7 +7,7 @@ import { NotificationBar } from './NotificationBar.js'
 const TEST_NOTIFICATION = {
   display: true,
   lede: 'Heads up!',
-  text: 'Streetmix will be offline for maintainance on January 1, 2025 at 19:00 GMT.',
+  text: 'STS Street will be offline for maintainance on January 1, 2025 at 19:00 GMT.',
   link: 'https://twitter.com/streetmix/',
   linkText: 'Follow us on Twitter for updates.',
 }

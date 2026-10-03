@@ -1,7 +1,6 @@
 import user, {
   setSignInData,
-  clearSignInData,
-  setCoilPluginSubscriber
+  clearSignInData
 } from './user'
 
 describe('user reducer', () => {
@@ -9,7 +8,6 @@ describe('user reducer', () => {
     signInData: null,
     signedIn: false,
     isSubscriber: false,
-    isCoilPluginSubscriber: false,
     geolocation: {
       attempted: false,
       data: null,
@@ -41,7 +39,6 @@ describe('user reducer', () => {
       },
       signedIn: true,
       isSubscriber: false,
-      isCoilPluginSubscriber: false,
       geolocation: {
         attempted: false,
         data: null,
@@ -74,7 +71,6 @@ describe('user reducer', () => {
       },
       signedIn: true,
       isSubscriber: true,
-      isCoilPluginSubscriber: false,
       geolocation: {
         attempted: false,
         data: null,
@@ -97,8 +93,7 @@ describe('user reducer', () => {
           },
           signedIn: true,
           isSubscriber: true,
-          isCoilPluginSubscriber: true,
-          geolocation: {
+              geolocation: {
             attempted: true,
             data: null,
             error: null
@@ -110,7 +105,6 @@ describe('user reducer', () => {
       signInData: null,
       signedIn: false,
       isSubscriber: false,
-      isCoilPluginSubscriber: false,
       geolocation: {
         attempted: true,
         data: null,
@@ -119,82 +113,6 @@ describe('user reducer', () => {
     })
   })
 
-  it('should handle setCoilPluginSubscriber() for not-signed-in user', () => {
-    expect(user(initialState, setCoilPluginSubscriber(true))).toEqual({
-      signInData: null,
-      signedIn: false,
-      isSubscriber: false,
-      isCoilPluginSubscriber: true,
-      geolocation: {
-        attempted: false,
-        data: null,
-        error: null
-      }
-    })
-  })
 
-  it('should handle setCoilPluginSubscriber() for signed-in user', () => {
-    expect(
-      user(
-        {
-          ...initialState,
-          signedIn: true
-        },
-        setCoilPluginSubscriber(true)
-      )
-    ).toEqual({
-      signInData: null,
-      signedIn: true,
-      isSubscriber: true,
-      isCoilPluginSubscriber: true,
-      geolocation: {
-        attempted: false,
-        data: null,
-        error: null
-      }
-    })
-  })
 
-  it('should handle setCoilPluginSubscriber() for a user with subscriber role', () => {
-    expect(
-      user(
-        {
-          signInData: {
-            details: {
-              id: 'foo',
-              profileImageUrl: 'image.gif',
-              flags: {},
-              roles: ['USER', 'SUBSCRIBER_1']
-            }
-          },
-          signedIn: true,
-          isSubscriber: true,
-          isCoilPluginSubscriber: true,
-          geolocation: {
-            attempted: true,
-            data: null,
-            error: null
-          }
-        },
-        setCoilPluginSubscriber(false)
-      )
-    ).toEqual({
-      signInData: {
-        details: {
-          id: 'foo',
-          profileImageUrl: 'image.gif',
-          flags: {},
-          roles: ['USER', 'SUBSCRIBER_1']
-        }
-      },
-      signedIn: true,
-      isSubscriber: true,
-      isCoilPluginSubscriber: false,
-      geolocation: {
-        attempted: true,
-        data: null,
-        error: null
-      }
-    })
-  })
 })

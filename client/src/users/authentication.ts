@@ -6,6 +6,7 @@ import type { UserProfile } from '~/src/types'
 import USER_ROLES from '../../../app/data/user_roles.json'
 import { STREET_TEMPLATES } from '../app/constants.js'
 import { showError, ERRORS } from '../app/errors.js'
+import { signOutOnServer } from '../app/routing.js'
 import {
   MODES,
   processMode,
@@ -132,7 +133,7 @@ export async function loadSignIn() {
     }
   } catch (error) {
     if (signInData?.token) {
-      Sentry.captureMessage(`Error parsing jwt token: ${signInData.token}`)
+      Sentry.captureMessage('Error parsing sign-in token')
     }
     clearAllClientSignInData()
     setMode(MODES.AUTH_EXPIRED)
@@ -174,7 +175,7 @@ export async function loadSignIn() {
 async function refreshLoginToken(refreshToken: string) {
   const requestBody = JSON.stringify({ token: refreshToken })
   try {
-    const response = await window.fetch('/services/auth0/refresh-login-token', {
+    const response = await window.fetch('/services/auth/refresh-login-token', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -286,6 +287,8 @@ export async function signOut(quiet = false) {
       throw new Error('Attempted sign out but user data already cleared')
     }
 
+    // Revoke the refresh token and clear cookies on the server
+    await signOutOnServer()
     await deleteUserLoginToken(signInData.userId)
 
     if (!quiet) {

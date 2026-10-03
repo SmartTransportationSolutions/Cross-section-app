@@ -45,7 +45,7 @@ export function FeatureFlagSettings() {
       <h2>Feature flags</h2>
       <p>
         Feature flags are administrator-level settings that can adjust or toggle
-        Streetmix functionality. They can change at any time. Use at your own
+        STS Street functionality. They can change at any time. Use at your own
         risk.
       </p>
       <hr />

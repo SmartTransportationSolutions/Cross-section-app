@@ -39,7 +39,7 @@ export default defineConfig([
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
     ...reactHooks.configs.flat.recommended,
-    files: ['**/*.{js,ts,tsx,cjs}'],
+    files: ['**/*.{js,mjs,ts,tsx,cjs}'],
     // plugins: { formatjs },
     languageOptions: {
       globals: {
@@ -137,6 +137,7 @@ export default defineConfig([
       'client/**/*.{ts,tsx}',
       'packages/**/*.ts',
       'app/**/*.ts',
+      'bin/**/*.ts',
       'app.ts',
     ],
     extends: [tseslint.configs.recommended],

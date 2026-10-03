@@ -5,7 +5,7 @@ import { asStreetJsonBasic, ERRORS } from '../../lib/util.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+import type { Request as AuthedRequest } from 'express'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_LIMIT = 100
@@ -163,7 +163,7 @@ export async function del(req: AuthedRequest, res: Response) {
   let requestUser: User | null
 
   try {
-    requestUser = await User.findOne({ where: { auth0Id: req.auth.sub } })
+    requestUser = await User.findOne({ where: { authSubject: req.auth.sub } })
   } catch (error) {
     logger.error(error)
     sendError(res, ERRORS.CANNOT_GET_USER)

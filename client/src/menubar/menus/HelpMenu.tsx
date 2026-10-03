@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import { brand } from '@sts-street/branding'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { clearMenus } from '~/src/store/slices/menus.js'
@@ -41,7 +42,7 @@ export function HelpMenu(props: MenuProps) {
         ) : (
           <FormattedMessage
             id="menu.item.about"
-            defaultMessage="About Streetmix…"
+            defaultMessage="About STS Street…"
           />
         )}
       </MenuItem>
@@ -56,7 +57,7 @@ export function HelpMenu(props: MenuProps) {
       )}
       {!offline && (
         <>
-          <MenuItem href="https://docs.streetmix.net/user-guide/intro">
+          <MenuItem href={brand.guidebookUrl}>
             <Icon name="trail-sign" className="menu-item-icon" />
             <FormattedMessage
               id="menu.help.guidebook-link"
@@ -77,15 +78,6 @@ export function HelpMenu(props: MenuProps) {
                   Coastmix practice scenario
                 </MenuItem>
               </CoastmixPracticeTour>
-            </>
-          )}
-          {!coastmixMode && (
-            <>
-              <MenuSeparator />
-              <MenuItem href="https://cottonbureau.com/people/streetmix">
-                <Icon name="cart" className="menu-item-icon" />
-                <FormattedMessage id="menu.item.store" defaultMessage="Store" />
-              </MenuItem>
             </>
           )}
         </>

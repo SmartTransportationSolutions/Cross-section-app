@@ -8,8 +8,6 @@ import { Toast } from './Toast.js'
 import { ToastUndo } from './ToastUndo.js'
 import { ToastSignIn } from './ToastSignIn.js'
 import { ToastNoConnection } from './ToastNoConnection.js'
-import { ToastWebMonetization } from './ToastWebMonetization.js'
-import { ToastWebMonetizationSuccess } from './ToastWebMonetizationSuccess.js'
 import './ToastContainer.css'
 
 const TOAST_SPRING_CONFIG = {
@@ -125,24 +123,6 @@ export function ToastContainer() {
             case 'TOAST_SIGN_IN':
               childComponent = (
                 <ToastSignIn
-                  setRef={setRef}
-                  handleClose={handleClose}
-                  item={item}
-                />
-              )
-              break
-            case 'TOAST_WEB_MONETIZATION':
-              childComponent = (
-                <ToastWebMonetization
-                  setRef={setRef}
-                  handleClose={handleClose}
-                  item={item}
-                />
-              )
-              break
-            case 'TOAST_WEB_MONETIZATION_SUCCESS':
-              childComponent = (
-                <ToastWebMonetizationSuccess
                   setRef={setRef}
                   handleClose={handleClose}
                   item={item}

@@ -14,18 +14,18 @@ vi.mock('../../../db/models/index.ts', () => ({
       const where = query?.where ?? {}
 
       // Returns base user fixture
-      if (where.id === 'user1' || where.auth0Id === 'foo|123') {
+      if (where.id === 'user1' || where.authSubject === 'foo|123') {
         return makeUserFixture()
       }
 
       if (where.id === 'user2') {
-        return makeUserFixture({ id: 'user2', auth0Id: 'bar|456' })
+        return makeUserFixture({ id: 'user2', authSubject: 'bar|456' })
       }
 
-      if (where.auth0Id === 'admin|789') {
+      if (where.authSubject === 'admin|789') {
         return makeUserFixture({
           id: 'admin1',
-          auth0Id: 'admin|789',
+          authSubject: 'admin|789',
           roles: ['ADMIN'],
         })
       }
@@ -34,6 +34,16 @@ vi.mock('../../../db/models/index.ts', () => ({
     }),
     update: vi.fn(async () => [1, [{ id: 'user1' }]]),
   },
+  Street: {
+    update: vi.fn(async () => [0]),
+  },
+  AuthCredential: {
+    destroy: vi.fn(async () => 0),
+  },
+}))
+
+vi.mock('../../../auth/tokens.ts', () => ({
+  revokeAllUserTokens: vi.fn(async () => undefined),
 }))
 
 const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()

@@ -50,7 +50,7 @@ export const WhatsNewDialog = () => {
             <h1>
               <FormattedMessage
                 id="dialogs.whatsnew.heading"
-                defaultMessage="What’s new in Streetmix?&lrm;"
+                defaultMessage="What’s new in STS Street?&lrm;"
               />
             </h1>
           </header>

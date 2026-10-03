@@ -8,11 +8,10 @@ import type { NextFunction, Request, Response } from 'express'
 
 const {
   authMock,
-  btpTokenCheckMock,
-  usersPostMock,
   usersGetMock,
   usersPutMock,
   usersPatchMock,
+  usersPutRolesMock,
   usersDeleteMock,
   userSessionDeleteMock,
   usersStreetsDeleteMock,
@@ -22,8 +21,6 @@ const {
   streetsDeleteMock,
   streetsGetMock,
   streetsPutMock,
-  streetImagesPostMock,
-  streetImagesDeleteMock,
   streetImagesGetMock,
   streetRemixesGetMock,
   translateGetMock,
@@ -52,12 +49,7 @@ const {
         next()
       }
     }),
-    btpTokenCheckMock: vi.fn(
-      (_req: Request, _res: Response, next: NextFunction) => {
-        next()
-      }
-    ),
-    usersPostMock: ok('users.post'),
+    usersPutRolesMock: ok('users.putRoles'),
     usersGetMock: ok('users.get'),
     usersPutMock: ok('users.put'),
     usersPatchMock: ok('users.patch'),
@@ -76,12 +68,6 @@ const {
     streetsPutMock: vi.fn((_req: Request, res: Response) => {
       res.status(204).end()
     }),
-    streetImagesPostMock: vi.fn((_req: Request, res: Response) => {
-      res.status(201).json({ route: 'streetImages.post' })
-    }),
-    streetImagesDeleteMock: vi.fn((_req: Request, res: Response) => {
-      res.status(204).end()
-    }),
     streetImagesGetMock: ok('streetImages.get'),
     streetRemixesGetMock: ok('streetRemixes.get'),
     translateGetMock: ok('translate.get'),
@@ -95,13 +81,10 @@ vi.mock('../authentication.ts', () => ({
   auth: authMock,
 }))
 
-vi.mock('../resources/services/integrations/coil.ts', () => ({
-  BTPTokenCheck: btpTokenCheckMock,
-}))
 
 vi.mock('../resources/v1/index.ts', () => ({
   users: {
-    post: usersPostMock,
+    putRoles: usersPutRolesMock,
     get: usersGetMock,
     put: usersPutMock,
     patch: usersPatchMock,
@@ -122,8 +105,6 @@ vi.mock('../resources/v1/index.ts', () => ({
     put: streetsPutMock,
   },
   streetImages: {
-    post: streetImagesPostMock,
-    del: streetImagesDeleteMock,
     get: streetImagesGetMock,
   },
   streetRemixes: {
@@ -155,25 +136,38 @@ describe('api_routes router wiring', () => {
     expect(streetsPostMock).toHaveBeenCalledTimes(1)
   })
 
-  it('routes to user profile endpoint with BTP token check middleware', async () => {
+  it('routes to user profile endpoint with optional auth', async () => {
     const response = await request(app).get('/api/v1/users/user-123')
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual({ route: 'users.get' })
     expect(usersGetMock).toHaveBeenCalledTimes(1)
-    expect(btpTokenCheckMock).toHaveBeenCalledTimes(1)
   })
 
-  it('handles image upload route', async () => {
-    const response = await request(app)
-      .post('/api/v1/streets/street-123/image')
-      .set('Authorization', 'Bearer test-token')
-      .type('text/plain')
-      .send('test-body')
+  it('routes street image export with optional auth', async () => {
+    const response = await request(app).get('/api/v1/streets/street-123/image')
 
-    expect(response.statusCode).toBe(201)
-    expect(response.body).toEqual({ route: 'streetImages.post' })
-    expect(streetImagesPostMock).toHaveBeenCalledTimes(1)
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toEqual({ route: 'streetImages.get' })
+    expect(streetImagesGetMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not expose a public user-creation endpoint', async () => {
+    const response = await request(app)
+      .post('/api/v1/users')
+      .set('Authorization', 'Bearer test-token')
+      .send({})
+
+    expect(response.statusCode).toBe(404)
+  })
+
+  it('requires auth for role management', async () => {
+    const response = await request(app)
+      .put('/api/v1/users/user-123/roles')
+      .send({ roles: ['SUBSCRIBER_1'] })
+
+    expect(response.statusCode).toBe(401)
+    expect(usersPutRolesMock).not.toHaveBeenCalled()
   })
 
   it('returns router-level 404 for unknown api routes', async () => {
@@ -187,14 +181,14 @@ describe('api_routes router wiring', () => {
   })
 
   it('blocks unauthenticated access on auth-required routes', async () => {
-    const response = await request(app).post('/api/v1/users').send({})
+    const response = await request(app).delete('/api/v1/streets/street-123')
 
     expect(response.statusCode).toBe(401)
     expect(response.body).toEqual({
       status: 401,
       msg: 'Unauthorized request.',
     })
-    expect(usersPostMock).not.toHaveBeenCalled()
+    expect(streetsDeleteMock).not.toHaveBeenCalled()
   })
 
   it('allows authenticated access on auth-required routes', async () => {

@@ -15,7 +15,7 @@ exports[`NotificationBar > renders snapshot 1`] = `
     <span
       class="notification-bar-text"
     >
-      Streetmix will be offline for maintainance on January 1, 2025 at 19:00 GMT.
+      STS Street will be offline for maintainance on January 1, 2025 at 19:00 GMT.
     </span>
      
     <a

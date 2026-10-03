@@ -24,7 +24,7 @@ describe('ShareMenu', () => {
     })
 
     // Check for proper sharing messages
-    const message = 'Check out this street on Streetmix!'
+    const message = 'Check out this street on STS Street!'
     const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
       exact: false,
     })
@@ -54,7 +54,7 @@ describe('ShareMenu', () => {
     })
 
     // Check for proper sharing messages
-    const message = 'Check out my street, bar, on Streetmix!'
+    const message = 'Check out my street, bar, on STS Street!'
     const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
       exact: false,
     })
@@ -88,7 +88,7 @@ describe('ShareMenu', () => {
         },
       })
 
-      const message = 'Check out my street on Streetmix!'
+      const message = 'Check out my street on STS Street!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
         exact: false,
       })
@@ -116,7 +116,7 @@ describe('ShareMenu', () => {
         },
       })
 
-      const message = 'Check out bar by @qux on Streetmix!'
+      const message = 'Check out bar by @qux on STS Street!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
         exact: false,
       })
@@ -147,7 +147,7 @@ describe('ShareMenu', () => {
         },
       })
 
-      const message = 'Check out this street by @qux on Streetmix!'
+      const message = 'Check out this street by @qux on STS Street!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
         exact: false,
       })
@@ -178,7 +178,7 @@ describe('ShareMenu', () => {
         },
       })
 
-      const message = 'Check out bar on Streetmix!'
+      const message = 'Check out bar on STS Street!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
         exact: false,
       })

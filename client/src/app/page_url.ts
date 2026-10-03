@@ -3,12 +3,14 @@ import { normalizeSlug } from '../util/helpers.js'
 import store from '../store'
 import { setGalleryUserId } from '../store/slices/gallery.js'
 import { saveCreatorId, saveStreetId } from '../store/slices/street.js'
+import { showDialog } from '../store/slices/dialogs.js'
 import {
   URL_NEW_STREET,
   JUST_SIGNED_IN_PATH,
   URL_GLOBAL_GALLERY,
   URL_RESERVED_PREFIX,
   URL_SURVEY_FINISHED,
+  URL_RESET_PASSWORD,
   RESERVED_URLS,
   STREET_TEMPLATES,
 } from './constants.js'
@@ -62,6 +64,12 @@ export function processUrl(): void {
     // Coming back from a successful sign in
   } else if (pathname === JUST_SIGNED_IN_PATH) {
     setMode(MODES.JUST_SIGNED_IN)
+
+    // Password reset link from email: load the last street and open the
+    // reset dialog
+  } else if (pathname === URL_RESET_PASSWORD) {
+    setMode(MODES.CONTINUE)
+    store.dispatch(showDialog('PASSWORD_RESET'))
 
     // Global gallery
   } else if (pathname === URL_GLOBAL_GALLERY) {

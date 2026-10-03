@@ -65,7 +65,7 @@ export function IdentityMenu(props: MenuProps) {
                       alt=""
                       // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                     />
-                    Streetmix+&lrm;
+                    STS Street Plus&lrm;
                   </li>
                 )}
                 {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}

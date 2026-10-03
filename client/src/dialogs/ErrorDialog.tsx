@@ -1,3 +1,4 @@
+import { brand } from '@sts-street/branding'
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '../ui/ExternalLink.js'
@@ -30,7 +31,7 @@ export function ErrorDialog() {
                 defaultMessage="Something unexpected happened. We’ve logged the error, but if you can remember what happened on the way here, <a>please tell us about it</a>. This could also be a temporary problem, so please try one more time."
                 values={{
                   a: (chunks) => (
-                    <ExternalLink href="https://github.com/streetmix/streetmix/issues/new">
+                    <ExternalLink href={`mailto:${brand.supportEmail}`}>
                       {chunks}
                     </ExternalLink>
                   ),

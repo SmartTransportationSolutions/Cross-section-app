@@ -115,7 +115,7 @@ export function Terms({ locale }: TermsProps) {
   return (
     <FormattedMessage
       id="dialogs.save.license"
-      defaultMessage="This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink} license."
+      defaultMessage="This STS Street-created image may be reused anywhere, for any purpose, under the {licenseLink} license."
       values={{
         // Get locale-specific license links!
         licenseLink: renderCCLink(locale),

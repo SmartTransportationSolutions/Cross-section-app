@@ -25,7 +25,7 @@ describe('HelpMenu', () => {
   it('shows the About dialog when its link is clicked', async () => {
     render(<HelpMenu isActive />)
 
-    await userEvent.click(screen.getByText('About Streetmix…'))
+    await userEvent.click(screen.getByText('About STS Street…'))
 
     expect(showDialog).toHaveBeenCalledTimes(1)
     expect(showDialog).toHaveBeenCalledWith('ABOUT')

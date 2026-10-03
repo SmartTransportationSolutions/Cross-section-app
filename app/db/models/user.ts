@@ -20,7 +20,7 @@ export class User extends Model<
   InferCreationAttributes<User>
 > {
   declare id: string
-  declare auth0Id: CreationOptional<string>
+  declare authSubject: CreationOptional<string>
   declare displayName: CreationOptional<string>
   declare email: CreationOptional<string>
   declare identities: CreationOptional<unknown>
@@ -55,9 +55,9 @@ User.init(
       unique: true,
       type: DataTypes.STRING,
     },
-    auth0Id: {
+    authSubject: {
       type: DataTypes.STRING,
-      field: 'auth0_id',
+      field: 'auth_subject',
     },
     displayName: {
       type: DataTypes.STRING,
@@ -109,7 +109,7 @@ User.init(
         fields: ['email'],
       },
       {
-        fields: ['auth0_id'],
+        fields: ['auth_subject'],
       },
       {
         unique: true,

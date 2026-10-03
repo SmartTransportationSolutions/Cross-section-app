@@ -22,7 +22,7 @@ export function FirstTimeExistingStreet() {
       <h1>
         <FormattedMessage
           id="dialogs.welcome.heading"
-          defaultMessage="Welcome to Streetmix."
+          defaultMessage="Welcome to STS Street."
         />
       </h1>
       <p>

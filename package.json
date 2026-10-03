@@ -1,10 +1,10 @@
 {
-  "name": "streetmix",
+  "name": "sts-street",
   "version": "1.3.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/streetmix/streetmix.git"
+    "url": "https://github.com/SmartTransportationSolutions/Cross-section-app.git"
   },
   "license": "AGPL-3.0-or-later",
   "engines": {
@@ -17,6 +17,7 @@
     "packages/utils",
     "packages/i18n",
     "packages/parts",
+    "packages/branding",
     "packages/*",
     "client",
     "docs"
@@ -25,8 +26,8 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "start": "concurrently --names \"SERVER,CLIENT,TSC\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-tsc\"",
-    "serve": "nodemon --exec \"node -r newrelic index.ts\"",
-    "build": "npm run build --workspaces --if-present",
+    "serve": "node index.ts",
+    "build": "npm run build --workspaces --if-present --workspace=!docs",
     "dev-client": "npm run -w @streetmix/client dev",
     "dev-server": "nodemon --watch app --watch lib --watch index.ts --watch app.ts --watch packages --exec \"node --env-file-if-exists=.env index.ts\"",
     "dev-tsc": "tsc -b --watch --preserveWatchOutput",
@@ -46,7 +47,17 @@
     "pretest:models": "NODE_ENV=test npm run db:migrate",
     "test:models": "NODE_ENV=test vitest --watchAll --testPathPattern=app/db/models/_tests_",
     "posttest:models": "NODE_ENV=test npm run db:reset",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start:prod": "node index.ts",
+    "auth:generate-key": "node bin/generate-auth-key.mjs",
+    "sts:admin": "node --env-file-if-exists=.env bin/sts-admin.ts",
+    "source:archive": "bash bin/source-archive.sh",
+    "brand:assets": "node bin/generate-brand-assets.mjs",
+    "build:docs": "npm run build -w docs",
+    "build:app": "npm run build -w packages/types -w packages/utils -w packages/i18n -w packages/parts -w packages/export-image -w client",
+    "test:e2e": "node --test test/e2e/run.mjs",
+    "db:seed:demo": "node --env-file-if-exists=.env bin/seed-demo.ts",
+    "typecheck": "tsc -b"
   },
   "browserslist": [
     "> 0.5%",
@@ -71,43 +82,39 @@
     "packageExports": true
   },
   "dependencies": {
-    "@streetmix/export-image": "workspace:*",
-    "@streetmix/i18n": "workspace:*",
-    "@streetmix/types": "workspace:*",
-    "@streetmix/utils": "workspace:*",
-    "auth0": "6.4.0",
+    "@streetmix/export-image": "*",
+    "@streetmix/i18n": "*",
+    "@streetmix/types": "*",
+    "@streetmix/utils": "*",
     "axios": "1.20.0",
     "axios-retry": "4.5.0",
     "body-parser": "2.3.0",
-    "cloudinary": "2.11.0",
     "compression": "1.8.2",
     "cookie-parser": "1.4.7",
     "cookie-session": "2.1.1",
     "cors": "2.8.6",
     "express": "5.2.1",
-    "express-jwt": "8.5.1",
+    "express-rate-limit": "8.7.0",
     "glob": "13.0.6",
     "hbs": "4.3.1",
     "helmet": "8.3.0",
+    "jose": "6.2.12",
     "js-yaml": "5.4.2",
-    "jwks-rsa": "4.1.0",
     "nanoid": "6.0.1",
-    "newrelic": "14.5.0",
+    "nodemailer": "7.0.13",
     "nodemon": "3.1.14",
+    "openid-client": "6.8.8",
     "papaparse": "5.7.0",
-    "passport": "0.7.0",
-    "passport-oauth2": "1.8.0",
-    "passport-patreon": "1.0.1",
     "pg": "8.23.0",
     "sequelize": "6.37.8",
     "sequelize-cli": "6.6.5",
-    "sequelize-mock": "0.10.2",
     "svg-sprite": "2.0.4",
     "swagger-jsdoc": "6.3.0",
     "swagger-ui-express": "5.0.1",
     "vinyl": "3.0.1",
     "winston": "3.19.0",
-    "zod": "4.6.5"
+    "zod": "4.6.5",
+    "@sts-street/branding": "*"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.3",
@@ -121,9 +128,8 @@
     "@types/cors": "2.8.19",
     "@types/hbs": "4.0.5",
     "@types/js-yaml": "4.0.9",
+    "@types/nodemailer": "7.0.12",
     "@types/papaparse": "5.5.2",
-    "@types/passport": "1.0.17",
-    "@types/passport-oauth2": "1.8.0",
     "@types/supertest": "7.2.1",
     "@types/svg-sprite": "0.0.39",
     "@types/vinyl": "2.0.12",
@@ -152,6 +158,8 @@
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "8.70.1",
     "vite": "8.3.0",
-    "vitest": "5.0.1"
-  }
+    "vitest": "5.0.1",
+    "playwright": "1.56.1"
+  },
+  "description": "STS Street: collaborative street cross-section design tool by Smart Transportation Solutions (based on Streetmix)"
 }

@@ -34,7 +34,7 @@ describe('WelcomePanel', () => {
   it('shows for first-time user', () => {
     const { queryByText } = render(<WelcomePanel />)
 
-    expect(queryByText('Welcome to Streetmix.')).toBeInTheDocument()
+    expect(queryByText('Welcome to STS Street.')).toBeInTheDocument()
   })
 
   it('shows in Coastmix mode', () => {

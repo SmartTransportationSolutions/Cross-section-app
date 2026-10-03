@@ -41,3 +41,8 @@ cypress/videos
 
 # Sentry Auth Token
 .sentryclirc
+
+# STS Street runtime data (signing keys, mail outbox, image cache)
+data/
+# Playwright evidence
+test/e2e/output/

@@ -98,7 +98,7 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
     </button>
     <a
       class="menu-item"
-      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%3A3000%2F"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20street%20on%20STS%20Street!&url=http%3A%2F%2Flocalhost%3A3000%2F"
       rel="noopener noreferrer"
       role="menuitem"
       target="_blank"
@@ -114,7 +114,7 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
     </a>
     <a
       class="menu-item"
-      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=Unnamed%20St%20%E2%80%93%20Streetmix&description=Check%20out%20this%20street%20on%20Streetmix!"
+      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=Unnamed%20St%20%E2%80%93%20STS%20Street&description=Check%20out%20this%20street%20on%20STS%20Street!"
       rel="noopener noreferrer"
       role="menuitem"
       target="_blank"
@@ -259,7 +259,7 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
     </button>
     <a
       class="menu-item"
-      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!&url=http%3A%2F%2Flocalhost%3A3000%2F"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20street%2C%20bar%2C%20on%20STS%20Street!&url=http%3A%2F%2Flocalhost%3A3000%2F"
       rel="noopener noreferrer"
       role="menuitem"
       target="_blank"
@@ -275,7 +275,7 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
     </a>
     <a
       class="menu-item"
-      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=bar%20%E2%80%93%20Streetmix&description=Check%20out%20my%20street%2C%20bar%2C%20on%20Streetmix!"
+      href="https://www.facebook.com/dialog/feed?app_id=&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&link=http%3A%2F%2Flocalhost%3A3000%2F&name=bar%20%E2%80%93%20STS%20Street&description=Check%20out%20my%20street%2C%20bar%2C%20on%20STS%20Street!"
       rel="noopener noreferrer"
       role="menuitem"
       target="_blank"

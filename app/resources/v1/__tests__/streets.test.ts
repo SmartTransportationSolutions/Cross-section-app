@@ -42,7 +42,7 @@ vi.mock('../../../db/models/index.ts', () => ({
   },
   User: {
     findOne: vi.fn(async () => ({
-      ...makeUserFixture({ id: 'user1', auth0Id: 'foo|123' }),
+      ...makeUserFixture({ id: 'user1', authSubject: 'foo|123' }),
       lastStreetId: 1,
       increment: vi.fn(async function (this: Record<string, unknown>) {
         return this

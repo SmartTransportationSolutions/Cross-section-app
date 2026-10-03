@@ -10,6 +10,8 @@ type VoteAttributes = InferAttributes<Vote>
 
 type UserFixture = UserAttributes & {
   toJSON: () => UserAttributes
+  update: (values: Partial<UserAttributes>) => Promise<UserAttributes>
+  destroy: () => Promise<void>
 }
 
 export function makeUserFixture(
@@ -17,7 +19,7 @@ export function makeUserFixture(
 ): UserFixture {
   const base = {
     id: 'user1',
-    auth0Id: 'foo|123',
+    authSubject: 'foo|123',
     email: 'test@test.com',
     identities: [] as unknown as UserAttributes['identities'],
     roles: ['USER'],
@@ -35,6 +37,11 @@ export function makeUserFixture(
   return {
     ...fixture,
     toJSON: () => fixture,
+    update: async function (this: UserAttributes, values: Partial<UserAttributes>) {
+      Object.assign(this, values)
+      return this
+    },
+    destroy: async () => undefined,
   }
 }
 

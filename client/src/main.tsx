@@ -1,5 +1,5 @@
 /**
- * Streetmix
+ * STS Street
  *
  */
 import { createRoot } from 'react-dom/client'
@@ -23,21 +23,24 @@ import store from '~/src/store'
 import { initialize } from '~/src/app/initialization.js'
 import { App } from '~/src/app/App.js'
 
-// Error tracking
-// Load this before all other modules. Only load when run in production.
-if (
-  window.location.hostname === 'streetmix.net' ||
-  window.location.hostname === 'www.streetmix.net'
-) {
+// Error tracking (optional). Only active when the operator configures an
+// error reporting DSN at build time; nothing is sent otherwise.
+import { SENTRY_DSN } from '~/src/app/config.js'
+
+if (SENTRY_DSN) {
   Sentry.init({
-    dsn: 'https://fac2c23600414d2fb78c128cdbdeaf6f@sentry.io/82756',
-    allowUrls: [/streetmix\.net/, /www\.streetmix\.net/],
+    dsn: SENTRY_DSN,
+    allowUrls: [new RegExp(window.location.hostname.replace(/\./g, '\\.'))],
   })
 }
 
 // Mount React components
 const container = document.getElementById('react-app')
 if (!container) throw new Error('no element to mount to')
+
+// Expose the store for support tooling and browser acceptance tests.
+// It is read-only in practice: state must be changed through dispatched actions.
+;(window as unknown as { __STS_STORE__: typeof store }).__STS_STORE__ = store
 
 const root = createRoot(container)
 root.render(

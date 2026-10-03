@@ -10,7 +10,6 @@ const initialState: UserState = {
   signInData: null,
   signedIn: false,
   isSubscriber: false,
-  isCoilPluginSubscriber: false,
   geolocation: {
     attempted: false,
     data: null,
@@ -46,28 +45,6 @@ const userSlice = createSlice({
       state.signInData = null
       state.signedIn = false
       state.isSubscriber = false
-      state.isCoilPluginSubscriber = false
-    },
-
-    setCoilPluginSubscriber(
-      state,
-      action: PayloadAction<UserState['isCoilPluginSubscriber']>
-    ) {
-      state.isCoilPluginSubscriber = action.payload
-
-      // Also set `isSubscriber` if the user is signed in.
-      if (action.payload && state.signedIn) {
-        state.isSubscriber = true
-      } else {
-        // Unset isSubscriber only if the user doesn't have the role elsewhere
-        if (
-          state.signInData?.details?.roles?.includes(
-            USER_ROLES.SUBSCRIBER_1.value
-          ) !== true
-        ) {
-          state.isSubscriber = false
-        }
-      }
     },
 
     setUserProfile(state, action: PayloadAction<UserProfile>) {
@@ -117,7 +94,6 @@ const userSlice = createSlice({
 export const {
   setSignInData,
   clearSignInData,
-  setCoilPluginSubscriber,
   setUserProfile,
   updateDisplayName,
 } = userSlice.actions

@@ -6,7 +6,8 @@ import { updateDisplayName } from '~/src/store/slices/user.js'
 import { Button } from '~/src/ui/Button.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
 import { Popover } from '~/src/ui/Popover.js'
-import { patchUser } from '~/src/util/api.js'
+import { deleteUser, patchUser } from '~/src/util/api.js'
+import { signOut } from '~/src/users/authentication.js'
 import './ProfileSettings.css'
 import type { MessageValue } from 'react-intl'
 
@@ -21,6 +22,8 @@ export function ProfileSettings() {
   const [isEditing, setEditing] = useState(false)
   const [isPending, setPending] = useState(false)
   const [isError, setError] = useState(false)
+  const [isDeleting, setDeleting] = useState(false)
+  const [isDeleteError, setDeleteError] = useState(false)
   const displayNameInputRef = useRef<HTMLInputElement>(null)
   const displayNameInputId = useId()
 
@@ -82,6 +85,32 @@ export function ProfileSettings() {
           displayNameInputRef.current.focus()
         }
       }, 500)
+    }
+  }
+
+  async function handleDeleteAccount() {
+    if (user === undefined) return
+    const confirmed = window.confirm(
+      intl.formatMessage<{ readonly userId: MessageValue }>(
+        {
+          id: 'settings.profile.delete-account-confirm',
+          defaultMessage:
+            'Delete the account “{userId}” and all of its streets? This cannot be undone.',
+        },
+        { userId: user.id }
+      )
+    )
+    if (!confirmed) return
+
+    setDeleting(true)
+    setDeleteError(false)
+    try {
+      await deleteUser(user.id)
+      await signOut(false)
+    } catch (err) {
+      console.error('Account deletion error', err)
+      setDeleteError(true)
+      setDeleting(false)
     }
   }
 
@@ -173,7 +202,7 @@ export function ProfileSettings() {
           <Popover>
             <FormattedMessage
               id="settings.profile.display-name-description"
-              defaultMessage="Your display name is how you appear to other users in Streetmix."
+              defaultMessage="Your display name is how you appear to other users in STS Street."
             />
           </Popover>
         </h3>
@@ -239,6 +268,45 @@ export function ProfileSettings() {
             <p key={m}>{m}</p>
           ))}
         </div>
+      </div>
+
+      <div className="profile-settings-item profile-settings-danger">
+        <h3>
+          <FormattedMessage
+            id="settings.profile.delete-account"
+            defaultMessage="Delete account"
+          />
+          <Popover>
+            <FormattedMessage
+              id="settings.profile.delete-account-description"
+              defaultMessage="Deleting your account removes your profile and hides all of your streets. This cannot be undone."
+            />
+          </Popover>
+        </h3>
+        <div className="profile-settings-editable">
+          <p>
+            <FormattedMessage
+              id="settings.profile.delete-account-text"
+              defaultMessage="Permanently delete your account and all of your streets."
+            />
+          </p>
+          <div className="profile-settings-button">
+            <Button onClick={handleDeleteAccount} disabled={isDeleting}>
+              <FormattedMessage
+                id="settings.profile.delete-account-button"
+                defaultMessage="Delete…"
+              />
+            </Button>
+          </div>
+        </div>
+        {isDeleteError && (
+          <p className="profile-settings-error">
+            <FormattedMessage
+              id="settings.profile.delete-account-error"
+              defaultMessage="Your account could not be deleted. Please try again."
+            />
+          </p>
+        )}
       </div>
     </section>
   )

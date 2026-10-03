@@ -36,7 +36,7 @@ export function registerKeypresses(): void {
       addToast({
         message: formatMessage(
           'toast.no-save',
-          'No need to save by hand; Streetmix automatically saves your street!'
+          'No need to save by hand; STS Street automatically saves your street!'
         ),
       })
     )

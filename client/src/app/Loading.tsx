@@ -1,3 +1,4 @@
+import { brand } from '@sts-street/branding'
 import { useLayoutEffect, useRef } from 'react'
 
 import { STREETMIX_INSTANCE } from './config.js'
@@ -51,7 +52,7 @@ export function Loading({ isLoading = true }: LoadingProps) {
       >
         <strong>Not loading?</strong>{' '}
         <a
-          href="https://docs.streetmix.net/user-guide/support/troubleshooting"
+          href={brand.troubleshootingUrl}
           target="_blank"
           rel="noopener noreferrer"
         >

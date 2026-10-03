@@ -1,3 +1,4 @@
+import { brand } from '@sts-street/branding'
 import { FormattedMessage } from 'react-intl'
 
 import { useSelector } from '../store/hooks.js'
@@ -18,7 +19,7 @@ export function BlockingError() {
     <Button primary onClick={goHome}>
       <FormattedMessage
         id="error.button.return"
-        defaultMessage="Return to Streetmix"
+        defaultMessage="Return to STS Street"
       />
     </Button>
   )
@@ -49,7 +50,7 @@ export function BlockingError() {
       defaultMessage="Please try again later. If you still need help, please <a>contact us</a>."
       values={{
         a: (chunks) => (
-          <ExternalLink href="https://docs.streetmix.net/community">
+          <ExternalLink href={`mailto:${brand.supportEmail}`}>
             {chunks}
           </ExternalLink>
         ),
@@ -58,7 +59,7 @@ export function BlockingError() {
   )
   const needHelpLink = (
     <p className="error-help-link">
-      <ExternalLink href="https://docs.streetmix.net/user-guide/support/troubleshooting">
+      <ExternalLink href={brand.troubleshootingUrl}>
         <FormattedMessage
           id="error.need-help-link"
           defaultMessage="Need help?"
@@ -131,7 +132,7 @@ export function BlockingError() {
         <p>
           <FormattedMessage
             id="error.please-reload"
-            defaultMessage="Please reload this page to return to Streetmix."
+            defaultMessage="Please reload this page to return to STS Street."
           />
         </p>
       )
@@ -148,7 +149,7 @@ export function BlockingError() {
         <p>
           <FormattedMessage
             id="error.please-reload"
-            defaultMessage="Please reload this page to return to Streetmix."
+            defaultMessage="Please reload this page to return to STS Street."
           />
         </p>
       )
@@ -205,7 +206,7 @@ export function BlockingError() {
         <p>
           <FormattedMessage
             id="msg.trouble-loading"
-            defaultMessage="We’re having trouble loading Streetmix."
+            defaultMessage="We’re having trouble loading STS Street."
           />
         </p>
       )
@@ -227,7 +228,7 @@ export function BlockingError() {
         <p>
           <FormattedMessage
             id="msg.trouble-loading"
-            defaultMessage="We’re having trouble loading Streetmix."
+            defaultMessage="We’re having trouble loading STS Street."
           />
           <br />
           <FormattedMessage
@@ -255,7 +256,7 @@ export function BlockingError() {
         <p>
           <FormattedMessage
             id="msg.trouble-loading"
-            defaultMessage="We’re having trouble loading Streetmix."
+            defaultMessage="We’re having trouble loading STS Street."
           />
           <br />
           <FormattedMessage
@@ -283,7 +284,7 @@ export function BlockingError() {
         <p>
           <FormattedMessage
             id="msg.trouble-loading"
-            defaultMessage="We’re having trouble loading Streetmix."
+            defaultMessage="We’re having trouble loading STS Street."
           />
           <br />
           <FormattedMessage
@@ -305,7 +306,7 @@ export function BlockingError() {
       title = (
         <FormattedMessage
           id="error.unsupported-browser-title"
-          defaultMessage="Streetmix doesn’t work on your browser."
+          defaultMessage="STS Street doesn’t work on your browser."
         />
       )
       description = (
@@ -339,7 +340,7 @@ export function BlockingError() {
               defaultMessage="Are you on Internet Explorer? <a>Find out more.</a>"
               values={{
                 a: (chunks) => (
-                  <ExternalLink href="https://docs.streetmix.net/user-guide/support/faq#internet-explorer">
+                  <ExternalLink href={`${brand.docsUrl}user-guide/support/faq`}>
                     {chunks}
                   </ExternalLink>
                 ),
@@ -352,7 +353,7 @@ export function BlockingError() {
               defaultMessage="If you think your browser should be supported, please <a>contact us</a>."
               values={{
                 a: (chunks) => (
-                  <ExternalLink href="https://docs.streetmix.net/community">
+                  <ExternalLink href={`mailto:${brand.supportEmail}`}>
                     {chunks}
                   </ExternalLink>
                 ),

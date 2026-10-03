@@ -1,4 +1,5 @@
-export const JUST_SIGNED_IN_PATH = '/services/auth0/just-signed-in'
+export const JUST_SIGNED_IN_PATH = '/services/auth/just-signed-in'
+export const URL_RESET_PASSWORD = '/reset-password'
 
 // New street template params
 export const STREET_TEMPLATES = {
@@ -32,6 +33,10 @@ export const RESERVED_URLS = [
   '/privacy-policy',
   '/map',
   '/survey',
+  '/docs',
+  '/source',
+  URL_RESET_PASSWORD,
+  '/healthz',
 ]
 
 export const URL_RESERVED_PREFIX = '~'

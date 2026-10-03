@@ -2,7 +2,7 @@ import express from 'express'
 import { vi } from 'vitest'
 
 import type { Express, NextFunction, Response } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+import type { Request as AuthedRequest } from 'express'
 
 export function setupMockServer(setupFn = (_app: Express) => {}) {
   const app = express()

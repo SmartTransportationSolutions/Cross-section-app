@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{lang}}">
   <head>
-    <title>{{title}} - Streetmix</title>
+    <title>{{title}} - {{brand.productName}}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="/favicon.ico" rel="shortcut icon" />
@@ -21,11 +21,6 @@
         <a class="btn btn-primary" href="/">{{returnButton}}</a>
         {{/if}}
 
-        {{#if signInButton}}
-        {{! TODO: Where does a sign in button go? }}
-        <a class="btn btn-primary">{{signInButton}}</a>
-        {{/if}}
-
         {{#if userId}}
           <p class="error-help-link">
             <a href="/{{userId}}">
@@ -33,13 +28,7 @@
                   of the <Avatar> component in HTML. }}
               {{#replace userRedirect "{user}"}}
                 <span class="avatar">
-                  <object
-                    type="{{profileImageMimeType}}"
-                    data="{{profileImageUrl}}"
-                    aria-label="{{userName}}"
-                  >
-                    <img src="/images/avatar.svg" alt="{{userName}}" />
-                  </object>
+                  <img src="{{profileImageUrl}}" alt="{{userName}}" />
                 </span>
                 {{userName}}
               {{/replace}}
@@ -49,7 +38,7 @@
 
         {{#if needHelp}}
           <p class="error-help-link">
-            <a href="https://docs.streetmix.net/user-guide/support/troubleshooting" target="_blank">
+            <a href="{{brand.troubleshootingUrl}}" target="_blank">
               {{needHelp}}
             </a>
           </p>

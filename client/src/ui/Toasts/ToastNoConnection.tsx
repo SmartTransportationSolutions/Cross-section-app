@@ -39,7 +39,7 @@ export function ToastNoConnection(props: ToastProps) {
       {/* Handle the message here so it doesn't need to be passed by caller. */}
       <FormattedMessage
         id="msg.no-connection"
-        defaultMessage="Streetmix is having trouble connecting to the Internet."
+        defaultMessage="STS Street is having trouble connecting to the Internet."
       />
     </Toast>
   )

@@ -32,17 +32,18 @@ export function SentimentSurveyDialog() {
             <p>
               <FormattedMessage
                 id="sentiment.about-article.paragraph-2"
-                defaultMessage="We will analyze your responses so that we can infer which street characteristics will induce which feelings. In the future, we plan to incorporate these insights back into design recommendations for Streetmix users."
+                defaultMessage="We will analyze your responses so that we can infer which street characteristics will induce which feelings. In the future, we plan to incorporate these insights back into design recommendations for STS Street users."
               />
             </p>
             <p>
               <FormattedMessage
                 id="sentiment.about-article.paragraph-3"
-                defaultMessage="You can only vote once per street, but you can encourage others to cast their own vote by sharing your streets or a random street with the link <a>https://streetmix.net/survey/</a>."
+                defaultMessage="You can only vote once per street, but you can encourage others to cast their own vote by sharing your streets or a random street with the link <a>{surveyUrl}</a>."
                 values={{
+                  surveyUrl: `${window.location.origin}/survey`,
                   a: (chunks) => (
                     <a
-                      href="https://streetmix.net/survey/"
+                      href="/survey"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

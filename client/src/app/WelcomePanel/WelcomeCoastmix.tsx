@@ -32,7 +32,7 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
         </a>{' '}
         and the developers of{' '}
         <a href="https://streetmix.net/" target="_blank" rel="noopener">
-          Streetmix
+          STS Street
         </a>{' '}
         to teach coastal resilience planning, explore ways to prevent flooding,
         and design your own adaptation strategies.{' '}

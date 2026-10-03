@@ -12,13 +12,13 @@ exports[`MenuBar > renders 1`] = `
         class="menu-bar-title"
       >
         <img
-          alt="Streetmix"
+          alt="STS Street"
           class="menu-bar-logo"
           draggable="false"
           src="test-file-stub"
         />
         <h1>
-          Streetmix
+          STS Street
         </h1>
       </li>
       <li>
@@ -53,11 +53,11 @@ exports[`MenuBar > renders 1`] = `
           type="button"
         >
           <img
-            alt="Streetmix+"
+            alt="STS Street Plus"
             class="menu-avatar-subscriber"
             src="test-file-stub"
           />
-          Get Streetmix+‎
+          Get STS Street Plus‎
         </button>
       </li>
     </ul>
@@ -138,13 +138,13 @@ exports[`MenuBar > renders logged in user 1`] = `
         class="menu-bar-title"
       >
         <img
-          alt="Streetmix"
+          alt="STS Street"
           class="menu-bar-logo"
           draggable="false"
           src="test-file-stub"
         />
         <h1>
-          Streetmix
+          STS Street
         </h1>
       </li>
       <li>
@@ -179,11 +179,11 @@ exports[`MenuBar > renders logged in user 1`] = `
           type="button"
         >
           <img
-            alt="Streetmix+"
+            alt="STS Street Plus"
             class="menu-avatar-subscriber"
             src="test-file-stub"
           />
-          Get Streetmix+‎
+          Get STS Street Plus‎
         </button>
       </li>
     </ul>
@@ -276,13 +276,13 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
         class="menu-bar-title"
       >
         <img
-          alt="Streetmix"
+          alt="STS Street"
           class="menu-bar-logo"
           draggable="false"
           src="test-file-stub"
         />
         <h1>
-          Streetmix
+          STS Street
         </h1>
       </li>
       <li>

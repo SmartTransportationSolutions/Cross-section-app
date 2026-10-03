@@ -1,0 +1,48 @@
+{{> page_head}}
+      <h1>Privacy policy</h1>
+      <p class="sts-notice">
+        This is the operating privacy policy for the {{brand.productName}} service run by
+        {{brand.companyName}}. It describes what the application itself does with data.
+        {{brand.companyName}} may replace this text with its reviewed legal wording; the
+        technical statements below are accurate for this software release.
+      </p>
+
+      <h2>Who operates this service</h2>
+      <p>{{brand.productName}} is operated by {{brand.companyName}}, {{brand.companyLocation}}.
+        Questions about this policy can be sent to <a href="mailto:{{brand.supportEmail}}">{{brand.supportEmail}}</a>.</p>
+
+      <h2>What we store</h2>
+      <ul>
+        <li><strong>Street designs.</strong> Every street you create is saved on our servers so that it can be reloaded and shared by link. Streets created without signing in are public and identified only by a number; we record the IP address that created them for abuse prevention.</li>
+        <li><strong>Accounts.</strong> If you sign in, we store your email address, a username, an optional display name, an optional profile image URL supplied by your identity provider, your membership tier and your preferences (units, language, export options). Passwords, if you choose one, are stored only as a salted hash.</li>
+        <li><strong>Sign-in sessions.</strong> Session tokens are stored in cookies on your browser and, in hashed form, on our servers so that we can sign you out everywhere.</li>
+        <li><strong>Newsletter.</strong> If you subscribe to the newsletter we store your email address in our own database. We do not share it with third parties.</li>
+        <li><strong>Server logs.</strong> Standard request logs (URL, time, IP address, user agent) are kept for a limited time for operations and security.</li>
+      </ul>
+
+      <h2>What we do not do</h2>
+      <ul>
+        <li>We do not sell personal data.</li>
+        <li>We do not embed advertising or advertising trackers.</li>
+        <li>We do not send your data to the upstream Streetmix project or its service providers.</li>
+      </ul>
+
+      <h2>Optional third-party services</h2>
+      <p>Depending on how this instance is configured, the following services may be contacted from your browser. Each is listed on the <a href="{{brand.sourceUrl}}">source page</a> for this deployment.</p>
+      <ul>
+        <li>Map tiles and address search in the “Location” dialog (OpenStreetMap-based tile and geocoding providers).</li>
+        <li>Federated sign-in providers (for example Google) when you choose to sign in with them.</li>
+        <li>Privacy-friendly aggregate analytics, if enabled by the operator.</li>
+        <li>The “Open in 3DStreet” and “Open in Streetmeter” menu items send the public link of the current street to those third-party products only when you click them.</li>
+      </ul>
+
+      <h2>Your choices</h2>
+      <ul>
+        <li>You can delete any of your streets from the “My streets” gallery.</li>
+        <li>You can delete your account from Settings, which removes your account record and hides all of your streets.</li>
+        <li>You can request a copy or deletion of your data by email at <a href="mailto:{{brand.supportEmail}}">{{brand.supportEmail}}</a>.</li>
+      </ul>
+
+      <h2>Cookies</h2>
+      <p>We use cookies only for signing in (<code>login_token</code>, <code>refresh_token</code>, <code>user_id</code>, <code>sts_session</code>). Preferences for anonymous users are kept in your browser’s local storage.</p>
+{{> page_foot}}

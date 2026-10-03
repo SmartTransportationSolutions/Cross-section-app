@@ -11,7 +11,8 @@ import {
 } from 'react-leaflet'
 
 import {
-  CARTO_API_KEY,
+  MAP_TILES_ATTRIBUTION,
+  MAP_TILES_URL,
   PELIAS_API_KEY,
   PELIAS_HOST_NAME,
 } from '~/src/app/config.js'
@@ -42,10 +43,14 @@ const ukrainianFlag =
   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>'
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
 const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KEY}`
-const MAP_TILES = `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=${CARTO_API_KEY}`
-const MAP_TILES_2X = `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png?key=${CARTO_API_KEY}`
-const MAP_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution" target="_blank" rel="noopener noreferrer">CARTO</a>'
+// Tile provider is configured by the operator (MAP_TILES_URL). Providers
+// that offer retina tiles use the `{r}` placeholder, which Leaflet expands
+// to "@2x" on high-density displays.
+const MAP_TILES = MAP_TILES_URL
+const MAP_TILES_2X = MAP_TILES_URL.includes('{r}')
+  ? MAP_TILES_URL
+  : MAP_TILES_URL.replace(/\.png(\?|$)/, '@2x.png$1')
+const MAP_ATTRIBUTION = MAP_TILES_ATTRIBUTION
 // This is the same attribution prefix as Leaflet v1.9.3, except that we set
 // link target and rel properties. Have to keep this up to date, or possibly
 // propose features to Leaflet.
@@ -150,7 +155,7 @@ export function GeotagDialog() {
   // value. A devicePixelRatio higher than 1 (e.g. Retina or 4k monitors) will load
   // higher resolution map tiles.
   const dpi = useSelector((state) => state.system.devicePixelRatio)
-  const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
+  const tileUrl = dpi > 1 && MAP_TILES_URL.includes('{r}') ? MAP_TILES_2X : MAP_TILES
 
   // This looks funny, but `useMapEvents` can only be called in a child of
   // MapContainer. So this is a null component that exists only to call a hook

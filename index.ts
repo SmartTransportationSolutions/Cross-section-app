@@ -1,5 +1,6 @@
 import { styleText } from 'node:util'
 
+import { brand } from '@sts-street/branding'
 import app from './app.ts'
 import { logger } from './app/lib/logger.ts'
 
@@ -13,14 +14,14 @@ app.listen(process.env.PORT, () => {
   if (process.env.NODE_ENV === 'development') {
     logger.info(
       '[express] ' +
-        styleText(['yellow', 'bold'], 'Streetmix is starting! ') +
+        styleText(['yellow', 'bold'], `${brand.productName} is starting! `) +
         styleText(['white', 'bold'], 'Go here in your browser: ') +
         styleText(['green', 'bold'], `http://localhost:${process.env.PORT}`)
     )
   } else {
     logger.info(
       '[express]',
-      styleText(['yellow', 'bold'], 'Streetmix is starting!')
+      styleText(['yellow', 'bold'], `${brand.productName} is starting!`)
     )
   }
 

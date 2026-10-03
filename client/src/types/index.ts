@@ -47,7 +47,6 @@ export interface UserState {
   signInData: UserSignInData | null
   signedIn: boolean
   isSubscriber: boolean
-  isCoilPluginSubscriber: boolean
   geolocation: {
     attempted: boolean
     data: GeolocationData | null
@@ -71,8 +70,6 @@ export interface SentimentComment {
 type ToastComponent =
   | 'TOAST_UNDO'
   | 'TOAST_SIGN_IN'
-  | 'TOAST_WEB_MONETIZATION'
-  | 'TOAST_WEB_MONETIZATION_SUCCESS'
   | 'TOAST_NO_CONNECTION'
 
 interface BaseToastItem {

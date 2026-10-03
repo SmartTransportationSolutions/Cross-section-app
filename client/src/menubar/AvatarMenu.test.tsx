@@ -22,7 +22,7 @@ describe('AvatarMenu', () => {
       roles: ['USER', 'SUBSCRIBER_1'],
     }
     render(<AvatarMenu user={subscriber} isSubscriber onClick={() => {}} />)
-    expect(screen.queryByTitle('Streetmix+ member')).toBeInTheDocument()
+    expect(screen.queryByTitle('STS Street Plus member')).toBeInTheDocument()
   })
 
   it('calls click handler', async () => {

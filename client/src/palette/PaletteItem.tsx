@@ -53,7 +53,7 @@ export function PaletteItem({ item }: PaletteItemProps) {
             // Default message ends with a Unicode-only left-right order mark
             // to allow for proper punctuation in `rtl` text direction
             // This character is hidden from editors by default!
-            defaultMessage: 'Upgrade to Streetmix+ to use!‎',
+            defaultMessage: 'Upgrade to STS Street Plus to use!‎',
           })
         }
         break

@@ -1,0 +1,12 @@
+{
+  "name": "@sts-street/branding",
+  "version": "1.0.0",
+  "description": "STS Street brand configuration (product names, destinations, upstream attribution)",
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "start": "echo Nothing to run!"
+  }
+}
