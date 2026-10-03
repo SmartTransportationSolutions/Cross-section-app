@@ -57,10 +57,10 @@ production build served the way GitHub Pages serves it.
 
 121 rows in `docs/feature-parity.json` (rendered in `docs/feature-parity.md`).
 
-| | NOT_STARTED | IMPLEMENTED_UNVERIFIED | VERIFIED | BLOCKED |
-| --- | --- | --- | --- | --- |
-| Implementation | 0 | 5 | 114 | 2 |
-| Verification | 4 | 30 | 79 | 8 |
+| | NOT_STARTED | IN_PROGRESS | IMPLEMENTED_UNVERIFIED | VERIFIED | BLOCKED |
+| --- | --- | --- | --- | --- | --- |
+| Implementation | 0 | 0 | 5 | 114 | 2 |
+| Verification | 2 | 2 | 30 | 79 | 8 |
 
 **Blocked:** OIDC social sign-in (no provider credentials), 3DStreet and
 Streetmeter partner acceptance (unreachable), geocoder (no key), membership
@@ -68,8 +68,9 @@ billing (business decision), production email (no SMTP), server hosting
 (superseded by Pages), one-click GitHub OAuth (needs a token-exchange
 service).
 
-**Not started:** Pages edition against the real GitHub API, live Pages
-deployment check, CI run on GitHub, responsive testing on devices.
+**Not started:** Pages edition against the real GitHub API, responsive
+testing on devices. **In progress:** live Pages deployment check and the CI
+run on GitHub (both queued at the time of writing).
 
 **Downgraded by the independent QA audit** (cited evidence did not exist or
 did not test the claim; reasons are in each row's notes): EDIT-NEW-03,
@@ -113,8 +114,8 @@ the About dialog, the source page and `README.md`.
 1. The live site and the GitHub API path have not been verified from a
    browser that can reach GitHub (this sandbox cannot).
 2. CI has not completed green on GitHub yet.
-3. 30 rows are implemented but not verified, 4 are not started, 8 are
-   blocked (lists above).
+3. 30 rows are implemented but not verified, 2 are not started, 2 are in
+   progress and 8 are blocked (lists above).
 4. Firefox and WebKit have not been run (added to CI).
 5. The Pages edition has documented limitations versus the server edition
    (token sign-in, client-side Plus checks, no email/OIDC, no newsletter).
