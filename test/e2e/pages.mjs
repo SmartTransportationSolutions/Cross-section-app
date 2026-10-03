@@ -178,15 +178,17 @@ test('P2 GitHub sign-in validates tokens and promotes the street to a gist', asy
   record('P2', { url: page.url(), gist: gist.id, apiHosts: [...apiHosts] })
 
   // Sign out removes the token
-  await page.locator('#menubar-identity').first().click()
-  const signOut = page.getByText('Sign out', { exact: true })
-  if (await signOut.count()) {
-    await signOut.first().click()
-    await page.waitForTimeout(800)
-    const after = await page.evaluate(() => localStorage.getItem('sts-street:github-session'))
-    assert(after === null, 'sign out removes the GitHub token')
-    record('P2-signout', { removed: true })
+  await page.mouse.move(5, 5)
+  for (let attempt = 0; attempt < 4; attempt++) {
+    await page.locator('#menubar-identity').first().click({ force: true })
+    await page.waitForTimeout(400)
+    if (await page.locator('.menu-sign-out').isVisible().catch(() => false)) break
   }
+  await page.locator('.menu-sign-out').click()
+  await page.waitForTimeout(1000)
+  const after = await page.evaluate(() => localStorage.getItem('sts-street:github-session'))
+  assert(after === null, 'sign out removes the GitHub token')
+  record('P2-signout', { removed: true })
   await context.close()
 })
 
