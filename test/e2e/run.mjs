@@ -175,24 +175,40 @@ test('J2 precise widths, variants, boundaries and long undo/redo sequences', asy
   state = await getStreetState(page)
   assert(state.street.segments[driveIndex].variantString !== before, `variant changed from ${before} to ${state.street.segments[driveIndex].variantString}`)
 
-  // Boundary: change left building floors with keyboard? Use the API-level
-  // state change via the building popup: hover the left boundary
-  await page.locator('.street-section-boundary-left, #street-section-left-building, .boundary-left').first().hover().catch(() => {})
-  const boundaryInput = page.locator('.popup-container input.up-down-input-element').first()
-  if (await boundaryInput.count()) {
-    await boundaryInput.click({ clickCount: 3 })
-    await boundaryInput.fill('7')
-    await boundaryInput.press('Enter')
-    await page.waitForTimeout(400)
-    state = await getStreetState(page)
-    record('J2-boundary', { floors: state.street.boundary.left.floors })
+  // Boundary: change the left building's floors through its own popup.
+  // Close the lane popup first and only type into the building-height
+  // control: in WebKit the lane's width popup could still be open, and the
+  // value went into the lane width instead.
+  await page.mouse.move(10, 400)
+  await page.waitForTimeout(600)
+  const floorsInput = page.locator('.popup-container .boundary-height-control input.up-down-input-element')
+  for (let attempt = 0; attempt < 5; attempt++) {
+    if (await floorsInput.isVisible().catch(() => false)) break
+    await page.locator('.street-section-boundary.boundary-left').first().hover({ force: true })
+    await page.waitForTimeout(500)
   }
+  assert(await floorsInput.isVisible(), 'building height control opened for the left boundary')
+  const widthBeforeFloors = state.street.segments[driveIndex].width
+  await floorsInput.click({ clickCount: 3 })
+  await floorsInput.fill('7')
+  await floorsInput.press('Enter')
+  await page.waitForTimeout(500)
+  state = await getStreetState(page)
+  assert(state.street.boundary.left.floors === 7, `left building floors set to 7 (got ${state.street.boundary.left.floors})`)
+  assert(state.street.segments[driveIndex].width === widthBeforeFloors, 'lane width unchanged by the building edit')
+  record('J2-boundary', { floors: state.street.boundary.left.floors })
+  // Close the building popup before going back to the lane
+  await floorsInput.blur()
+  await page.mouse.move(10, 400)
+  await page.waitForTimeout(800)
 
   // Long undo/redo sequence: 12 width edits, undo all, redo all
   const target = state.street.segments[driveIndex].width
   const steps = 12
   for (let i = 0; i < steps; i++) {
-    await segment.hover()
+    // force: after the building edit the street container can intercept
+    // pointer events for a moment (same overlay as the menu-bar clicks)
+    await segment.hover({ force: true })
     await page.locator('.popup-container button.up-down-input-increment').first().click()
     await page.waitForTimeout(120)
   }
@@ -220,6 +236,7 @@ test('J2 precise widths, variants, boundaries and long undo/redo sequences', asy
   const api2 = await apiContext()
   const saved = await (await api2.get(`/api/v1/streets/${state.street.id}`)).json()
   assert(approx(saved.data.street.segments[driveIndex].width, afterEdits, 0.02), 'server has the edited width')
+  assert(saved.data.street.boundary.left.floors === 7, `server has the edited building floors (${saved.data.street.boundary.left.floors})`)
   await api2.dispose()
   await context.close()
 })

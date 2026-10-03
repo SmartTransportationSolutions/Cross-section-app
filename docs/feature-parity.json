@@ -363,13 +363,15 @@
       "implementation": "unchanged",
       "substitution": "",
       "tests": [
-        "unit: client/src/boundary/boundary.test.ts, BuildingHeightControl tests"
+        "E2E J2 (building-height popup sets left floors to 7; asserted in the editor and on the server; lane width unchanged)"
       ],
-      "evidence": [],
+      "evidence": [
+        "J2 passes locally 2026-10-03 18:25 UTC (Chromium) after the boundary step was rewritten to target the building-height control"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": "",
-      "notes": "QA audit 2026-10-03: cited unit tests only cover formatting; J2 does not assert the floors change."
+      "notes": "QA audit 2026-10-03: cited unit tests only cover formatting; J2 does not assert the floors change. Re-verified 2026-10-03: J2 now asserts the floors change (previously only recorded)."
     },
     {
       "id": "EDIT-ELEVATION-01",

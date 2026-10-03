@@ -60,7 +60,7 @@ production build served the way GitHub Pages serves it.
 | | NOT_STARTED | IN_PROGRESS | IMPLEMENTED_UNVERIFIED | VERIFIED | BLOCKED |
 | --- | --- | --- | --- | --- | --- |
 | Implementation | 0 | 0 | 5 | 114 | 2 |
-| Verification | 2 | 0 | 30 | 81 | 8 |
+| Verification | 2 | 0 | 29 | 82 | 8 |
 
 **Blocked:** OIDC social sign-in (no provider credentials), 3DStreet and
 Streetmeter partner acceptance (unreachable), geocoder (no key), membership
@@ -73,7 +73,7 @@ testing on devices.
 
 **Downgraded by the independent QA audit** (cited evidence did not exist or
 did not test the claim; reasons are in each row's notes): EDIT-NEW-03,
-EDIT-BOUNDARY-01, EDIT-ELEVATION-01, EDIT-KEYS-01, UI-COLORMODE-01,
+EDIT-ELEVATION-01, EDIT-KEYS-01, UI-COLORMODE-01,
 USER-PROFILE-01, GAL-GLOBAL-01, GAL-DELETE-01, SAVE-FAIL-01,
 SHARE-SOCIAL-01, SHARE-PREVIEW-01, EXPORT-IMAGE-02, EXPORT-IMAGE-03,
 API-DOCS-01, INFO-WHATSNEW-01, INFO-DESC-01, INFO-HELP-01, I18N-UNITS-01,
@@ -114,7 +114,7 @@ the About dialog, the source page and `README.md`.
    browser that can reach GitHub (this sandbox cannot).
 2. The "Conventional commits" check is red on seven historical commit
    subjects; clearing it needs an owner decision (see Deployment status).
-3. 30 rows are implemented but not verified, 2 are not started and 8 are
+3. 29 rows are implemented but not verified, 2 are not started and 8 are
    blocked (lists above).
 5. The Pages edition has documented limitations versus the server edition
    (token sign-in, client-side Plus checks, no email/OIDC, no newsletter).
