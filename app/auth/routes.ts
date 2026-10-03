@@ -65,10 +65,14 @@ const router = Router()
 // Rate limiting
 // ---------------------------------------------------------------------------
 const isTest = process.env.NODE_ENV === 'test'
+// Attempts per 15 minutes per IP. Raise for load/acceptance testing with
+// AUTH_RATE_LIMIT_MAX; the test environment is effectively unlimited.
+const credentialLimit = Number(process.env.AUTH_RATE_LIMIT_MAX) || (isTest ? 1000 : 20)
+const emailLimit = Number(process.env.AUTH_EMAIL_RATE_LIMIT_MAX) || (isTest ? 1000 : 8)
 
 const credentialLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  limit: isTest ? 1000 : 20,
+  limit: credentialLimit,
   standardHeaders: 'draft-8',
   legacyHeaders: false,
   message: { status: 429, msg: 'Too many attempts. Please try again later.' },
@@ -76,7 +80,7 @@ const credentialLimiter = rateLimit({
 
 const emailLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  limit: isTest ? 1000 : 8,
+  limit: emailLimit,
   standardHeaders: 'draft-8',
   legacyHeaders: false,
   message: { status: 429, msg: 'Too many emails requested. Please try again later.' },

@@ -159,7 +159,8 @@
   /* Typography */
   --font-family: "Rubik Variable", "Noto Sans Georgian", system-ui, sans-serif;
   --font-size-base: 13px;
-  --header-font-family: "Manrope Variable", "Noto Sans Georgian", system-ui, sans-serif;
+  --header-font-family:
+    "Manrope Variable", "Noto Sans Georgian", system-ui, sans-serif;
 
   /* Timing */
   --segment-switching-time: 250ms;

@@ -52,16 +52,32 @@ export async function shot(page, name) {
 
 /** Waits for the editor to finish loading (loading overlay gone, street visible). */
 export async function waitForEditor(page) {
-  await page.waitForSelector('.street-section-outer, .street-section', { timeout: 60000 })
+  await page.waitForSelector('#street-section-outer', { timeout: 60000 })
   await page.waitForSelector('[data-testid="segment"]', { timeout: 60000 }).catch(() => {})
   await page.waitForTimeout(500)
 }
 
+/** Closes the welcome panel and any open dialog (e.g. the automatic "What's new"). */
 export async function dismissWelcome(page) {
-  const close = page.locator('.welcome-panel .close')
-  if (await close.count()) {
-    await close.first().click().catch(() => {})
+  for (let i = 0; i < 3; i++) {
+    const dialogClose = page.locator('.dialog-box-container .close')
+    if (await dialogClose.count()) {
+      await dialogClose.first().click().catch(() => {})
+      await page.waitForTimeout(300)
+    }
+    const close = page.locator('.welcome-panel .close')
+    if (await close.count()) {
+      await close.first().click().catch(() => {})
+      await page.waitForTimeout(200)
+    }
   }
+  // Mark What's new as seen so it does not reappear during the journey
+  await page.evaluate(() => {
+    try {
+      window.localStorage.setItem('whatsnew-last-timestamp', String(Date.now()))
+      window.localStorage.setItem('settings-welcome-dismissed', 'true')
+    } catch {}
+  })
 }
 
 export async function getStreetState(page) {
@@ -97,16 +113,18 @@ export async function loginViaApi(request, { email, password }) {
 
 /** Signs in through the UI dialog with email + password. */
 export async function signInViaUi(page, email, password) {
+  await dismissWelcome(page)
   await page.locator('button.menu-sign-in').click()
   await page.getByLabel('Email').fill(email)
   await page.getByLabel('Password').fill(password)
-  await page.getByRole('button', { name: 'Sign in', exact: true }).click()
+  await page.locator('.sign-in-dialog').getByRole('button', { name: 'Sign in', exact: true }).click()
   await page.waitForURL(/\/services\/auth\/just-signed-in|\/$|\/[^/]+\/\d+/, { timeout: 60000 })
   await waitForEditor(page)
   await page.waitForSelector('#menubar-identity', { timeout: 60000 })
 }
 
 export async function signUpViaUi(page, email, password, nickname) {
+  await dismissWelcome(page)
   await page.locator('button.menu-sign-in').click()
   await page.getByText('New here? Create an account').click()
   await page.getByLabel('Email').fill(email)

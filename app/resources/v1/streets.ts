@@ -22,6 +22,12 @@ type LegacyStreetData = StreetData & {
   undoPosition?: unknown
 }
 
+// Errors are thrown as `new Error(ERRORS.X)`; normalise to the code string.
+function errorCode(err: unknown): string {
+  if (err instanceof Error) return err.message
+  return typeof err === 'string' ? err : ''
+}
+
 const DEFAULT_PAGE = 1
 const DEFAULT_LIMIT = 100
 const MAX_LIMIT = 200
@@ -176,7 +182,8 @@ export async function post(req: AuthedRequest, res: Response) {
     res.status(201).json(s)
   }
 
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -267,7 +274,8 @@ export async function del(req: AuthedRequest, res: Response) {
     return street.save({ returning: true })
   }
 
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -285,6 +293,7 @@ export async function del(req: AuthedRequest, res: Response) {
         })
         return
       default:
+        logger.error(err)
         res.status(500).end()
     }
   }
@@ -425,10 +434,8 @@ export async function find(req: Request, res: Response) {
     })
   } // END function - findStreets
 
-  // TODO: There is a bug here where errors thrown by `new Error` will have
-  // its value in `error.message`, not error! We should figure out how to
-  // make this be consistent
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -539,7 +546,8 @@ export async function put(req: AuthedRequest, res: Response) {
     return
   }
 
-  function handleErrors(error: keyof typeof ERRORS) {
+  function handleErrors(err: unknown) {
+    const error = errorCode(err)
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })

@@ -5,6 +5,10 @@
   padding: 20px;
 
   header {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin-bottom: 0.5em;
     background-color: white;
     padding: 0;
     text-align: start;
@@ -19,13 +23,6 @@
 .upgrade-dialog-content {
   display: flex;
   margin-bottom: 2em;
-}
-
-.upgrade-dialog header {
-  display: flex;
-  align-items: center;
-  gap: 0.6em;
-  margin-bottom: 0.5em;
 }
 
 .upgrade-dialog-icon {
