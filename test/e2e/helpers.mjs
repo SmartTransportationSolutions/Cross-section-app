@@ -157,3 +157,18 @@ export function assert(condition, message) {
 export function approx(a, b, tolerance = 0.011) {
   return Math.abs(a - b) <= tolerance
 }
+
+/**
+ * Opens a menu-bar menu. The street canvas can briefly overlay the menu
+ * bar after navigation (seen in WebKit), so click with force and retry
+ * until the expected item is visible.
+ */
+export async function openMenu(page, trigger, visibleItem) {
+  await page.mouse.move(5, 5)
+  for (let attempt = 0; attempt < 5; attempt++) {
+    await page.locator(trigger).first().click({ force: true })
+    await page.waitForTimeout(400)
+    if (await visibleItem.isVisible().catch(() => false)) return
+  }
+  throw new Error(`menu ${trigger} did not open`)
+}

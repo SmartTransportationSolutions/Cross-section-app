@@ -25,6 +25,7 @@ import {
   launch,
   loginViaApi,
   newPage,
+  openMenu,
   shot,
   signInViaUi,
   signUpViaApi,
@@ -687,7 +688,7 @@ test('J9 Plus capabilities are unlocked for members only; integrations link to t
   assert(memberLocked === 0, `no locked palette items for members (${memberLocked})`)
 
   // Integrations
-  await page.locator('#menubar-share').click()
+  await openMenu(page, '#menubar-share', page.locator('a.menu-item', { hasText: '3DStreet' }))
   const threeD = await page.locator('a.menu-item', { hasText: '3DStreet' }).getAttribute('href')
   const meter = await page.locator('a.menu-item', { hasText: 'Streetmeter' }).getAttribute('href')
   assert(threeD === `https://3dstreet.app/#${page.url()}`, `3DStreet link carries the public URL: ${threeD}`)
@@ -720,7 +721,7 @@ test('J10 clean session shows STS identity, calls no upstream services, and offe
   assert(upstream.length === 0, 'no upstream service hosts contacted')
 
   // About dialog: STS operator, upstream attribution, source link
-  await page.locator('#menubar-help').click()
+  await openMenu(page, '#menubar-help', page.getByText('About STS Street', { exact: false }))
   await page.getByText('About STS Street', { exact: false }).click()
   await page.waitForSelector('.about-dialog', { timeout: 10000 })
   const about = await page.locator('.about-dialog').textContent()
