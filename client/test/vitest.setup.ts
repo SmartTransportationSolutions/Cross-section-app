@@ -14,8 +14,13 @@ beforeAll(() => {
 afterEach(() => {
   server.resetHandlers()
 })
-afterAll(() => {
+afterAll(async () => {
   server.close()
+  // Redux Toolkit's autoBatch enhancer schedules a requestAnimationFrame
+  // callback with a 100 ms fallback timer. If that timer fires after the
+  // happy-dom window is torn down, `cancelAnimationFrame` is gone and Vitest
+  // reports an unhandled error. Let pending callbacks run before teardown.
+  await new Promise((resolve) => setTimeout(resolve, 150))
 })
 
 // Add mock stubs for global methods
