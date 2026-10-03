@@ -2232,11 +2232,12 @@
       "substitution": "",
       "tests": [],
       "evidence": [
-        "CI run 37139875380 queued on GitHub at time of writing; earlier runs failed (Playwright browser version mismatch, missing demo seed, react-shepherd 7.0.6 test breakage, Docker build without .npmrc, lint) — all fixed locally"
+        "GitHub Actions on d750d900e (2026-10-03 17:54-18:02 UTC): lint, unit+integration (Node 22 and 24, with PostgreSQL and DB-backed auth tests), production build + Docker image + source archive, browser journeys J1-J10 in Chromium, Firefox and WebKit, Pages journeys P1-P7: all success",
+        "\"Conventional commits\" fails on seven earlier commit subjects; fixing needs a history rewrite (force-push), which is not authorised; see PR #1 comment"
       ],
       "implementationStatus": "IMPLEMENTED_UNVERIFIED",
-      "verificationStatus": "IN_PROGRESS",
-      "blocker": "Not yet run on GitHub Actions"
+      "verificationStatus": "VERIFIED",
+      "blocker": "Commit-message lint red on historical commits (owner decision: squash-merge, authorise rewrite, or relax subject-case)"
     },
     {
       "id": "OPS-SEED-01",
@@ -2562,11 +2563,12 @@
         ".github/workflows/pages.yml"
       ],
       "evidence": [
-        "gh-pages pushed 2026-10-03 (commit 7bf01e29a, built from 0d4838b82); GitHub enabled Pages (has_pages true); pages build run 37139891282 queued at time of writing; live URL not reachable from the build sandbox"
+        "gh-pages commit 7bf01e29a (built from 0d4838b82); GitHub \"pages build and deployment\" run 37139891282 completed with success 2026-10-03 17:22 UTC; Pages enabled (has_pages true)",
+        "Not loaded from the build sandbox (github.io unreachable); real-API check tracked in PAGES-REALAPI-01"
       ],
-      "implementationStatus": "IMPLEMENTED_UNVERIFIED",
-      "verificationStatus": "IN_PROGRESS",
-      "blocker": "See acceptance report for the current deployment state."
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
     }
   ]
 }

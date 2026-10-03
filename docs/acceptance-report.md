@@ -46,8 +46,8 @@ this report counts a mock, a skipped step or an unverifiable claim as done.
 | Type check | Not clean (pre-existing upstream errors); non-gating in CI | `npm run typecheck` |
 | Docker build and smoke test | Pass | `docs/evidence/ops/container-smoke-2026-10-03.md` |
 | Backup and restore (isolated databases) | Pass | same file |
-| Firefox and WebKit | **Not run here** (browser downloads blocked); CI matrix now runs J1–J10 in both | CI |
-| GitHub Actions CI | **Pending** (see "Deployment status") | Actions tab |
+| Server journeys J1–J10 in Chromium, Firefox and WebKit (GitHub Actions, real PostgreSQL) | 10/10 in each browser on commit `d750d900e` | Actions run 37142095880 |
+| GitHub Actions CI | All jobs green on `d750d900e` except "Conventional commits" (historical commit subjects, see below) | PR #1 checks |
 
 The Pages journeys use a simulated GitHub API (`test/e2e/github-mock.mjs`),
 because the sandbox cannot reach GitHub. Everything else in them is the
@@ -60,7 +60,7 @@ production build served the way GitHub Pages serves it.
 | | NOT_STARTED | IN_PROGRESS | IMPLEMENTED_UNVERIFIED | VERIFIED | BLOCKED |
 | --- | --- | --- | --- | --- | --- |
 | Implementation | 0 | 0 | 5 | 114 | 2 |
-| Verification | 2 | 2 | 30 | 79 | 8 |
+| Verification | 2 | 0 | 30 | 81 | 8 |
 
 **Blocked:** OIDC social sign-in (no provider credentials), 3DStreet and
 Streetmeter partner acceptance (unreachable), geocoder (no key), membership
@@ -69,8 +69,7 @@ billing (business decision), production email (no SMTP), server hosting
 service).
 
 **Not started:** Pages edition against the real GitHub API, responsive
-testing on devices. **In progress:** live Pages deployment check and the CI
-run on GitHub (both queued at the time of writing).
+testing on devices.
 
 **Downgraded by the independent QA audit** (cited evidence did not exist or
 did not test the claim; reasons are in each row's notes): EDIT-NEW-03,
@@ -113,10 +112,10 @@ the About dialog, the source page and `README.md`.
 
 1. The live site and the GitHub API path have not been verified from a
    browser that can reach GitHub (this sandbox cannot).
-2. CI has not completed green on GitHub yet.
-3. 30 rows are implemented but not verified, 2 are not started, 2 are in
-   progress and 8 are blocked (lists above).
-4. Firefox and WebKit have not been run (added to CI).
+2. The "Conventional commits" check is red on seven historical commit
+   subjects; clearing it needs an owner decision (see Deployment status).
+3. 30 rows are implemented but not verified, 2 are not started and 8 are
+   blocked (lists above).
 5. The Pages edition has documented limitations versus the server edition
    (token sign-in, client-side Plus checks, no email/OIDC, no newsletter).
 6. Open medium-severity security findings in the server edition.
@@ -125,10 +124,25 @@ the About dialog, the source page and `README.md`.
 
 ## Deployment status
 
-At the time of writing (2026-10-03 17:25 UTC):
+Updated 2026-10-03 18:10 UTC.
 
-* `gh-pages` was pushed and GitHub enabled Pages for the repository.
-* The "pages build and deployment" run for `gh-pages` (run 37139891282) and
-  the CI run for `sts-street` (run 37139875380) were both **queued** on
-  GitHub's runners and had not started. Their results are tracked on the
-  pull request.
+* **GitHub Pages:** the "pages build and deployment" run for `gh-pages`
+  commit `7bf01e29a` (run 37139891282) completed successfully at 17:22 UTC.
+  The site is published at
+  <https://smarttransportationsolutions.github.io/Cross-section-app/>. It was
+  not loaded from this sandbox (github.io is unreachable here). The client
+  code has not changed since that build; later commits changed the server,
+  tests and documentation only.
+* **CI on `d750d900e`:** lint, unit and integration tests on Node 22 and 24
+  (with PostgreSQL and the database-backed identity tests), production
+  build with Docker image and source archive, server journeys in Chromium,
+  Firefox and WebKit, and the Pages journeys all passed.
+* **Fixes found by CI** and pushed: plain-HTTP deployments broke in
+  Chromium/WebKit because the security policy asked browsers to upgrade
+  the app's own requests to HTTPS (fixed: only sent for `APP_PROTOCOL=https`);
+  three timing-sensitive journey steps; a test-environment teardown race.
+* **Still red: "Conventional commits".** Seven earlier commit subjects start
+  with a capitalised proper noun or exceed 100 characters. Fixing them needs
+  a history rewrite and force-push, which was not authorised. Options:
+  squash-merge with a conventional title, authorise a one-time rewrite, or
+  relax `subject-case` in `commitlint.config.cjs`.
