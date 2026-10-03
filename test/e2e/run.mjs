@@ -66,6 +66,10 @@ async function authedRequest(email, password) {
 }
 
 const PASSWORD = 'correct-horse-battery-staple'
+// The "+" button of a slice's width control. Excludes the building-height
+// control, whose popup can still be open in WebKit after a building edit.
+const LANE_WIDTH_INCREMENT =
+  '.popup-container .up-down-input:not(.boundary-height-control) button.up-down-input-increment'
 
 // ---------------------------------------------------------------------------
 // Journey 1: anonymous editing, guest persistence, sign-in transition
@@ -157,7 +161,7 @@ test('J2 precise widths, variants, boundaries and long undo/redo sequences', asy
 
   // Increment with the + button (0.1 m resolution) and Shift (0.05 m)
   await segment.hover()
-  await page.locator('.popup-container button.up-down-input-increment').first().click()
+  await page.locator(LANE_WIDTH_INCREMENT).first().click()
   await page.waitForTimeout(300)
   state = await getStreetState(page)
   // The +/- buttons snap to the 0.1 m display resolution (3.35 → 3.4), as upstream
@@ -209,7 +213,8 @@ test('J2 precise widths, variants, boundaries and long undo/redo sequences', asy
     // force: after the building edit the street container can intercept
     // pointer events for a moment (same overlay as the menu-bar clicks)
     await segment.hover({ force: true })
-    await page.locator('.popup-container button.up-down-input-increment').first().click()
+    await page.locator(LANE_WIDTH_INCREMENT).first().waitFor({ state: 'visible', timeout: 10000 })
+    await page.locator(LANE_WIDTH_INCREMENT).first().click()
     await page.waitForTimeout(120)
   }
   await page.mouse.move(10, 400)
@@ -368,7 +373,7 @@ test('J4 another user can view and remix a shared street without modifying the o
   const seg = page.locator('[data-testid="segment"]').nth(1)
   await seg.hover()
   await page.waitForSelector('.popup-container', { timeout: 10000 })
-  await page.locator('.popup-container button.up-down-input-increment').first().click()
+  await page.locator(LANE_WIDTH_INCREMENT).first().click()
   await page.waitForTimeout(1500)
   state = await getStreetState(page)
   assert(state.street.id !== originalId, 'editing created a remix with a new id')
