@@ -2231,9 +2231,11 @@
       "implementation": "replaces upstream CI/Argos/Transifex workflows",
       "substitution": "",
       "tests": [],
-      "evidence": [],
+      "evidence": [
+        "CI run 37139875380 queued on GitHub at time of writing; earlier runs failed (Playwright browser version mismatch, missing demo seed, react-shepherd 7.0.6 test breakage, Docker build without .npmrc, lint) — all fixed locally"
+      ],
       "implementationStatus": "IMPLEMENTED_UNVERIFIED",
-      "verificationStatus": "NOT_STARTED",
+      "verificationStatus": "IN_PROGRESS",
       "blocker": "Not yet run on GitHub Actions"
     },
     {
@@ -2559,9 +2561,11 @@
       "tests": [
         ".github/workflows/pages.yml"
       ],
-      "evidence": [],
+      "evidence": [
+        "gh-pages pushed 2026-10-03 (commit 7bf01e29a, built from 0d4838b82); GitHub enabled Pages (has_pages true); pages build run 37139891282 queued at time of writing; live URL not reachable from the build sandbox"
+      ],
       "implementationStatus": "IMPLEMENTED_UNVERIFIED",
-      "verificationStatus": "NOT_STARTED",
+      "verificationStatus": "IN_PROGRESS",
       "blocker": "See acceptance report for the current deployment state."
     }
   ]
