@@ -2,7 +2,7 @@
 
 If you notice any bugs while using STS Street, let us know by email at [info@sts.com.ge](mailto:info@sts.com.ge), or by opening an issue in the [STS Street repository](https://github.com/SmartTransportationSolutions/Cross-section-app/issues) if you have access to it. Please include the steps to reproduce the problem, the browser you used, and the link to the street if relevant.
 
-**For serious bugs** on our production server, you might be able to get a faster response by notifying us on [Discord](https://strt.mx/discord) first.
+**For serious bugs** (for example, lost work), email [info@sts.com.ge](mailto:info@sts.com.ge) first for a faster response.
 
 When submitting a bug report, please include the following information:
 

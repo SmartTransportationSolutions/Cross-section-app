@@ -6,7 +6,7 @@
 | --- | --- |
 | Node.js | 22.x or 24.x (CI tests both); npm 11+ for `npm install` (npm 10 cannot resolve workspace packages; `npm ci` works on either) |
 | PostgreSQL | 14+ with the PostGIS extension available (migration `20200311145404` runs `CREATE EXTENSION postgis`) |
-| Fonts (server) | `fonts-noto-core` (Georgian coverage for server-rendered exports); bundled in the Docker image |
+| Fonts (server) | Noto Sans Georgian from npm (`@fontsource/noto-sans-georgian`), registered by the export renderer; no OS font packages needed |
 | Outbound network | SMTP server (sign-in emails); optionally a Pelias-compatible geocoder and a map tile provider. Nothing else is required. |
 | Disk | `data/` directory (signing key, mail outbox in dev, image cache) |
 
@@ -49,8 +49,7 @@ cp .env.example .env
 #   APP_DOMAIN=street.example.ge   APP_PROTOCOL=https
 #   COOKIE_SESSION_SECRET=$(openssl rand -hex 32)
 #   SMTP_URL=smtps://user:pass@smtp.example.ge:465   MAIL_FROM="STS Street <no-reply@example.ge>"
-# The signing key is generated into the app-data volume on first start if
-# AUTH_JWT_PRIVATE_KEY_FILE points to a missing file? No: generate it first:
+# Generate the token signing key into the app-data volume before first start:
 docker compose run --rm app node bin/generate-auth-key.mjs /app/data/auth-key.pem
 docker compose up -d --build
 docker compose exec app npm run sts:admin -- create-user admin@example.ge 'a strong password' admin --role ADMIN
@@ -150,3 +149,49 @@ npm ci && npm run build:app && npm test && npm run test:e2e
   plus `https:` for provider-supplied profile images.
 - Dependency audit: `npm audit` (see `docs/acceptance-report.md` for the
   state at release).
+
+## 10. GitHub Pages edition (static)
+
+The production deployment chosen by STS is the static edition on GitHub
+Pages (architecture: `docs/architecture.md` §7).
+
+### Build and test locally
+
+```bash
+npm ci
+APP_BASE_PATH=/Cross-section-app npm run build:pages   # → dist-pages/
+node bin/serve-pages.mjs 8080                          # http://localhost:8080/Cross-section-app/
+PAGES_BASE_URL=http://localhost:8080/Cross-section-app npm run test:e2e:pages
+```
+
+`SKIP_DOCS=true` and `SKIP_SOURCE_ARCHIVE=true` speed up local builds.
+`APP_BASE_PATH` must match the path the site is served under: `/<repo>` for
+`https://<owner>.github.io/<repo>/`, or empty for a custom domain.
+
+### Deploy
+
+`.github/workflows/pages.yml` builds the site on every push to `main` (and
+on manual dispatch) and commits it to the `gh-pages` branch. One-time
+repository setting (admin): **Settings → Pages → Build and deployment →
+Deploy from a branch → `gh-pages` / `(root)`**.
+
+Custom domain: add the domain in the same settings page, create the DNS
+record GitHub shows, and build with `APP_BASE_PATH=` (empty) and
+`SITE_URL=https://<domain>`.
+
+### Membership administration
+
+Edit `public/data/members.json` (GitHub logins, case-insensitive) in a pull
+request; the next deployment applies it. `admin` implies Plus.
+
+### Backup and restore
+
+There is no STS-held database in this edition. Each person's streets are
+gists in their own GitHub account (GitHub's durability applies; people can
+clone a gist with git). STS-owned configuration (members list, examples) is
+in this repository. Restoring the site = re-running the Pages workflow for
+the desired commit.
+
+### Monitoring
+
+`build.json` at the site root records the deployed commit and build time.

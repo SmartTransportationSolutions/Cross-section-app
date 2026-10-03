@@ -29,7 +29,18 @@ Details: [docs/architecture.md](docs/architecture.md), [docs/feature-parity.md](
 [docs/reference-baseline.md](docs/reference-baseline.md), [docs/brand.md](docs/brand.md),
 [docs/operations.md](docs/operations.md), [docs/acceptance-report.md](docs/acceptance-report.md).
 
-## Quick start
+## Editions
+
+* **GitHub Pages edition** (production): runs entirely in the browser and
+  saves streets as GitHub Gists in each person's own GitHub account. Built by
+  `npm run build:pages`, deployed by `.github/workflows/pages.yml` to
+  <https://smarttransportationsolutions.github.io/Cross-section-app/>
+  (once Pages is enabled for the `gh-pages` branch). Details and limitations:
+  [docs/architecture.md §7](docs/architecture.md).
+* **Server edition** (self-hosting): Node.js + PostgreSQL with the built-in
+  STS identity service, described below.
+
+## Quick start (server edition)
 
 Requirements: Node.js 22 or 24, npm 11, PostgreSQL 14+ with PostGIS.
 

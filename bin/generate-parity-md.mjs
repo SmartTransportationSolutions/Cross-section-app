@@ -51,7 +51,7 @@ for (const [category, rows] of Object.entries(byCategory)) {
   md += `| ID | Capability | Roles | Interactions / expected result | Persistence, permissions, errors | Reference evidence | STS implementation | Tests / evidence | Impl. | Verif. | Blocker / notes |\n`
   md += `| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n`
   for (const f of rows) {
-    md += `| ${f.id} | ${esc(f.capability)} | ${esc(f.roles)} | ${esc(f.interactions)} ⇒ ${esc(f.expected)} | ${esc(f.persistence)} | ${esc(f.reference)} | ${esc(f.implementation)}${f.substitution ? ` — substitution: ${esc(f.substitution)}` : ''} | ${list(f.tests)}${f.evidence?.length ? ` — evidence: ${list(f.evidence)}` : ''} | ${f.implementationStatus} | ${f.verificationStatus} | ${esc(f.blocker)} |\n`
+    md += `| ${f.id} | ${esc(f.capability)} | ${esc(f.roles)} | ${esc(f.interactions)} ⇒ ${esc(f.expected)} | ${esc(f.persistence)} | ${esc(f.reference)} | ${esc(f.implementation)}${f.substitution ? ` — substitution: ${esc(f.substitution)}` : ''} | ${list(f.tests)}${f.evidence?.length ? ` — evidence: ${list(f.evidence)}` : ''} | ${f.implementationStatus} | ${f.verificationStatus} | ${esc([f.blocker, f.notes].filter(Boolean).join(" "))} |\n`
   }
   md += '\n'
 }

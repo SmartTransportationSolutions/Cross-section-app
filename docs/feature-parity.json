@@ -23,6 +23,16 @@
         "date": "2026-10-03",
         "id": "AUTHZ-USER-01",
         "text": "Deliberate security fixes beyond parity: PATCH /users/:id ownership check, DELETE /users/:id now deletes, GET /users admin check hardened, POST /users (public account creation from Auth0 payloads) removed, server-side enforcement of premium export options."
+      },
+      {
+        "date": "2026-10-03",
+        "id": "PAGES-DEPLOY-01",
+        "text": "STS chose GitHub Pages hosting with GitHub as the database (\"Use github pages, and simple github dbs\"). Added a static edition (docs/architecture.md §7). Capabilities that need a server (email/password and OIDC sign-in, newsletter, surveys, server image renderer, remixes CSV, global gallery) remain implemented in the server edition and are unavailable in the Pages edition; their rows are not removed or weakened. Pages-specific rows added (PAGES-*)."
+      },
+      {
+        "date": "2026-10-03",
+        "id": "QA-AUDIT",
+        "text": "Independent QA audit (scratchpad report, summarized in docs/acceptance-report.md) found VERIFIED rows whose cited evidence did not exist or did not test the claim. Those rows were downgraded to IMPLEMENTED_UNVERIFIED with the reason in notes (no requirement removed). The E2E evidence string now comes from a single full 10/10 run with its log committed. The DB-backed identity tests now run (locally and in CI) and replace the non-existent \"J1b\" citation."
       }
     ]
   },
@@ -43,7 +53,7 @@
         "E2E J2"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J1",
         "J2"
       ],
@@ -85,12 +95,13 @@
         "E2E J9 (menu present)"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J9"
       ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: J9 never opens the New street menu."
     },
     {
       "id": "EDIT-NEW-04",
@@ -128,7 +139,7 @@
         "unit: StreetNameplateContainer.test.tsx"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J1",
         "J3"
       ],
@@ -287,7 +298,7 @@
         "unit: UpDownInput.test.tsx, WidthControl.test.tsx"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J2"
       ],
       "implementationStatus": "VERIFIED",
@@ -310,7 +321,7 @@
         "unit: VariantSet.test.tsx, variant_utils.test.ts"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J2"
       ],
       "implementationStatus": "VERIFIED",
@@ -333,7 +344,7 @@
         "unit: EditableLabel.test.tsx"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J9"
       ],
       "implementationStatus": "VERIFIED",
@@ -356,8 +367,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: cited unit tests only cover formatting; J2 does not assert the floors change."
     },
     {
       "id": "EDIT-ELEVATION-01",
@@ -375,8 +387,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: cited \"elevation tests\" do not exist."
     },
     {
       "id": "EDIT-EMPTY-01",
@@ -451,7 +464,7 @@
         "unit: history tests (9+2+2), UndoRedo.test.tsx"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J2"
       ],
       "implementationStatus": "VERIFIED",
@@ -474,8 +487,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: keypress.test.ts tests key parsing, not the bound commands."
     },
     {
       "id": "EDIT-AUTOSAVE-01",
@@ -493,7 +507,7 @@
         "E2E J2"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J1",
         "J2"
       ],
@@ -516,7 +530,7 @@
         "E2E J4"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J4"
       ],
       "implementationStatus": "VERIFIED",
@@ -616,7 +630,7 @@
         "E2E J9 (locked count anonymous > 0, member 0)"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J9"
       ],
       "implementationStatus": "VERIFIED",
@@ -638,7 +652,7 @@
         "E2E J9"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J9"
       ],
       "implementationStatus": "VERIFIED",
@@ -717,7 +731,7 @@
         "bin/catalog-report.mjs"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "docs/catalog-report.md PASS"
       ],
       "implementationStatus": "VERIFIED",
@@ -740,7 +754,7 @@
         "unit: sky/index.test.ts, SkyPicker.test.tsx"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J9"
       ],
       "implementationStatus": "VERIFIED",
@@ -799,8 +813,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: only reducers are tested, not the Appearance panel."
     },
     {
       "id": "UI-BRAND-01",
@@ -818,8 +833,9 @@
         "screenshot docs/evidence/sts/home.png"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
-        "J10"
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
+        "J10",
+        "screenshots docs/evidence/pages/p1-anonymous.png, docs/evidence/e2e/*.png"
       ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
@@ -839,12 +855,13 @@
       "tests": [
         "E2E J1",
         "server: app/auth tests",
-        "curl smoke 2026-10-03 (409 duplicate, 400 weak password)"
+        "curl smoke 2026-10-03 (409 duplicate, 400 weak password)",
+        "app/auth/__tests__/routes.db.test.ts"
       ],
       "evidence": [
-        "DB integration test",
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
-        "J1"
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
+        "J1",
+        "app/auth/__tests__/routes.db.test.ts with PG_INTEGRATION=true against PostgreSQL: 7/7 pass 2026-10-03 (also enabled in CI test job)"
       ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
@@ -864,13 +881,14 @@
       "tests": [
         "E2E J2",
         "E2E J3",
-        "curl smoke"
+        "curl smoke",
+        "app/auth/__tests__/routes.db.test.ts"
       ],
       "evidence": [
-        "DB integration test",
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J2",
-        "J3"
+        "J3",
+        "app/auth/__tests__/routes.db.test.ts with PG_INTEGRATION=true against PostgreSQL: 7/7 pass 2026-10-03 (also enabled in CI test job)"
       ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
@@ -888,16 +906,17 @@
       "implementation": "Nodemailer SMTP / outbox transport replaces Auth0 email",
       "substitution": "",
       "tests": [
-        "E2E J1b (outbox)",
-        "server: auth tests"
+        "server: auth tests",
+        "app/auth/__tests__/routes.db.test.ts"
       ],
       "evidence": [
-        "DB integration test (outbox)",
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e"
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
+        "app/auth/__tests__/routes.db.test.ts with PG_INTEGRATION=true against PostgreSQL: 7/7 pass 2026-10-03 (also enabled in CI test job)"
       ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
-      "blocker": "Delivery in production requires SMTP credentials (not available in build environment)"
+      "blocker": "Delivery in production requires SMTP credentials (not available in build environment)",
+      "notes": " Security fix 2026-10-03: accounts for new addresses are created only when the magic link is opened (test: \"does not create an account for an address until its magic link is opened\")."
     },
     {
       "id": "AUTH-RESET-01",
@@ -911,12 +930,12 @@
       "implementation": "new",
       "substitution": "",
       "tests": [
-        "E2E J1b",
-        "server: auth tests"
+        "server: auth tests",
+        "app/auth/__tests__/routes.db.test.ts"
       ],
       "evidence": [
-        "DB integration test (outbox)",
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e"
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
+        "app/auth/__tests__/routes.db.test.ts with PG_INTEGRATION=true against PostgreSQL: 7/7 pass 2026-10-03 (also enabled in CI test job)"
       ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
@@ -973,12 +992,13 @@
       "substitution": "",
       "tests": [
         "E2E J3",
-        "curl smoke (refresh after logout → 401)"
+        "curl smoke (refresh after logout → 401)",
+        "app/auth/__tests__/routes.db.test.ts"
       ],
       "evidence": [
-        "DB integration test",
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
-        "J3"
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
+        "J3",
+        "app/auth/__tests__/routes.db.test.ts with PG_INTEGRATION=true against PostgreSQL: 7/7 pass 2026-10-03 (also enabled in CI test job)"
       ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
@@ -999,7 +1019,7 @@
         "E2E J1"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J1"
       ],
       "implementationStatus": "VERIFIED",
@@ -1024,8 +1044,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: cited \"ProfileSettings tests\" do not exist."
     },
     {
       "id": "USER-SETTINGS-01",
@@ -1084,7 +1105,7 @@
         "unit: Gallery*.test.tsx, server users_streets tests"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J3",
         "J5"
       ],
@@ -1108,8 +1129,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: no browser test opens /gallery."
     },
     {
       "id": "GAL-DELETE-01",
@@ -1128,8 +1150,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: no test asserts 410 after deletion (J7 asserts 401/403 only). Pages edition: P5 asserts the gist is deleted."
     },
     {
       "id": "PERM-LINK-01",
@@ -1147,7 +1170,7 @@
         "unit: page_url.test.ts"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J3"
       ],
       "implementationStatus": "VERIFIED",
@@ -1169,7 +1192,7 @@
         "E2E J8"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J8"
       ],
       "implementationStatus": "VERIFIED",
@@ -1191,12 +1214,13 @@
         "E2E J8"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J8"
       ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: J8 records but does not assert the no-connection toast."
     },
     {
       "id": "AUTHZ-STREET-01",
@@ -1214,7 +1238,7 @@
         "server: streets.test.ts"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J7",
         "unit: streets.test.ts (403 non-owner)"
       ],
@@ -1238,7 +1262,7 @@
         "E2E J7"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J7"
       ],
       "implementationStatus": "VERIFIED",
@@ -1259,7 +1283,9 @@
       "tests": [
         "executed 2026-10-03 on sts_street_dev (23 migrations)"
       ],
-      "evidence": [],
+      "evidence": [
+        "docs/evidence/ops/container-smoke-2026-10-03.md (23 migrations on an empty database from the container entrypoint)"
+      ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
       "blocker": ""
@@ -1299,8 +1325,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: no Mastodon test; cited helpers tests are unrelated."
     },
     {
       "id": "SHARE-PREVIEW-01",
@@ -1318,13 +1345,14 @@
         "E2E J10"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J10",
         "curl og:image"
       ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: curl result not committed."
     },
     {
       "id": "EXPORT-IMAGE-01",
@@ -1342,7 +1370,7 @@
         "unit: SaveAsImageDialog.test.tsx, thumbnail.test.ts"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J6"
       ],
       "implementationStatus": "VERIFIED",
@@ -1365,8 +1393,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: no test exercises the custom 1-5x scale control."
     },
     {
       "id": "EXPORT-IMAGE-03",
@@ -1384,8 +1413,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: cited \"Terms tests\" do not exist."
     },
     {
       "id": "EXPORT-SERVER-01",
@@ -1402,7 +1432,7 @@
         "E2E J6 (PNG parsed, alpha, scale cap, member 3×)"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J6"
       ],
       "implementationStatus": "VERIFIED",
@@ -1499,17 +1529,18 @@
       "substitution": "",
       "tests": [],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "curl /api/docs 200"
       ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: curl result not committed."
     },
     {
       "id": "EXPORT-CSV-01",
       "category": "E. Sharing, exports, interoperability",
-      "capability": "Streets CSV export helper (app/lib/streets_export.ts, not routed upstream)",
+      "capability": "Remixes CSV endpoint (GET /api/v1/streets/:id/remixes, text/csv via streetsToCSV)",
       "roles": "ops",
       "interactions": "n/a",
       "expected": "Not exposed upstream; retained as library",
@@ -1517,11 +1548,17 @@
       "reference": "app/lib/streets_export.ts; src@f17578e; observed 2026-10-03",
       "implementation": "unchanged (dormant)",
       "substitution": "",
-      "tests": [],
-      "evidence": [],
+      "tests": [
+        "E2E J4"
+      ],
+      "evidence": [
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
+        "J4 reads the remixes CSV"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "NOT_STARTED",
-      "blocker": "Dormant upstream code; not a shipped feature"
+      "verificationStatus": "VERIFIED",
+      "blocker": "Dormant upstream code; not a shipped feature",
+      "notes": "Corrected 2026-10-03 (QA audit): the endpoint IS routed upstream and in STS Street; earlier text said it was dormant. Server edition only (Pages edition answers 501)."
     },
     {
       "id": "INFO-WELCOME-01",
@@ -1559,8 +1596,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: cited \"WhatsNewDialog tests\" do not exist."
     },
     {
       "id": "INFO-ABOUT-01",
@@ -1578,7 +1616,7 @@
         "unit: AboutDialog.test.tsx"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J10"
       ],
       "implementationStatus": "VERIFIED",
@@ -1601,8 +1639,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: cited \"DescriptionPanel tests\" do not exist."
     },
     {
       "id": "INFO-HELP-01",
@@ -1620,8 +1659,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: HelpMenu test does not check the Guidebook target."
     },
     {
       "id": "INFO-CONTACT-01",
@@ -1677,7 +1717,7 @@
         "npm run build:docs"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "curl /docs/user-guide/sts-street-plus 200",
         "npm run build:docs (exit 0)"
       ],
@@ -1720,8 +1760,9 @@
       ],
       "evidence": [],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: cited \"localization tests\" do not exist."
     },
     {
       "id": "I18N-GEORGIAN-01",
@@ -1738,7 +1779,7 @@
         "E2E J1, J3, J6, J9"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J1",
         "J3",
         "J6",
@@ -1762,7 +1803,9 @@
       "tests": [
         "unit: Dialog.test.tsx, Menu tests"
       ],
-      "evidence": [],
+      "evidence": [
+        "docs/evidence/sts/keyboard-after-escape.png"
+      ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "IMPLEMENTED_UNVERIFIED",
       "blocker": "Only unit-level coverage; no screen-reader audit"
@@ -1779,7 +1822,9 @@
       "implementation": "unchanged",
       "substitution": "",
       "tests": [],
-      "evidence": [],
+      "evidence": [
+        "docs/evidence/sts/responsive-phone.png, responsive-tablet.png, responsive-desktop-small.png (screenshots, not asserted)"
+      ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "NOT_STARTED",
       "blocker": "Emulated-viewport screenshots pending; no physical device testing"
@@ -1799,12 +1844,13 @@
         "curl 404"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "curl 404/410"
       ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "VERIFIED",
-      "blocker": ""
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": "",
+      "notes": "QA audit 2026-10-03: curl result not committed."
     },
     {
       "id": "ERR-CLIENT-01",
@@ -1841,8 +1887,9 @@
         "E2E J10"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
-        "J10"
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
+        "J10",
+        "Pages edition: P7 asserts privacy, terms and source pages (200, heading, base-path links)"
       ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
@@ -1978,7 +2025,7 @@
         "E2E J9"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J9"
       ],
       "implementationStatus": "VERIFIED",
@@ -2001,7 +2048,7 @@
         "server: user tests"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J7"
       ],
       "implementationStatus": "VERIFIED",
@@ -2060,7 +2107,7 @@
         "grep audit"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J10"
       ],
       "implementationStatus": "VERIFIED",
@@ -2102,7 +2149,7 @@
         "grep audit of client/src and views"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J10"
       ],
       "implementationStatus": "VERIFIED",
@@ -2124,7 +2171,7 @@
         "E2E J10"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J10"
       ],
       "implementationStatus": "VERIFIED",
@@ -2147,7 +2194,7 @@
         "E2E J10"
       ],
       "evidence": [
-        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "E2E run 2026-10-03 17:05 UTC (chromium, local server + PostgreSQL, single full run): 10/10 pass; log docs/evidence/e2e/e2e-run.log",
         "J10",
         "archive built: source:archive"
       ],
@@ -2170,7 +2217,7 @@
       "evidence": [],
       "implementationStatus": "IMPLEMENTED_UNVERIFIED",
       "verificationStatus": "BLOCKED",
-      "blocker": "Docker image build not yet executed; no hosting credentials/DNS provided for a public deployment"
+      "blocker": "Superseded by the GitHub Pages deployment decision (see PAGES-DEPLOY-01). Server edition: no server host provided; image builds and runs (docs/evidence/ops/container-smoke-2026-10-03.md)."
     },
     {
       "id": "OPS-CI-01",
@@ -2203,7 +2250,9 @@
       "tests": [
         "executed 2026-10-03"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run uses seeded demo accounts (J6, J7, J9); CI e2e job runs npm run db:seed:demo"
+      ],
       "implementationStatus": "VERIFIED",
       "verificationStatus": "VERIFIED",
       "blocker": ""
@@ -2226,6 +2275,294 @@
       "implementationStatus": "VERIFIED",
       "verificationStatus": "IMPLEMENTED_UNVERIFIED",
       "blocker": ""
+    },
+    {
+      "id": "ANA-CSV-01",
+      "category": "G. Analytics",
+      "capability": "Analytics dialog \"Export as CSV\" download",
+      "roles": "anonymous, user",
+      "interactions": "Open street analytics → Export as CSV",
+      "expected": "CSV of segment capacities downloads",
+      "persistence": "none (client-side)",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [],
+      "evidence": [],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-ROUTING-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Static edition routing under a base path with deep links",
+      "roles": "anonymous, user",
+      "interactions": "Open /<base>/, /<base>/<user>/<n>/<slug>, /<base>/-/<n>",
+      "expected": "App loads at every in-app URL; links and history keep the base path",
+      "persistence": "404.html fallback",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        "test/e2e/pages.mjs P1, P4, P7",
+        "client/src/static/backend.test.ts (base path helpers)"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-ANON-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Anonymous streets in the static edition",
+      "roles": "anonymous, user",
+      "interactions": "Edit without signing in; reload",
+      "expected": "Street kept in this browser; nothing written to GitHub",
+      "persistence": "browser local storage",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "Upstream stored anonymous streets on the server; on GitHub Pages they stay in the browser until sign-in",
+      "tests": [
+        "P1"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-AUTH-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Sign in with GitHub (personal access token)",
+      "roles": "anonymous, user",
+      "interactions": "Sign in → paste token with gist scope",
+      "expected": "Invalid and scope-less tokens rejected; valid token signs in; token only in local storage, never in cookies; sign out removes it; revoked token signs out",
+      "persistence": "local storage",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "Replaces the server identity service in the Pages edition",
+      "tests": [
+        "P2",
+        "backend.test.ts (expired token → 401)"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-OAUTH-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "One-click GitHub OAuth sign-in",
+      "roles": "anonymous, user",
+      "interactions": "Sign in with GitHub button",
+      "expected": "OAuth redirect flow without pasting a token",
+      "persistence": "n/a",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [],
+      "evidence": [],
+      "implementationStatus": "BLOCKED",
+      "verificationStatus": "BLOCKED",
+      "blocker": "Needs a token-exchange service holding an OAuth client secret (GitHub does not allow browser token exchange). Not available on GitHub Pages alone; requires an STS decision to run a small serverless function and register an OAuth app."
+    },
+    {
+      "id": "PAGES-STORE-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Streets saved as GitHub Gists",
+      "roles": "anonymous, user",
+      "interactions": "Sign in; edit",
+      "expected": "Street promoted to a public gist sts-street-<n>.json; editor street id is the gist id; per-user numbering",
+      "persistence": "GitHub Gists (user-owned)",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        "P2",
+        "P3",
+        "backend.test.ts"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-STORE-02",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Coalesced saves, saved-only-after-GitHub-accepts, cross-session reload",
+      "roles": "anonymous, user",
+      "interactions": "Ten quick edits; reload in another session",
+      "expected": "Edits reach GitHub in at most a few writes; final state persisted; second session sees it",
+      "persistence": "GitHub Gists",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        "P3",
+        "backend.test.ts (coalescing)"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-SHARE-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "View and remix another person's street (static edition)",
+      "roles": "anonymous, user",
+      "interactions": "Open a shared link anonymously; sign in as another user and edit",
+      "expected": "Viewer sees the street; edit creates a remix gist with originalStreetId; original unchanged; direct write returns 403",
+      "persistence": "GitHub Gists",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        "P4",
+        "backend.test.ts (403/401)"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-GALLERY-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Galleries and examples in the static edition",
+      "roles": "anonymous, user",
+      "interactions": "Open /<user>; delete a street; open /examples/2 and its author gallery",
+      "expected": "Gallery lists the user's street gists; delete removes the gist; built-in examples load from static data and are never looked up on GitHub",
+      "persistence": "GitHub Gists; data/examples.json",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        "P5"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-MEMBERS-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "STS Street Plus from members.json",
+      "roles": "anonymous, user",
+      "interactions": "List a login in data/members.json; sign in",
+      "expected": "Listed account is a subscriber; Plus UI unlocked; others locked",
+      "persistence": "repository file (reviewed PR)",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "Client-side enforcement only (documented limitation)",
+      "tests": [
+        "P6",
+        "backend.test.ts"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-LEGAL-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Legal pages, source offer and archive in the static edition",
+      "roles": "anonymous, user",
+      "interactions": "Open /<base>/privacy-policy, /terms-of-service, /source",
+      "expected": "Pages served with base-path links; AGPL offer with downloadable archive",
+      "persistence": "static files",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        "P7"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-SEC-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Static edition security checks",
+      "roles": "anonymous, user",
+      "interactions": "Translation path traversal; foreign hosts",
+      "expected": "Traversal rejected (400); no requests to hosts other than the site, api.github.com and gist.githubusercontent.com; CSP meta tag",
+      "persistence": "n/a",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        "P7",
+        "backend.test.ts"
+      ],
+      "evidence": [
+        "Pages journeys 2026-10-03 (chromium, production static build served like GitHub Pages, simulated GitHub API): 7/7 pass; log docs/evidence/pages/pages-run.log"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
+    },
+    {
+      "id": "PAGES-REALAPI-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Static edition against the real GitHub API",
+      "roles": "anonymous, user",
+      "interactions": "Use the deployed site with a real GitHub account",
+      "expected": "Same behaviour as P1-P7 with api.github.com",
+      "persistence": "GitHub Gists",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [],
+      "evidence": [],
+      "implementationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "NOT_STARTED",
+      "blocker": "The build sandbox cannot reach api.github.com (egress policy); verify on the deployed site with a real token."
+    },
+    {
+      "id": "PAGES-DEPLOY-01",
+      "category": "H. Deployment, membership and external dependencies",
+      "capability": "Deployed on GitHub Pages",
+      "roles": "anonymous, user",
+      "interactions": "Push to main → workflow builds and publishes gh-pages",
+      "expected": "Site live at https://smarttransportationsolutions.github.io/Cross-section-app/",
+      "persistence": "gh-pages branch",
+      "reference": "STS decision 2026-10-03: GitHub Pages hosting, GitHub as the database",
+      "implementation": "new (STS)",
+      "substitution": "",
+      "tests": [
+        ".github/workflows/pages.yml"
+      ],
+      "evidence": [],
+      "implementationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "NOT_STARTED",
+      "blocker": "See acceptance report for the current deployment state."
     }
   ]
 }
