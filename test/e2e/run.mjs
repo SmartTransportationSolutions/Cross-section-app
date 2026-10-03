@@ -422,20 +422,29 @@ test('J5 gallery pagination shows every street exactly once across pages', async
   const seen = []
   for (let pageNo = 1; pageNo <= 2; pageNo++) {
     await page.waitForTimeout(500)
-    const names = await page.locator('.gallery-street-item').evaluateAll((els) => els.map((e) => e.getAttribute('data-street-name')))
-    seen.push(...names)
+    // Street links are unique (they carry the street number); names are not
+    // (the street adopted at sign-in is unnamed, as can be others).
+    const items = await page.locator('.gallery-street-item').evaluateAll((els) =>
+      els.map((e) => ({ name: e.getAttribute('data-street-name'), href: e.querySelector('a')?.getAttribute('href') }))
+    )
+    seen.push(...items)
     await shot(page, `j5-gallery-page-${pageNo}`)
     const next = page.locator('.gallery-pagination-button').last()
     if (pageNo === 1) {
       await next.click()
     }
   }
-  const unique = new Set(seen)
+  const unique = new Set(seen.map((item) => item.href))
+  const names = new Set(seen.map((item) => item.name))
+  for (let i = 1; i <= total; i++) {
+    const name = `Page Street ${String(i).padStart(3, '0')}`
+    assert(names.has(name), `gallery shows ${name}`)
+  }
   // Signing in through the UI creates the user's first "current" street, so
   // compare against the server's count at this moment rather than `total`.
   const nowTotal = (await (await api.get(`/api/v1/users/${userId}/streets?page=1`)).json()).pagination.total
   assert(nowTotal >= total, `server total ${nowTotal} >= ${total}`)
-  assert(unique.size === nowTotal && seen.length === nowTotal, `UI shows ${unique.size} unique streets over 2 pages (server total ${nowTotal}; seen ${seen.length} items, no duplicates)`)
+  assert(unique.size === nowTotal && seen.length === nowTotal, `UI shows ${unique.size} distinct street links over 2 pages (server total ${nowTotal}; seen ${seen.length} items)`)
   record('J5', { userId, created: total, serverTotal: nowTotal, pages: 2 })
   await api.dispose()
   await context.close()
