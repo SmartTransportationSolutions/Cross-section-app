@@ -164,6 +164,11 @@ const csp = {
     fontSrc: ["'self'"],
     connectSrc: ["'self'", peliasHost, sentryHost ?? '', plausibleHost],
     reportUri: '/services/csp-report/',
+    // Helmet adds upgrade-insecure-requests by default. Only send it when the
+    // app is served over HTTPS: on a plain-HTTP origin (local, CI, an
+    // internal deployment) Chromium would rewrite the app's own API requests
+    // to https:// and every request would fail.
+    upgradeInsecureRequests: appURL.protocol === 'https:' ? [] : null,
   },
   // Report (but do not block) CSP violations in development mode.
   // This allows developers to work on new or experimental features without

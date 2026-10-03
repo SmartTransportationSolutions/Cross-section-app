@@ -138,6 +138,10 @@ npm ci && npm run build:app && npm test && npm run test:e2e
 
 ## 9. Security notes
 
+- The content security policy sends `upgrade-insecure-requests` only when
+  `APP_PROTOCOL=https`. Serving the app over plain HTTP with that directive
+  makes Chromium rewrite its own API requests to `https://` and fail; set
+  `APP_PROTOCOL=https` whenever TLS terminates in front of the app.
 - All ownership checks are server-side; anonymous streets (no creator) are
   editable by anyone who has the link, as upstream.
 - Credentials: scrypt hashes; lockout after repeated failures; rate limits on
