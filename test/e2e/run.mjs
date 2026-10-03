@@ -249,12 +249,30 @@ test('J3 saved design survives reload, sign-out/in and a separate browser sessio
   const streetId = state.street.id
   assert(streetUrl.includes(`/${userId}/`), `street URL contains the username: ${streetUrl}`)
 
-  // Sign out through the identity menu
-  await page.locator('#menubar-identity').click()
+  // Sign out through the identity menu (retry: the menu animates open, and
+  // an early click can land on a neighbouring item)
+  await page.mouse.move(5, 5)
+  for (let attempt = 0; attempt < 4; attempt++) {
+    await page.locator('#menubar-identity').click({ force: true })
+    await page.waitForTimeout(400)
+    if (await page.locator('.menu-sign-out').isVisible().catch(() => false)) break
+  }
   await page.locator('.menu-sign-out').click()
-  await page.waitForTimeout(1000)
-  const cookies = await context.cookies()
-  assert(!cookies.find((c) => c.name === 'login_token' && c.value), 'login_token cookie cleared on sign-out')
+  await page.getByText('You are now signed out', { exact: false }).waitFor({ timeout: 15000 })
+  // Sign-out revokes the session on the server before clearing cookies;
+  // poll instead of assuming a fixed delay.
+  let signedOut = false
+  for (let i = 0; i < 40 && !signedOut; i++) {
+    const cookies = await context.cookies()
+    signedOut = !cookies.find((c) => c.name === 'login_token' && c.value)
+    if (!signedOut) await page.waitForTimeout(250)
+  }
+  if (!signedOut) {
+    const body = (await page.locator('body').innerText()).slice(0, 200)
+    const names = (await context.cookies()).map((c) => c.name).join(',')
+    await shot(page, 'j3-signout-failure')
+    throw new Error(`login_token cookie not cleared on sign-out; url=${page.url()} cookies=${names} body=${JSON.stringify(body)}`)
+  }
 
   // Separate browser session: load the permalink anonymously, read-only ownership
   const { context: ctx2, page: page2 } = await newPage(browser)
@@ -271,8 +289,19 @@ test('J3 saved design survives reload, sign-out/in and a separate browser sessio
   await waitForEditor(page)
   await dismissWelcome(page)
   await signInViaUi(page, email, PASSWORD)
-  await page.goto(`${BASE_URL}/${userId}`)
+  // Open the gallery the way a person does (identity menu → My streets).
+  // Loading /<user> directly only opens the gallery when the account has a
+  // remembered last street, which depends on a settings save racing the
+  // navigation (seen in Firefox).
+  await page.mouse.move(5, 5)
+  for (let attempt = 0; attempt < 4; attempt++) {
+    await page.locator('#menubar-identity').click({ force: true })
+    await page.waitForTimeout(400)
+    if (await page.locator('.identity-menu').getByText('My streets').isVisible().catch(() => false)) break
+  }
+  await page.locator('.identity-menu').getByText('My streets').click()
   await page.waitForSelector('.gallery-street-item', { timeout: 60000 })
+  assert(new URL(page.url()).pathname === `/${userId}`, `gallery URL is the user's (${page.url()})`)
   const names = await page.locator('.gallery-street-item').evaluateAll((els) => els.map((e) => e.getAttribute('data-street-name')))
   assert(names.includes('რუსთაველის გამზირი'), `gallery lists the saved street: ${names.join(', ')}`)
   record('J3', { userId, streetId, names })
@@ -377,8 +406,19 @@ test('J5 gallery pagination shows every street exactly once across pages', async
   await waitForEditor(page)
   await dismissWelcome(page)
   await signInViaUi(page, email, PASSWORD)
-  await page.goto(`${BASE_URL}/${userId}`)
+  // Open the gallery the way a person does (identity menu → My streets).
+  // Loading /<user> directly only opens the gallery when the account has a
+  // remembered last street, which depends on a settings save racing the
+  // navigation (seen in Firefox).
+  await page.mouse.move(5, 5)
+  for (let attempt = 0; attempt < 4; attempt++) {
+    await page.locator('#menubar-identity').click({ force: true })
+    await page.waitForTimeout(400)
+    if (await page.locator('.identity-menu').getByText('My streets').isVisible().catch(() => false)) break
+  }
+  await page.locator('.identity-menu').getByText('My streets').click()
   await page.waitForSelector('.gallery-street-item', { timeout: 60000 })
+  assert(new URL(page.url()).pathname === `/${userId}`, `gallery URL is the user's (${page.url()})`)
   const seen = []
   for (let pageNo = 1; pageNo <= 2; pageNo++) {
     await page.waitForTimeout(500)
