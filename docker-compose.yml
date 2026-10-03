@@ -29,6 +29,7 @@ services:
       args:
         SOURCE_COMMIT: ${SOURCE_COMMIT:-unknown}
     image: sts-street:latest
+    init: true
     restart: unless-stopped
     depends_on:
       db:

@@ -42,9 +42,13 @@
         "E2E J1",
         "E2E J2"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J1",
+        "J2"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -80,9 +84,12 @@
       "tests": [
         "E2E J9 (menu present)"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J9"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -120,9 +127,13 @@
         "E2E J3",
         "unit: StreetNameplateContainer.test.tsx"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J1",
+        "J3"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -275,9 +286,12 @@
         "E2E J2",
         "unit: UpDownInput.test.tsx, WidthControl.test.tsx"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J2"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -295,9 +309,12 @@
         "E2E J2",
         "unit: VariantSet.test.tsx, variant_utils.test.ts"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J2"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -315,9 +332,12 @@
         "E2E J9",
         "unit: EditableLabel.test.tsx"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J9"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -430,9 +450,12 @@
         "E2E J2",
         "unit: history tests (9+2+2), UndoRedo.test.tsx"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J2"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -469,9 +492,13 @@
         "E2E J1",
         "E2E J2"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J1",
+        "J2"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -488,9 +515,12 @@
       "tests": [
         "E2E J4"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J4"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -585,9 +615,12 @@
       "tests": [
         "E2E J9 (locked count anonymous > 0, member 0)"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J9"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -604,9 +637,12 @@
       "tests": [
         "E2E J9"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J9"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -680,10 +716,13 @@
       "tests": [
         "bin/catalog-report.mjs"
       ],
-      "evidence": [],
-      "implementationStatus": "IN_PROGRESS",
-      "verificationStatus": "NOT_STARTED",
-      "blocker": "Report script to be added; data identical by construction (same files)"
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "docs/catalog-report.md PASS"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
     },
     {
       "id": "ENV-SKY-01",
@@ -700,9 +739,12 @@
         "E2E J9",
         "unit: sky/index.test.ts, SkyPicker.test.tsx"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J9"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -775,9 +817,12 @@
         "E2E J10",
         "screenshot docs/evidence/sts/home.png"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -796,9 +841,13 @@
         "server: app/auth tests",
         "curl smoke 2026-10-03 (409 duplicate, 400 weak password)"
       ],
-      "evidence": [],
+      "evidence": [
+        "DB integration test",
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J1"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -817,9 +866,14 @@
         "E2E J3",
         "curl smoke"
       ],
-      "evidence": [],
+      "evidence": [
+        "DB integration test",
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J2",
+        "J3"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -837,9 +891,12 @@
         "E2E J1b (outbox)",
         "server: auth tests"
       ],
-      "evidence": [],
+      "evidence": [
+        "DB integration test (outbox)",
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": "Delivery in production requires SMTP credentials (not available in build environment)"
     },
     {
@@ -857,9 +914,12 @@
         "E2E J1b",
         "server: auth tests"
       ],
-      "evidence": [],
+      "evidence": [
+        "DB integration test (outbox)",
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": "Same SMTP note"
     },
     {
@@ -915,9 +975,13 @@
         "E2E J3",
         "curl smoke (refresh after logout → 401)"
       ],
-      "evidence": [],
+      "evidence": [
+        "DB integration test",
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J3"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -934,9 +998,12 @@
       "tests": [
         "E2E J1"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J1"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1016,9 +1083,13 @@
         "E2E J3",
         "unit: Gallery*.test.tsx, server users_streets tests"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J3",
+        "J5"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1075,9 +1146,12 @@
         "E2E J3",
         "unit: page_url.test.ts"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J3"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1094,9 +1168,12 @@
       "tests": [
         "E2E J8"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J8"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1113,9 +1190,12 @@
       "tests": [
         "E2E J8"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J8"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1133,9 +1213,13 @@
         "E2E J7",
         "server: streets.test.ts"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J7",
+        "unit: streets.test.ts (403 non-owner)"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1153,9 +1237,12 @@
         "server: user.test.ts",
         "E2E J7"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J7"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1230,9 +1317,13 @@
         "curl: og:image present",
         "E2E J10"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10",
+        "curl og:image"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1250,9 +1341,12 @@
         "E2E J6",
         "unit: SaveAsImageDialog.test.tsx, thumbnail.test.ts"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J6"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1307,9 +1401,12 @@
       "tests": [
         "E2E J6 (PNG parsed, alpha, scale cap, member 3×)"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J6"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1401,9 +1498,12 @@
       "implementation": "title",
       "substitution": "",
       "tests": [],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "curl /api/docs 200"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1477,9 +1577,12 @@
         "E2E J10",
         "unit: AboutDialog.test.tsx"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1573,10 +1676,14 @@
       "tests": [
         "npm run build:docs"
       ],
-      "evidence": [],
-      "implementationStatus": "IN_PROGRESS",
-      "verificationStatus": "NOT_STARTED",
-      "blocker": "Docs build not yet executed in this environment"
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "curl /docs/user-guide/sts-street-plus 200",
+        "npm run build:docs (exit 0)"
+      ],
+      "implementationStatus": "VERIFIED",
+      "verificationStatus": "VERIFIED",
+      "blocker": ""
     },
     {
       "id": "I18N-LOCALES-01",
@@ -1630,9 +1737,15 @@
       "tests": [
         "E2E J1, J3, J6, J9"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J1",
+        "J3",
+        "J6",
+        "J9"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1685,9 +1798,12 @@
       "tests": [
         "curl 404"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "curl 404/410"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1724,9 +1840,12 @@
         "curl 200",
         "E2E J10"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": "Text is operational wording pending STS legal review"
     },
     {
@@ -1858,9 +1977,12 @@
         "unit: user.test.ts, AvatarMenu.test.tsx, IdentityMenu tests",
         "E2E J9"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J9"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1878,9 +2000,12 @@
         "E2E J7",
         "server: user tests"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J7"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1934,9 +2059,12 @@
         "E2E J10 (external hosts = 0)",
         "grep audit"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1973,9 +2101,12 @@
         "E2E J10",
         "grep audit of client/src and views"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -1992,9 +2123,12 @@
       "tests": [
         "E2E J10"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": ""
     },
     {
@@ -2012,9 +2146,13 @@
         "curl /services/source",
         "E2E J10"
       ],
-      "evidence": [],
+      "evidence": [
+        "E2E run 2026-10-03 (chromium, local server + PostgreSQL): J1-J10 pass; see docs/evidence/e2e",
+        "J10",
+        "archive built: source:archive"
+      ],
       "implementationStatus": "VERIFIED",
-      "verificationStatus": "IMPLEMENTED_UNVERIFIED",
+      "verificationStatus": "VERIFIED",
       "blocker": "Archive generation to be executed and verified in the final build"
     },
     {

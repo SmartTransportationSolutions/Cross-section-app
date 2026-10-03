@@ -442,8 +442,14 @@ test('J6 image exports contain the design, labels, Georgian text and watermark r
   await waitForEditor(page)
   await dismissWelcome(page)
   await page.mouse.move(5, 5)
-  await page.locator('#menubar-share').click({ force: true })
-  await page.getByText('Save as image', { exact: false }).first().click()
+  // Open the share menu (retry: menus toggle, and hover popups can briefly
+  // intercept the first click after navigation)
+  for (let attempt = 0; attempt < 4; attempt++) {
+    await page.locator('#menubar-share').click({ force: true })
+    await page.waitForTimeout(400)
+    if (await page.locator('.share-menu').isVisible().catch(() => false)) break
+  }
+  await page.locator('.share-menu').getByText('Save as image', { exact: false }).first().click()
   await page.waitForSelector('.save-as-image-dialog', { timeout: 20000 })
   await page.waitForSelector('.save-as-image-preview-image img[src^="blob:"]', { timeout: 30000 })
   // Member can toggle watermark off

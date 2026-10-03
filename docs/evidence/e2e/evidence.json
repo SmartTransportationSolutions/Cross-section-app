@@ -1,0 +1,24 @@
+{
+  "baseUrl": "http://localhost:8000",
+  "ranAt": "2026-10-03T16:06:37.226Z",
+  "evidence": [
+    {
+      "id": "J6",
+      "detail": {
+        "streetId": "239b4b89-78c2-4707-aa3d-593f3cceb7f8",
+        "anon": [
+          2857,
+          1350
+        ],
+        "member3x": [
+          4285,
+          2025
+        ],
+        "client": [
+          2857,
+          1557
+        ]
+      }
+    }
+  ]
+}
