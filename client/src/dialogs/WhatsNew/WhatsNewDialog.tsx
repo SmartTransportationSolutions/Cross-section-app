@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeExternalLinks from 'rehype-external-links'
+import { withBase } from '~/src/static/env.js'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
@@ -82,7 +83,11 @@ export const WhatsNewDialog = () => {
                   ]}
                   unwrapDisallowed
                   urlTransform={(url) => {
-                    return url.replace('/img/', '/images/')
+                    return withBase(
+                      url
+                        .replace(/^pathname:\/\//, '')
+                        .replace('/img/', '/images/')
+                    )
                   }}
                   rehypePlugins={[
                     [

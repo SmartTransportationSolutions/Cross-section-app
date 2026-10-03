@@ -2,6 +2,8 @@
  * STS Street
  *
  */
+// Static (GitHub Pages) build: must run before anything issues requests.
+import '~/src/static/install.js'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import * as Sentry from '@sentry/browser'

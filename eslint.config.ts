@@ -14,7 +14,7 @@ import cypress from 'eslint-plugin-cypress'
 import formatjs from 'eslint-plugin-formatjs'
 
 export default defineConfig([
-  globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs']),
+  globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs', 'dist-pages/', '.parcel-cache*/']),
   eslint.configs.recommended,
   importX.flatConfigs.recommended,
   importX.flatConfigs.typescript,

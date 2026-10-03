@@ -1,4 +1,3 @@
-import { URLSearchParams } from 'node:url'
 import { readFile } from 'node:fs/promises'
 import * as path from 'node:path'
 import { http, HttpResponse, delay } from 'msw'

@@ -120,6 +120,30 @@ describe.skipIf(!enabled)('identity service (database)', () => {
     expect(reuse.headers.location).toBe('/error/sign-in-link-expired')
   })
 
+  it('does not create an account for an address until its magic link is opened', async () => {
+    const fresh = `ml-${Date.now()}@example.com`
+    const { User } = await import('../../db/models/index.ts')
+    const start = await request(app).post('/services/auth/email/start').send({ email: fresh })
+    expect(start.status).toBe(202)
+    expect(await User.findOne({ where: { email: fresh } })).toBeNull()
+
+    const dir = process.env.MAIL_OUTBOX_DIR ?? './data/mail-outbox'
+    const files = (await fs.readdir(dir)).filter((f) => f.endsWith('.json')).sort().reverse()
+    let link: string | undefined
+    for (const file of files) {
+      const mail = JSON.parse(await fs.readFile(`${dir}/${file}`, 'utf8'))
+      if (mail.to === fresh) {
+        link = mail.text.match(/\/services\/auth\/email\/callback\?token=[^\s]+/)?.[0]
+        break
+      }
+    }
+    expect(link).toBeTruthy()
+    const callback = await request(app).get(link as string)
+    expect(callback.headers.location).toBe('/services/auth/just-signed-in')
+    expect(await User.findOne({ where: { email: fresh } })).not.toBeNull()
+    await User.destroy({ where: { email: fresh } })
+  })
+
   it('resets the password through an emailed token', async () => {
     const forgot = await request(app).post('/services/auth/password/forgot').send({ email })
     expect(forgot.status).toBe(202)

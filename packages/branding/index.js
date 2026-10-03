@@ -11,6 +11,24 @@
  * saved street data and third-party integrations (3DStreet, Streetmeter)
  * remain compatible. See docs/brand.md for the branding audit.
  */
+// Static builds (GitHub Pages project sites) are served under a path prefix,
+// e.g. "/Cross-section-app". Parcel inlines this variable at build time; the
+// server leaves it unset.
+function readBasePath() {
+  try {
+    return process.env.APP_BASE_PATH || ''
+  } catch {
+    return ''
+  }
+}
+const rawBasePath = readBasePath()
+const basePath = rawBasePath.replace(/\/+$/, '').replace(/^(?!\/)(.+)$/, '/$1')
+
+/** Prefixes an in-app path with the deployment's base path. */
+export function appPath(path) {
+  return `${basePath}${path}`
+}
+
 export const brand = {
   // Product
   productName: 'STS Street',
@@ -30,20 +48,20 @@ export const brand = {
   contactUrl: 'https://sts.com.ge/contact-us/',
 
   // In-app destinations (relative URLs are served by this application)
-  docsUrl: '/docs/',
-  guidebookUrl: '/docs/user-guide/intro',
-  troubleshootingUrl: '/docs/user-guide/support/troubleshooting',
-  plusInfoUrl: '/docs/user-guide/sts-street-plus',
-  privacyPolicyUrl: '/privacy-policy',
-  termsOfServiceUrl: '/terms-of-service',
-  sourceUrl: '/source',
+  docsUrl: appPath('/docs/'),
+  guidebookUrl: appPath('/docs/user-guide/intro'),
+  troubleshootingUrl: appPath('/docs/user-guide/support/troubleshooting'),
+  plusInfoUrl: appPath('/docs/user-guide/sts-street-plus'),
+  privacyPolicyUrl: appPath('/privacy-policy'),
+  termsOfServiceUrl: appPath('/terms-of-service'),
+  sourceUrl: appPath('/source'),
   sourceRepositoryUrl:
     'https://github.com/SmartTransportationSolutions/Cross-section-app',
 
   // Social / preview metadata
   themeColor: '#143a66',
   tileColor: '#143a66',
-  socialImagePath: '/images/social-preview.png',
+  socialImagePath: appPath('/images/social-preview.png'),
   socialImageWidth: 1200,
   socialImageHeight: 630,
 

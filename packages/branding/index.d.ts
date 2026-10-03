@@ -38,3 +38,4 @@ export interface Brand {
 
 export const brand: Brand
 export default brand
+export declare function appPath(path: string): string

@@ -144,3 +144,9 @@
   font-weight: 550;
   margin-top: 0.5em;
 }
+
+.github-sign-in-steps {
+  padding-inline-start: 1.5em;
+  margin-bottom: 1em;
+  line-height: 1.5;
+}

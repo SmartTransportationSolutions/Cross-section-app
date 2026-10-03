@@ -108,8 +108,18 @@ function sessionMetadata(req: Request) {
   }
 }
 
-async function sendMagicLink(user: User, email: string): Promise<void> {
-  const token = await createOpaqueToken('magic_link', user.id, authConfig.magicLinkTtl)
+/**
+ * Sends a single-use sign-in link. For an address without an account the
+ * token carries the address instead of a user id, and the account is only
+ * created when the link is opened (proving control of the mailbox).
+ */
+async function sendMagicLink(user: User | null, email: string): Promise<void> {
+  const token = await createOpaqueToken(
+    'magic_link',
+    user ? user.id : null,
+    authConfig.magicLinkTtl,
+    user ? {} : { email }
+  )
   const link = `${appURL.origin}/services/auth/email/callback?token=${encodeURIComponent(token)}`
   const minutes = Math.round(authConfig.magicLinkTtl / 60)
   await sendMail({
@@ -435,19 +445,11 @@ router.post('/email/start', emailLimiter, async (req, res) => {
 
   const email = normalizeEmail(parsed.data.email)
   try {
-    let user = await findUserByEmail(email)
-    if (!user) {
-      if (!authConfig.signUpEnabled) {
-        // Respond as if sent, to avoid account enumeration.
-        res.status(202).json({ status: 202, msg: 'Email sent.' })
-        return
-      }
-      const result = await findOrCreateUser({
-        subject: makeLocalSubject(),
-        email,
-        nickname: deriveNickname({ email }),
-      })
-      user = result.user
+    const user = await findUserByEmail(email)
+    if (!user && !authConfig.signUpEnabled) {
+      // Respond as if sent, to avoid account enumeration.
+      res.status(202).json({ status: 202, msg: 'Email sent.' })
+      return
     }
     await sendMagicLink(user, email)
     res.status(202).json({ status: 202, msg: 'Email sent.' })
@@ -465,11 +467,29 @@ router.get('/email/callback', async (req, res) => {
   const token = typeof req.query.token === 'string' ? req.query.token : ''
   try {
     const record = token ? await findLiveToken('magic_link', token) : null
-    if (!record || !record.userId || !(await consumeToken(record))) {
+    if (!record || !(await consumeToken(record))) {
       res.redirect('/error/sign-in-link-expired')
       return
     }
-    const user = await User.findOne({ where: { id: record.userId } })
+    let user: User | null = null
+    if (record.userId) {
+      user = await User.findOne({ where: { id: record.userId } })
+    } else {
+      // Link sent to an address without an account: create it now that the
+      // recipient has proven they control the mailbox.
+      const email = typeof record.metadata?.email === 'string' ? record.metadata.email : null
+      if (email) {
+        user = await findUserByEmail(email)
+        if (!user && authConfig.signUpEnabled) {
+          const result = await findOrCreateUser({
+            subject: makeLocalSubject(),
+            email,
+            nickname: deriveNickname({ email }),
+          })
+          user = result.user
+        }
+      }
+    }
     if (!user) {
       res.redirect('/error/access-denied')
       return

@@ -3,11 +3,17 @@ import type { Options, ThemeConfig } from '@docusaurus/preset-classic'
 import { themes } from 'prism-react-renderer/'
 import remarkSmartypants from 'remark-smartypants'
 
+// Where the STS Street editor is served. The guide is published under
+// <editor>/docs/, so by default the editor is the site root.
+const editorUrl =
+  process.env.DOCS_EDITOR_URL ??
+  `${(process.env.DOCS_URL ?? 'http://localhost:8000').replace(/\/+$/, '')}/`
+
 const config: Config = {
   title: 'STS Street Documentation',
   tagline: 'A guidebook for the users and the makers of STS Street.',
   url: process.env.DOCS_URL ?? 'http://localhost:8000',
-  baseUrl: '/docs/',
+  baseUrl: process.env.DOCS_BASE_URL ?? '/docs/',
   trailingSlash: false,
   onBrokenLinks: 'throw',
   markdown: {
@@ -29,7 +35,7 @@ const config: Config = {
       logo: {
         alt: 'STS Street',
         src: 'img/logo_icon.svg',
-        href: '/'
+        href: editorUrl
       },
       items: [
         {
@@ -51,7 +57,7 @@ const config: Config = {
           position: 'left'
         },
         {
-          href: 'https://street.sts.com.ge/',
+          href: editorUrl,
           label: 'Open the editor',
           position: 'right'
         }

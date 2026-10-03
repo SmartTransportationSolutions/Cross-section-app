@@ -52,6 +52,10 @@ jobs:
       PGPASSWORD: streetmix
       PGDATABASE: sts_street_test
       COOKIE_SESSION_SECRET: ci-only-secret
+      # Run the database-backed identity tests (app/auth/__tests__/*.db.test.ts)
+      PG_INTEGRATION: "true"
+      MAIL_TRANSPORT: outbox
+      MAIL_OUTBOX_DIR: ./data/test-mail-outbox
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -67,8 +71,12 @@ jobs:
         run: npm run vitest:ci
 
   e2e:
-    name: Browser acceptance tests (Playwright)
+    name: Browser acceptance tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
     services:
       postgres:
         image: postgis/postgis:16-3.4
@@ -93,6 +101,7 @@ jobs:
       COOKIE_SESSION_SECRET: ci-only-secret
       MAIL_TRANSPORT: outbox
       PORT: 8000
+      E2E_BROWSER: ${{ matrix.browser }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -100,8 +109,11 @@ jobs:
           node-version: "24"
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium firefox webkit
+      # Use the project's Playwright version (npx may resolve another one)
+      - run: node node_modules/playwright/cli.js install --with-deps ${{ matrix.browser }}
       - run: npx sequelize-cli db:migrate
+      - name: Seed demo accounts used by the journeys
+        run: npm run db:seed:demo
       - run: npm run build:app
       - name: Start server
         run: |
@@ -112,10 +124,43 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: e2e-evidence
+          name: e2e-evidence-${{ matrix.browser }}
           path: |
             test/e2e/output
             server.log
+
+  pages-e2e:
+    name: GitHub Pages edition (static build + browser journeys)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: node node_modules/playwright/cli.js install --with-deps chromium
+      - name: Build the static edition
+        run: npm run build:pages
+        env:
+          APP_BASE_PATH: /Cross-section-app
+          SKIP_DOCS: "true"
+          SKIP_SOURCE_ARCHIVE: "true"
+      - name: Serve like GitHub Pages
+        run: |
+          node bin/serve-pages.mjs 8080 > pages-server.log 2>&1 &
+          node bin/wait-for-server.mjs http://localhost:8080/Cross-section-app/ 60000
+      - name: Run Pages journeys
+        run: npm run test:e2e:pages
+        env:
+          PAGES_BASE_URL: http://localhost:8080/Cross-section-app
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pages-e2e-evidence
+          path: |
+            test/e2e/output
+            pages-server.log
 
   build:
     name: Production build and source archive

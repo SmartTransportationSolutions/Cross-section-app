@@ -654,7 +654,7 @@ test('J10 clean session shows STS identity, calls no upstream services, and offe
   // ids: BRAND-TITLE-01, BRAND-META-01, PRIV-NO-UPSTREAM-01, LIC-SOURCE-01, LIC-NOTICES-01
   const { context, page } = await newPage(browser)
   const hosts = new Set()
-  page.on('request', (r) => { try { hosts.add(new URL(r.url()).host) } catch {} })
+  page.on('request', (r) => { try { hosts.add(new URL(r.url()).host) } catch { /* non-URL request */ } })
   await page.goto(`${BASE_URL}/`)
   await waitForEditor(page)
   const title = await page.title()

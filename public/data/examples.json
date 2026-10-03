@@ -1,0 +1,682 @@
+{
+ "streets": [
+  {
+   "id": "examples-1",
+   "namespacedId": 1,
+   "name": "Complete street with protected bike lanes",
+   "clientUpdatedAt": "2026-10-03T00:00:00.000Z",
+   "createdAt": "2026-10-03T00:00:00.000Z",
+   "updatedAt": "2026-10-03T00:00:00.000Z",
+   "originalStreetId": null,
+   "creatorId": "examples",
+   "data": {
+    "street": {
+     "schemaVersion": 35,
+     "units": 0,
+     "width": 21.4,
+     "segments": [
+      {
+       "id": "ex000001",
+       "type": "sidewalk",
+       "variantString": "normal",
+       "width": 2.4,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000002",
+       "type": "sidewalk-tree",
+       "variantString": "big",
+       "width": 1.2,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000003",
+       "type": "bike-lane",
+       "variantString": "inbound|green|road",
+       "width": 1.8,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000004",
+       "type": "divider",
+       "variantString": "bollard",
+       "width": 0.6,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000005",
+       "type": "drive-lane",
+       "variantString": "inbound|car",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000006",
+       "type": "turn-lane",
+       "variantString": "inbound|left",
+       "width": 3,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000007",
+       "type": "drive-lane",
+       "variantString": "outbound|car",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000008",
+       "type": "divider",
+       "variantString": "bollard",
+       "width": 0.6,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000009",
+       "type": "bike-lane",
+       "variantString": "outbound|green|road",
+       "width": 1.8,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000a",
+       "type": "sidewalk-tree",
+       "variantString": "big",
+       "width": 1.2,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000b",
+       "type": "sidewalk",
+       "variantString": "normal",
+       "width": 2.4,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      }
+     ],
+     "boundary": {
+      "left": {
+       "id": "bd00000c",
+       "variant": "residential",
+       "floors": 4,
+       "elevation": 1
+      },
+      "right": {
+       "id": "bd00000d",
+       "variant": "narrow",
+       "floors": 3,
+       "elevation": 1
+      }
+     },
+     "skybox": "day",
+     "weather": null,
+     "location": null,
+     "showAnalytics": false,
+     "userUpdated": true,
+     "editCount": 1,
+     "name": "Complete street with protected bike lanes"
+    },
+    "plugins": {}
+   }
+  },
+  {
+   "id": "examples-2",
+   "namespacedId": 2,
+   "name": "Transit boulevard with bus lanes",
+   "clientUpdatedAt": "2026-10-03T00:00:00.000Z",
+   "createdAt": "2026-10-03T00:00:00.000Z",
+   "updatedAt": "2026-10-03T00:00:00.000Z",
+   "originalStreetId": null,
+   "creatorId": "examples",
+   "data": {
+    "street": {
+     "schemaVersion": 35,
+     "units": 0,
+     "width": 26,
+     "segments": [
+      {
+       "id": "ex00000e",
+       "type": "sidewalk",
+       "variantString": "dense",
+       "width": 3,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000f",
+       "type": "transit-shelter",
+       "variantString": "left|street-level",
+       "width": 2.4,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000g",
+       "type": "bus-lane",
+       "variantString": "inbound|colored|typical",
+       "width": 3.4,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000h",
+       "type": "drive-lane",
+       "variantString": "inbound|car",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000i",
+       "type": "divider",
+       "variantString": "big-tree",
+       "width": 2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000j",
+       "type": "drive-lane",
+       "variantString": "outbound|car",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000k",
+       "type": "bus-lane",
+       "variantString": "outbound|colored|typical",
+       "width": 3.4,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000l",
+       "type": "transit-shelter",
+       "variantString": "right|street-level",
+       "width": 2.4,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000m",
+       "type": "sidewalk",
+       "variantString": "dense",
+       "width": 3,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      }
+     ],
+     "boundary": {
+      "left": {
+       "id": "bd00000n",
+       "variant": "wide",
+       "floors": 6,
+       "elevation": 1
+      },
+      "right": {
+       "id": "bd00000o",
+       "variant": "wide",
+       "floors": 6,
+       "elevation": 1
+      }
+     },
+     "skybox": "day",
+     "weather": null,
+     "location": null,
+     "showAnalytics": false,
+     "userUpdated": true,
+     "editCount": 1,
+     "name": "Transit boulevard with bus lanes"
+    },
+    "plugins": {}
+   }
+  },
+  {
+   "id": "examples-3",
+   "namespacedId": 3,
+   "name": "Light rail avenue",
+   "clientUpdatedAt": "2026-10-03T00:00:00.000Z",
+   "createdAt": "2026-10-03T00:00:00.000Z",
+   "updatedAt": "2026-10-03T00:00:00.000Z",
+   "originalStreetId": null,
+   "creatorId": "examples",
+   "data": {
+    "street": {
+     "schemaVersion": 35,
+     "units": 0,
+     "width": 20,
+     "segments": [
+      {
+       "id": "ex00000p",
+       "type": "sidewalk",
+       "variantString": "normal",
+       "width": 3,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000q",
+       "type": "sidewalk-lamp",
+       "variantString": "right|traditional",
+       "width": 0.6,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000r",
+       "type": "drive-lane",
+       "variantString": "inbound|car",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000s",
+       "type": "light-rail",
+       "variantString": "inbound|grass",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000t",
+       "type": "light-rail",
+       "variantString": "outbound|grass",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000u",
+       "type": "drive-lane",
+       "variantString": "outbound|car",
+       "width": 3.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000v",
+       "type": "sidewalk-lamp",
+       "variantString": "left|traditional",
+       "width": 0.6,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00000w",
+       "type": "sidewalk",
+       "variantString": "normal",
+       "width": 3,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      }
+     ],
+     "boundary": {
+      "left": {
+       "id": "bd00000x",
+       "variant": "residential",
+       "floors": 5,
+       "elevation": 1
+      },
+      "right": {
+       "id": "bd00000y",
+       "variant": "residential",
+       "floors": 5,
+       "elevation": 1
+      }
+     },
+     "skybox": "day",
+     "weather": null,
+     "location": null,
+     "showAnalytics": false,
+     "userUpdated": true,
+     "editCount": 1,
+     "name": "Light rail avenue"
+    },
+    "plugins": {}
+   }
+  },
+  {
+   "id": "examples-4",
+   "namespacedId": 4,
+   "name": "Neighbourhood street with parking",
+   "clientUpdatedAt": "2026-10-03T00:00:00.000Z",
+   "createdAt": "2026-10-03T00:00:00.000Z",
+   "updatedAt": "2026-10-03T00:00:00.000Z",
+   "originalStreetId": null,
+   "creatorId": "examples",
+   "data": {
+    "street": {
+     "schemaVersion": 35,
+     "units": 0,
+     "width": 15.8,
+     "segments": [
+      {
+       "id": "ex00000z",
+       "type": "sidewalk",
+       "variantString": "sparse",
+       "width": 1.8,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000010",
+       "type": "sidewalk-tree",
+       "variantString": "big",
+       "width": 0.9,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000011",
+       "type": "parking-lane",
+       "variantString": "inbound|left",
+       "width": 2.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000012",
+       "type": "drive-lane",
+       "variantString": "inbound|sharrow",
+       "width": 3,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000013",
+       "type": "drive-lane",
+       "variantString": "outbound|sharrow",
+       "width": 3,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000014",
+       "type": "parking-lane",
+       "variantString": "outbound|right",
+       "width": 2.2,
+       "elevation": 0,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000015",
+       "type": "sidewalk-tree",
+       "variantString": "big",
+       "width": 0.9,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex000016",
+       "type": "sidewalk",
+       "variantString": "sparse",
+       "width": 1.8,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      }
+     ],
+     "boundary": {
+      "left": {
+       "id": "bd000017",
+       "variant": "narrow",
+       "floors": 2,
+       "elevation": 1
+      },
+      "right": {
+       "id": "bd000018",
+       "variant": "narrow",
+       "floors": 2,
+       "elevation": 1
+      }
+     },
+     "skybox": "day",
+     "weather": null,
+     "location": null,
+     "showAnalytics": false,
+     "userUpdated": true,
+     "editCount": 1,
+     "name": "Neighbourhood street with parking"
+    },
+    "plugins": {}
+   }
+  },
+  {
+   "id": "examples-5",
+   "namespacedId": 5,
+   "name": "Pedestrian street",
+   "clientUpdatedAt": "2026-10-03T00:00:00.000Z",
+   "createdAt": "2026-10-03T00:00:00.000Z",
+   "updatedAt": "2026-10-03T00:00:00.000Z",
+   "originalStreetId": null,
+   "creatorId": "examples",
+   "data": {
+    "street": {
+     "schemaVersion": 35,
+     "units": 0,
+     "width": 14.8,
+     "segments": [
+      {
+       "id": "ex000019",
+       "type": "sidewalk",
+       "variantString": "dense",
+       "width": 3,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00001a",
+       "type": "sidewalk-bench",
+       "variantString": "left",
+       "width": 1.2,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00001b",
+       "type": "sidewalk-tree",
+       "variantString": "big",
+       "width": 1.2,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00001c",
+       "type": "sidewalk",
+       "variantString": "dense",
+       "width": 4,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00001d",
+       "type": "sidewalk-tree",
+       "variantString": "big",
+       "width": 1.2,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00001e",
+       "type": "sidewalk-bench",
+       "variantString": "right",
+       "width": 1.2,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      },
+      {
+       "id": "ex00001f",
+       "type": "sidewalk",
+       "variantString": "dense",
+       "width": 3,
+       "elevation": 1,
+       "slope": {
+        "on": false,
+        "values": []
+       }
+      }
+     ],
+     "boundary": {
+      "left": {
+       "id": "bd00001g",
+       "variant": "residential",
+       "floors": 4,
+       "elevation": 1
+      },
+      "right": {
+       "id": "bd00001h",
+       "variant": "residential",
+       "floors": 4,
+       "elevation": 1
+      }
+     },
+     "skybox": "day",
+     "weather": null,
+     "location": null,
+     "showAnalytics": false,
+     "userUpdated": true,
+     "editCount": 1,
+     "name": "Pedestrian street"
+    },
+    "plugins": {}
+   }
+  }
+ ]
+}

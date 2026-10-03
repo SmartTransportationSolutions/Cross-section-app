@@ -76,7 +76,9 @@ export async function dismissWelcome(page) {
     try {
       window.localStorage.setItem('whatsnew-last-timestamp', String(Date.now()))
       window.localStorage.setItem('settings-welcome-dismissed', 'true')
-    } catch {}
+    } catch {
+      // storage unavailable
+    }
   })
 }
 

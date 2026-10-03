@@ -1,3 +1,4 @@
+import { brand } from '@sts-street/branding'
 import { initSystemCapabilities } from '../preinit/system_capabilities'
 import { initLocale } from '../locales/locale'
 import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
@@ -197,7 +198,7 @@ function showConsoleMessage() {
   console.log(
     `%cSTS Street%c — street cross-section design by Smart Transportation Solutions.
 This application is free software (AGPL-3.0-or-later), based on Streetmix.
-Source code: ${window.location.origin}/source`,
+Source code: ${new URL(brand.sourceUrl, window.location.origin).href}`,
     'font-weight: bold; color: #143a66',
     'color: gray'
   )

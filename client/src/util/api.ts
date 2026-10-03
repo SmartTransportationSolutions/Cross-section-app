@@ -1,6 +1,8 @@
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios'
 import axiosRetry, { exponentialDelay } from 'axios-retry'
 
+import { STATIC_MODE } from '../static/env.js'
+
 import {
   type SentimentComment,
   type SentimentVote,
@@ -28,6 +30,18 @@ class APIClient {
   constructor() {
     this.client = axios.create({
       responseType: 'json',
+      // The static (GitHub Pages) build answers API calls in the browser by
+      // wrapping window.fetch (see src/static/install.ts), so axios must use
+      // its fetch adapter and look fetch up at request time.
+      ...(STATIC_MODE
+        ? {
+            adapter: 'fetch' as const,
+            env: {
+              fetch: (input: RequestInfo | URL, init?: RequestInit) =>
+                window.fetch(input, init),
+            },
+          }
+        : {}),
     })
 
     // Adds exponential backoff to requests

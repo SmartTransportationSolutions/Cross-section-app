@@ -9,6 +9,7 @@ import {
   useMapEvents,
   ZoomControl,
 } from 'react-leaflet'
+import { withBase } from '~/src/static/env.js'
 
 import {
   MAP_TILES_ATTRIBUTION,
@@ -66,9 +67,9 @@ const DEFAULT_MAP_LOCATION = {
 
 // Override icon paths in Leaflet's stock stylesheet
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: '/images/marker-icon-2x.png',
-  iconUrl: '/images/marker-icon.png',
-  shadowUrl: '/images/marker-shadow.png',
+  iconRetinaUrl: withBase('/images/marker-icon-2x.png'),
+  iconUrl: withBase('/images/marker-icon.png'),
+  shadowUrl: withBase('/images/marker-shadow.png'),
 })
 
 interface GetInitialStateParams {

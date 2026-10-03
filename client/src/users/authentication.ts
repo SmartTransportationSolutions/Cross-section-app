@@ -36,6 +36,8 @@ import { showDialog } from '../store/slices/dialogs.js'
 import { updateStreetIdMetadata } from '../store/slices/street.js'
 import { addToast } from '../store/slices/toasts.js'
 import { getUser, deleteUserLoginToken } from '../util/api.js'
+import { STATIC_MODE } from '../static/env.js'
+import { getGitHubSession, normalizeLogin } from '../static/session.js'
 import { loadSettings } from './settings.js'
 
 const USER_ID_COOKIE = 'user_id'
@@ -95,7 +97,44 @@ function removeSignInCookies() {
   Cookies.remove(USER_ID_COOKIE)
 }
 
+/**
+ * Static (GitHub Pages) build: the session is a GitHub account whose token
+ * is kept in this browser by src/static/session.ts. The token itself is not
+ * copied into the Redux store or into cookies.
+ */
+async function loadStaticSignIn() {
+  const session = getGitHubSession()
+  const storage = JSON.parse(window.localStorage.getItem('flags'))
+  const sessionOverrides = generateFlagOverrides(storage, 'session')
+  let flagOverrides: FeatureFlagOverrides[] = []
+
+  if (session) {
+    const userId = normalizeLogin(session.login)
+    store.dispatch(
+      setSignInData({
+        token: 'github',
+        refreshToken: '',
+        userId,
+        details: null,
+      })
+    )
+    saveSignInDataLocally()
+    flagOverrides = await fetchSignInDetails(userId)
+  } else {
+    window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
+    store.dispatch(clearSignInData())
+  }
+
+  applyFlagOverrides(store.getState().flags, ...flagOverrides, sessionOverrides)
+  _signInLoaded()
+  return true
+}
+
 export async function loadSignIn() {
+  if (STATIC_MODE) {
+    return await loadStaticSignIn()
+  }
+
   const signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   const refreshCookie = Cookies.get(REFRESH_TOKEN_COOKIE)
   const userIdCookie = Cookies.get(USER_ID_COOKIE)

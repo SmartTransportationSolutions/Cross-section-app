@@ -15,7 +15,9 @@ import {
 import { Button } from '~/src/ui/Button.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
+import { STATIC_MODE } from '~/src/static/env.js'
 import { Dialog } from '../Dialog.js'
+import { GitHubSignInDialog } from './GitHubSignInDialog.js'
 import './SignInDialog.css'
 
 type Panel = 'sign-in' | 'sign-up' | 'forgot'
@@ -30,6 +32,10 @@ const DEFAULT_METHODS: AuthMethods = {
 }
 
 export function SignInDialog() {
+  return STATIC_MODE ? <GitHubSignInDialog /> : <ServerSignInDialog />
+}
+
+function ServerSignInDialog() {
   const [methods, setMethods] = useState<AuthMethods>(DEFAULT_METHODS)
   const [panel, setPanel] = useState<Panel>('sign-in')
   const [email, setEmail] = useState('')

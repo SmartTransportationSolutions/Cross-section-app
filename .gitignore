@@ -43,6 +43,11 @@ cypress/videos
 .sentryclirc
 
 # STS Street runtime data (signing keys, mail outbox, image cache)
-data/
+/data/
 # Playwright evidence
 test/e2e/output/
+
+# Local CA bundles for Docker builds behind TLS-inspecting proxies
+build-support/*.crt
+dist-pages/
+.parcel-cache-pages/

@@ -36,6 +36,12 @@ export function App() {
     (state) => state.app.contentDirection as Direction
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
+  // A street that never loaded (e.g. "not found" shown by the client on the
+  // static edition, where no server renders 404 pages) has no boundaries;
+  // don't try to draw it behind the error screen.
+  const streetReady = useSelector((state) =>
+    Boolean(state.street.boundary?.left?.variant)
+  )
   const colorMode = useSelector((state) => state.settings.colorMode)
 
   // TODO: Move other initialization methods here.
@@ -87,7 +93,7 @@ export function App() {
                     <PaletteContainer />
                     <SkyPicker />
                     <SegmentDragLayer />
-                    <StreetView />
+                    {streetReady && <StreetView />}
                     <ToastContainer />
                     <SentimentSurveyContainer />
                     <CoastmixUI />

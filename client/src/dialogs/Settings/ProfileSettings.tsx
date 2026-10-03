@@ -7,6 +7,8 @@ import { Button } from '~/src/ui/Button.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
 import { Popover } from '~/src/ui/Popover.js'
 import { deleteUser, patchUser } from '~/src/util/api.js'
+import { STATIC_MODE } from '~/src/static/env.js'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import { signOut } from '~/src/users/authentication.js'
 import './ProfileSettings.css'
 import type { MessageValue } from 'react-intl'
@@ -257,9 +259,18 @@ export function ProfileSettings() {
               )}
             </p>
             <div className="profile-settings-button">
-              <Button onClick={handleEditDisplayName}>
-                <FormattedMessage id="btn.edit" defaultMessage="Edit" />
-              </Button>
+              {STATIC_MODE ? (
+                <ExternalLink href="https://github.com/settings/profile">
+                  <FormattedMessage
+                    id="settings.profile.display-name-github"
+                    defaultMessage="Edit on GitHub"
+                  />
+                </ExternalLink>
+              ) : (
+                <Button onClick={handleEditDisplayName}>
+                  <FormattedMessage id="btn.edit" defaultMessage="Edit" />
+                </Button>
+              )}
             </div>
           </div>
         )}
@@ -285,10 +296,17 @@ export function ProfileSettings() {
         </h3>
         <div className="profile-settings-editable">
           <p>
-            <FormattedMessage
-              id="settings.profile.delete-account-text"
-              defaultMessage="Permanently delete your account and all of your streets."
-            />
+            {STATIC_MODE ? (
+              <FormattedMessage
+                id="settings.profile.delete-account-text-github"
+                defaultMessage="Delete all of your street and settings gists from GitHub and sign out."
+              />
+            ) : (
+              <FormattedMessage
+                id="settings.profile.delete-account-text"
+                defaultMessage="Permanently delete your account and all of your streets."
+              />
+            )}
           </p>
           <div className="profile-settings-button">
             <Button onClick={handleDeleteAccount} disabled={isDeleting}>

@@ -55,7 +55,12 @@
     "brand:assets": "node bin/generate-brand-assets.mjs",
     "build:docs": "npm run build -w docs",
     "build:app": "npm run build -w packages/types -w packages/utils -w packages/i18n -w packages/parts -w packages/export-image -w client",
+    "build:packages": "npm run build -w packages/types -w packages/utils -w packages/i18n -w packages/parts -w packages/export-image",
+    "build:pages": "npm run build:packages && node bin/build-pages.mjs",
+    "build:examples": "node bin/build-examples.mjs",
     "test:e2e": "node --test test/e2e/run.mjs",
+    "test:e2e:pages": "node --test --test-concurrency=1 test/e2e/pages.mjs",
+    "serve:pages": "node bin/serve-pages.mjs",
     "db:seed:demo": "node --env-file-if-exists=.env bin/seed-demo.ts",
     "typecheck": "tsc -b"
   },

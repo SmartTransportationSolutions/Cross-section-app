@@ -12,3 +12,6 @@ test/e2e/output
 docs/build
 docs/node_modules
 .git
+!build-support
+dist-pages
+.parcel-cache-pages

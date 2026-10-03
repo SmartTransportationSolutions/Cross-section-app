@@ -1,3 +1,4 @@
+import { withBase } from '../static/env.js'
 import { URL_NEW_STREET, JUST_SIGNED_IN_PATH } from './constants.js'
 
 export function goReload(): void {
@@ -5,14 +6,14 @@ export function goReload(): void {
 }
 
 export function goHome(): void {
-  window.location.href = '/'
+  window.location.href = withBase('/')
 }
 
 export function goNewStreet(sameWindow?: boolean): void {
   if (sameWindow) {
-    window.location.replace(URL_NEW_STREET)
+    window.location.replace(withBase(URL_NEW_STREET))
   } else {
-    window.location.href = URL_NEW_STREET
+    window.location.href = withBase(URL_NEW_STREET)
   }
 }
 
@@ -83,7 +84,7 @@ export async function getAuthMethods(): Promise<AuthMethods> {
 }
 
 export function goJustSignedIn(): void {
-  window.location.href = JUST_SIGNED_IN_PATH
+  window.location.href = withBase(JUST_SIGNED_IN_PATH)
 }
 
 export function goProviderSignIn(providerKey: string): void {

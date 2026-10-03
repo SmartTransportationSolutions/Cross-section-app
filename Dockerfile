@@ -11,7 +11,10 @@
 FROM node:24-bookworm-slim AS build
 ENV HUSKY=0 CYPRESS_INSTALL_BINARY=0 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 WORKDIR /app
-COPY package.json package-lock.json ./
+# Optional extra CA (corporate TLS-inspecting proxies); see build-support/README.md
+COPY build-support /app/build-support
+ENV NODE_EXTRA_CA_CERTS=/app/build-support/ca-bundle.crt
+COPY package.json package-lock.json .npmrc ./
 COPY packages ./packages
 COPY client/package.json ./client/package.json
 COPY docs/package.json ./docs/package.json
@@ -27,6 +30,7 @@ FROM node:24-bookworm-slim AS runtime
 ENV NODE_ENV=production HUSKY=0 CYPRESS_INSTALL_BINARY=0 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 WORKDIR /app
 COPY --from=build --chown=node:node /app /app
+ENV NODE_EXTRA_CA_CERTS=/app/build-support/ca-bundle.crt
 # Remove dev-only files that are not needed at runtime
 RUN rm -rf /app/cypress /app/test/e2e/output /app/docs/node_modules \
  && mkdir -p /app/data && chown -R node:node /app/data
