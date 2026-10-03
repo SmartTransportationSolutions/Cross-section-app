@@ -14,11 +14,11 @@ sidebar_position: 5
 ### ✨ New in STS Street
 
 - **New sign-in options.** Create an account with your email and a password, request a one-time sign-in link by email, or use a federated sign-in provider where your organization has configured one. Password reset is built in.
-- **STS Street Plus** replaces Streetmix+ as the membership tier; it is activated by STS on request. See [STS Street Plus](/docs/user-guide/sts-street-plus).
+- **STS Street Plus** replaces Streetmix+ as the membership tier; it is activated by STS on request. See [STS Street Plus](/user-guide/sts-street-plus).
 - **Georgian street names and labels** render correctly in the editor and in exported images.
 - **Shared links now carry a live preview image** of the street in chat apps and social networks.
 - **Account deletion** from Settings removes your account and hides your streets.
-- **Privacy:** the newsletter list, sign-in, error reporting and analytics no longer involve the upstream project's service providers. See the [privacy policy](/privacy-policy).
+- **Privacy:** the newsletter list, sign-in, error reporting and analytics no longer involve the upstream project's service providers. See the [privacy policy](pathname:///privacy-policy).
 
 ### ℹ️ Upstream history
 

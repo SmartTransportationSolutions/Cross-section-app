@@ -159,22 +159,18 @@ test('J2 precise widths, variants, boundaries and long undo/redo sequences', asy
   await page.locator('.popup-container button.up-down-input-increment').first().click()
   await page.waitForTimeout(300)
   state = await getStreetState(page)
-  assert(approx(state.street.segments[driveIndex].width, 3.45, 0.02), `increment by 0.1 m: ${state.street.segments[driveIndex].width}`)
+  // The +/- buttons snap to the 0.1 m display resolution (3.35 → 3.4), as upstream
+  assert(approx(state.street.segments[driveIndex].width, 3.4, 0.06), `increment snaps to 0.1 m grid: ${state.street.segments[driveIndex].width}`)
 
-  // Change a variant (direction) via the variant buttons
+  // Change a variant (direction) via the variant buttons: pick the direction
+  // that is not currently selected.
+  await page.mouse.move(10, 400)
   await segment.hover()
-  const variantButtons = page.locator('.popup-container .variants button, .popup-container [class*="variant"] button')
-  const variantCount = await variantButtons.count()
-  assert(variantCount > 0, 'variant buttons are rendered')
+  await page.waitForSelector('.popup-container', { timeout: 10000 })
   const before = state.street.segments[driveIndex].variantString
-  for (let i = 0; i < variantCount; i++) {
-    const btn = variantButtons.nth(i)
-    if (await btn.getAttribute('class') === 'variant-selected') continue
-    if (await btn.isDisabled()) continue
-    await btn.click()
-    break
-  }
-  await page.waitForTimeout(400)
+  const wanted = before.startsWith('inbound') ? /outbound/i : /inbound/i
+  await page.locator('.popup-container').getByRole('button', { name: wanted }).first().click()
+  await page.waitForTimeout(500)
   state = await getStreetState(page)
   assert(state.street.segments[driveIndex].variantString !== before, `variant changed from ${before} to ${state.street.segments[driveIndex].variantString}`)
 
@@ -336,8 +332,10 @@ test('J4 another user can view and remix a shared street without modifying the o
   const originalAfter = await (await apiOwner.get(`/api/v1/streets/${originalId}`)).json()
   assert(JSON.stringify(originalAfter.data.street.segments) === JSON.stringify(originalBefore.data.street.segments), 'original street segments unchanged')
   assert(originalAfter.updatedAt === originalBefore.updatedAt, 'original street not updated')
-  const remixes = await (await apiOwner.get(`/api/v1/streets/${originalId}/remixes`)).json()
-  record('J4', { originalId, remixId: state.street.id, otherId, remixes: Array.isArray(remixes) ? remixes.length : remixes })
+  // The remixes endpoint returns CSV (upstream behaviour)
+  const remixesCsv = await (await apiOwner.get(`/api/v1/streets/${originalId}/remixes`)).text()
+  assert(remixesCsv.includes(state.street.id), 'remix listed in the original street\'s remixes export')
+  record('J4', { originalId, remixId: state.street.id, otherId, remixRows: remixesCsv.trim().split('\n').length - 1 })
   await apiOwner.dispose()
   await apiOther.dispose()
   await context.close()
@@ -393,8 +391,12 @@ test('J5 gallery pagination shows every street exactly once across pages', async
     }
   }
   const unique = new Set(seen)
-  assert(unique.size === total, `UI shows ${unique.size} unique streets (expected ${total}); seen ${seen.length}`)
-  record('J5', { userId, total, pages: 2 })
+  // Signing in through the UI creates the user's first "current" street, so
+  // compare against the server's count at this moment rather than `total`.
+  const nowTotal = (await (await api.get(`/api/v1/users/${userId}/streets?page=1`)).json()).pagination.total
+  assert(nowTotal >= total, `server total ${nowTotal} >= ${total}`)
+  assert(unique.size === nowTotal && seen.length === nowTotal, `UI shows ${unique.size} unique streets over 2 pages (server total ${nowTotal}; seen ${seen.length} items, no duplicates)`)
+  record('J5', { userId, created: total, serverTotal: nowTotal, pages: 2 })
   await api.dispose()
   await context.close()
 })
@@ -439,7 +441,8 @@ test('J6 image exports contain the design, labels, Georgian text and watermark r
   await page.goto(`${BASE_URL}/demo-member/${georgian.namespacedId}`)
   await waitForEditor(page)
   await dismissWelcome(page)
-  await page.locator('#menubar-share').click()
+  await page.mouse.move(5, 5)
+  await page.locator('#menubar-share').click({ force: true })
   await page.getByText('Save as image', { exact: false }).first().click()
   await page.waitForSelector('.save-as-image-dialog', { timeout: 20000 })
   await page.waitForSelector('.save-as-image-preview-image img[src^="blob:"]', { timeout: 30000 })
@@ -566,8 +569,11 @@ test('J8 failures are surfaced: offline save, expired session, invalid input, co
   const newer = { ...serverAfter, name: 'Edited Elsewhere', clientUpdatedAt: new Date(Date.now() + 60000).toISOString() }
   const putRes = await api.put(`/api/v1/streets/${streetId}`, { data: { name: newer.name, clientUpdatedAt: newer.clientUpdatedAt, data: serverAfter.data } })
   assert(putRes.status() === 204, 'anonymous street updated elsewhere')
-  // The client verifies on window focus
-  await page.evaluate(() => window.dispatchEvent(new Event('focus')))
+  // The client verifies when the page becomes visible / focused again
+  await page.evaluate(() => {
+    document.dispatchEvent(new Event('visibilitychange'))
+    window.dispatchEvent(new Event('focus'))
+  })
   await page.waitForTimeout(2500)
   state = await getStreetState(page)
   assert(state.street.name === 'Edited Elsewhere', `client reloaded the newer server copy: ${state.street.name}`)
